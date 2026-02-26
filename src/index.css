@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98.8%; /* #fcfcfc */
     --foreground: 0 0% 9%;
     --nat-green: 142 76% 36%;
     --nat-yellow: 42 96% 50%;
@@ -17,7 +17,8 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 antialiased font-sans;
+    @apply text-neutral-900 antialiased font-sans;
+    background-color: #fcfcfc;
   }
 }
 

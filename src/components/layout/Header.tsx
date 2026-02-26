@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-200/80 bg-white/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-200/80 bg-[#fcfcfc]/90 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <motion.span
           className="text-xl font-semibold text-neutral-900"

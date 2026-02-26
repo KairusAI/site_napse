@@ -29,12 +29,16 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Coluna direita: imagem dos mascotes sem fundo, como é */}
+      {/* Coluna direita: vídeo dos mascotes (loop, sem som) */}
       <div className="relative flex min-h-[50vh] items-center justify-center lg:min-h-screen lg:justify-end lg:pr-0 lg:pl-4 xl:pl-8">
-        <img
-          src="/assets/mascotes_hero.png"
-          alt="Mascotes Napse: Financeiro, Secretaria, Médico e Marketing"
-          className="h-full max-h-[100vh] w-auto max-w-[95vw] object-contain object-right lg:max-w-[75vw] lg:translate-x-20 xl:translate-x-28"
+        <video
+          src="/assets/VideoMascote_hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full max-h-[85vh] w-auto max-w-[85vw] object-contain object-right lg:max-w-[55vw] lg:-translate-x-4 xl:-translate-x-2"
+          aria-label="Mascotes Napse: Financeiro, Secretaria, Médico e Marketing"
         />
       </div>
     </section>

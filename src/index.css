@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --nat-green: 142 76% 36%;
+    --nat-yellow: 42 96% 50%;
+    --nat-blue: 217 91% 50%;
+    --nat-purple: 262 83% 52%;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis controla o scroll */
+  }
+
+  body {
+    @apply bg-white text-neutral-900 antialiased font-sans;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 /**
  * Hero Section - texto à esquerda, imagem/vídeo como fundo à direita.
- * Foco em "Clínica em Harmonia".
+ * Foco em inteligência e ecossistema para clínicas.
  */
 export function HeroSection() {
   return (
@@ -16,7 +16,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            Clínica em <span className="text-nat-green">Harmonia</span>
+            A <span className="text-mascote-cycle">inteligência</span> que faltava para a sua clínica.
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-neutral-600"
@@ -24,8 +24,17 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Tudo que sua clínica precisa, integrado em um só lugar.
+            Um ecossistema completo, do marketing ao faturamento. Deixe os especialistas cuidarem do operacional enquanto você foca no paciente.
           </motion.p>
+          <motion.a
+            href="#contato"
+            className="mt-8 inline-flex items-center justify-center rounded-lg bg-nat-purple px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-nat-purple/90 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Começar agora
+          </motion.a>
         </div>
       </div>
 

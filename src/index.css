@@ -26,4 +26,25 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /** Ciclo de cores dos mascotes: azul → roxo → amarelo → verde */
+  .text-mascote-cycle {
+    animation: mascote-color-cycle 10s ease-in-out infinite;
+  }
+}
+
+@keyframes mascote-color-cycle {
+  0%,
+  100% {
+    color: hsl(var(--nat-blue));
+  }
+  25% {
+    color: hsl(var(--nat-purple));
+  }
+  50% {
+    color: hsl(var(--nat-yellow));
+  }
+  75% {
+    color: hsl(var(--nat-green));
+  }
 }

@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Header } from '@/components/layout/Header'
-import { HeroSection } from '@/components/sections'
+import { HeroSection, PillarsSection } from '@/components/sections'
 
 function App() {
   return (
@@ -8,8 +8,8 @@ function App() {
       <Header />
       <main id="hero">
         <HeroSection />
-        {/* Seções dos mascotes e Bento Grid serão adicionadas aqui */}
       </main>
+      <PillarsSection />
     </MainLayout>
   )
 }

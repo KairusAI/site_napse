@@ -223,23 +223,12 @@ export function PillarsSection() {
                 {activePillar.title}
               </h3>
 
-              {activePillar.mascotImage ? (
+              {activePillar.mascotImage && (
                 <img
                   src={activePillar.mascotImage}
                   alt={`Mascote ${activePillar.title}`}
-                  className="w-56 h-56 object-contain drop-shadow-lg"
+                  className="w-80 h-80 object-contain drop-shadow-lg"
                 />
-              ) : (
-                <div
-                  className="w-48 h-48 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: activePillar.bgLight }}
-                >
-                  <activePillar.heroIcon
-                    className="w-24 h-24"
-                    style={{ color: activePillar.bgColor }}
-                    strokeWidth={1.5}
-                  />
-                </div>
               )}
             </div>
 
@@ -260,9 +249,19 @@ export function PillarsSection() {
           {/* Coluna direita (60%) — fundo colorido, texto + cards */}
           <div
             ref={leftColRef}
-            className="flex flex-col justify-center p-12"
+            className="relative flex flex-col justify-center p-12"
             style={{ backgroundColor: pillars[0].bgColor }}
           >
+            <div
+              className="flex items-center justify-center rounded-full bg-white/15"
+              style={{ position: 'absolute', top: 24, right: 24, width: 56, height: 56, minWidth: 56, minHeight: 56, zIndex: 10 }}
+            >
+              <activePillar.heroIcon
+                className="text-white"
+                size={28}
+                strokeWidth={1.5}
+              />
+            </div>
             <div ref={textRef} className="mb-8">
               <h3 className="text-3xl font-semibold text-white mb-3">
                 {activePillar.subtitle}

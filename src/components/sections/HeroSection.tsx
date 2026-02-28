@@ -1,5 +1,51 @@
 import { motion } from 'framer-motion'
 
+const SCROLL_INDICATOR_OFFSET = 80 // altura aproximada do header para scroll suave
+
+type ScrollIndicatorProps = {
+  targetId?: string
+}
+
+function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
+  const scrollToTarget = () => {
+    const nextSection = document.getElementById(targetId)
+    if (nextSection) {
+      const elementPosition = nextSection.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - SCROLL_INDICATOR_OFFSET
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <motion.div
+      className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer select-none"
+      onClick={scrollToTarget}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 1.2 }}
+    >
+      <motion.span
+        className="text-xs text-neutral-500/60 uppercase tracking-[0.2em]"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', delay: 2 }}
+      >
+        Scroll
+      </motion.span>
+      <motion.div
+        className="w-6 h-10 rounded-full border-2 border-neutral-400/30 flex items-start justify-center pt-2"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', delay: 2 }}
+      >
+        <motion.div
+          className="w-2 h-2 rounded-full bg-nat-purple"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
 /**
  * Hero Section - texto à esquerda, imagem/vídeo como fundo à direita.
  * Foco em inteligência e ecossistema para clínicas.
@@ -50,6 +96,8 @@ export function HeroSection() {
           aria-label="Mascotes Napse: Financeiro, Secretaria, Médico e Marketing"
         />
       </div>
+
+      <ScrollIndicator targetId="ecossistema" />
     </section>
   )
 }

@@ -45,14 +45,14 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     id: 'marketing',
-    title: 'Marketing',
+    title: 'Nome',
     subtitle: 'Atraia mais pacientes',
     description:
       'Gestão completa de campanhas, redes sociais e captação de leads. Transforme visitantes em pacientes fiéis.',
     bgColor: 'hsl(262, 83%, 52%)',
     bgLight: 'hsl(262, 60%, 92%)',
     heroIcon: Megaphone,
-    mascotImage: null,
+    mascotImage: '/assets/mascote_marketing.png',
     features: [
       { icon: Megaphone, label: 'Campanhas' },
       { icon: Target, label: 'Captação' },
@@ -214,26 +214,28 @@ export function PillarsSection() {
 
         <div className="flex-1 min-h-0 rounded-3xl overflow-hidden grid grid-cols-[2fr_3fr] shadow-xl">
           {/* Coluna esquerda (40%) — fundo neutro, título + mascote */}
-          <div className="bg-[#F5F5F5] flex flex-col items-center justify-center p-10">
-            <div ref={mascotRef} className="flex flex-col items-center gap-6">
-              <h3
-                className="text-3xl font-bold tracking-tight"
-                style={{ color: activePillar.bgColor }}
-              >
-                {activePillar.title}
-              </h3>
+          <div className="bg-[#F5F5F5] flex flex-col items-center overflow-hidden p-6 pt-10">
+            <h3
+              ref={mascotRef}
+              className="text-3xl font-bold tracking-tight shrink-0"
+              style={{ color: activePillar.bgColor }}
+            >
+              {activePillar.title}
+            </h3>
 
-              {activePillar.mascotImage && (
+            <div className="flex-1 min-h-0 flex items-center justify-center overflow-hidden">
+              {activePillar.mascotImage ? (
                 <img
                   src={activePillar.mascotImage}
                   alt={`Mascote ${activePillar.title}`}
-                  className="w-80 h-80 object-contain drop-shadow-lg"
+                  className="h-full object-contain drop-shadow-lg"
+                  style={{ minHeight: '100%', transform: 'scale(1.8)' }}
                 />
-              )}
+              ) : null}
             </div>
 
             {/* Indicador de pilares */}
-            <div className="flex gap-2.5 mt-8">
+            <div className="flex gap-2.5 mt-2 shrink-0 pb-4">
               {pillars.map((p, i) => (
                 <div
                   key={i}

@@ -32,7 +32,8 @@ interface PillarFeature {
 
 interface Pillar {
   id: string
-  title: string
+  title: string // Nome do serviço (ex: Marketing) — exibido na parte colorida
+  mascotName: string // Nome do mascote — exibido na parte esquerda
   subtitle: string
   description: string
   bgColor: string
@@ -45,7 +46,8 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     id: 'marketing',
-    title: 'Nome',
+    title: 'Marketing',
+    mascotName: 'Megafone',
     subtitle: 'Atraia mais pacientes',
     description:
       'Gestão completa de campanhas, redes sociais e captação de leads. Transforme visitantes em pacientes fiéis.',
@@ -63,13 +65,14 @@ const pillars: Pillar[] = [
   {
     id: 'medico',
     title: 'Médico',
+    mascotName: 'Doutor',
     subtitle: 'Foque no paciente',
     description:
       'Prontuário eletrônico inteligente, prescrição digital e telemedicina integrada. Tudo para otimizar seu atendimento.',
     bgColor: 'hsl(217, 91%, 50%)',
     bgLight: 'hsl(217, 70%, 92%)',
     heroIcon: Stethoscope,
-    mascotImage: null,
+    mascotImage: '/assets/mascote_medico.png',
     features: [
       { icon: Stethoscope, label: 'Prontuário' },
       { icon: ClipboardList, label: 'Prescrição' },
@@ -80,13 +83,14 @@ const pillars: Pillar[] = [
   {
     id: 'secretaria',
     title: 'Secretaria',
+    mascotName: 'Recepcionista',
     subtitle: 'Recepção eficiente',
     description:
       'Agendamento automatizado, confirmação por WhatsApp e gestão de filas. Sua recepção nunca mais será a mesma.',
     bgColor: 'hsl(42, 96%, 50%)',
     bgLight: 'hsl(42, 90%, 92%)',
     heroIcon: Headphones,
-    mascotImage: null,
+    mascotImage: '/assets/mascote_secretaria.png',
     features: [
       { icon: Headphones, label: 'Atendimento' },
       { icon: Phone, label: 'WhatsApp' },
@@ -97,13 +101,14 @@ const pillars: Pillar[] = [
   {
     id: 'financeiro',
     title: 'Financeiro',
+    mascotName: 'Contador',
     subtitle: 'Controle total',
     description:
       'Faturamento TISS, fluxo de caixa, relatórios gerenciais e glosas automatizadas. Sua saúde financeira em dia.',
     bgColor: 'hsl(142, 76%, 36%)',
     bgLight: 'hsl(142, 45%, 92%)',
     heroIcon: DollarSign,
-    mascotImage: null,
+    mascotImage: '/assets/mascote_financeiro.png',
     features: [
       { icon: DollarSign, label: 'Faturamento' },
       { icon: Receipt, label: 'TISS' },
@@ -117,6 +122,7 @@ export function PillarsSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const leftColRef = useRef<HTMLDivElement>(null)
   const mascotRef = useRef<HTMLDivElement>(null)
+  const mascotImageRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const featuresRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -134,12 +140,13 @@ export function PillarsSection() {
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=300%',
+          end: '+=125%',
           pin: true,
           pinSpacing: true,
           anticipatePin: 1,
           onUpdate: (self) => {
             const p = self.progress
+            // Cada pilar = 25% do scroll (mesma distância para todos).
             let idx: number
             if (p >= 0.75) idx = 3
             else if (p >= 0.5) idx = 2
@@ -169,6 +176,14 @@ export function PillarsSection() {
     if (mascotRef.current) {
       gsap.fromTo(
         mascotRef.current,
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' },
+      )
+    }
+
+    if (mascotImageRef.current) {
+      gsap.fromTo(
+        mascotImageRef.current,
         { y: 50, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' },
       )
@@ -220,23 +235,26 @@ export function PillarsSection() {
               className="text-3xl font-bold tracking-tight shrink-0"
               style={{ color: activePillar.bgColor }}
             >
-              {activePillar.title}
+              {activePillar.mascotName}
             </h3>
 
-            <div className="flex-1 min-h-0 flex items-center justify-center overflow-hidden">
+            <div
+              ref={mascotImageRef}
+              className="flex-1 min-h-0 flex items-center justify-center overflow-hidden"
+            >
               {activePillar.mascotImage ? (
                 <img
                   src={activePillar.mascotImage}
                   alt={`Mascote ${activePillar.title}`}
                   className="h-full object-contain drop-shadow-lg"
-                  style={{ minHeight: '100%', transform: 'scale(1.8)' }}
+                  style={{ minHeight: '100%', transform: 'scale(1.6)' }}
                 />
               ) : null}
             </div>
 
             {/* Indicador de pilares */}
             <div className="flex gap-2.5 mt-2 shrink-0 pb-4">
-              {pillars.map((p, i) => (
+              {pillars.map((_, i) => (
                 <div
                   key={i}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
@@ -251,7 +269,7 @@ export function PillarsSection() {
           {/* Coluna direita (60%) — fundo colorido, texto + cards */}
           <div
             ref={leftColRef}
-            className="relative flex flex-col justify-center p-12"
+            className="relative flex flex-col justify-start pt-16 p-12"
             style={{ backgroundColor: pillars[0].bgColor }}
           >
             <div
@@ -265,6 +283,9 @@ export function PillarsSection() {
               />
             </div>
             <div ref={textRef} className="mb-8">
+              <h3 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-10">
+                {activePillar.title}
+              </h3>
               <h3 className="text-3xl font-semibold text-white mb-3">
                 {activePillar.subtitle}
               </h3>

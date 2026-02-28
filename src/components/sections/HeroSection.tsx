@@ -9,7 +9,7 @@ export function HeroSection() {
     <section className="relative min-h-screen overflow-hidden lg:grid lg:grid-cols-2">
       {/* Coluna esquerda: texto */}
       <div className="relative z-10 flex flex-col justify-center px-6 py-24 lg:px-12 lg:py-32 xl:px-20">
-        <div className="max-w-xl">
+        <div className="max-w-xl ml-8 lg:ml-16 xl:ml-24">
           <motion.h1
             className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: 24 }}

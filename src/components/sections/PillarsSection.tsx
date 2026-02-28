@@ -218,16 +218,17 @@ export function PillarsSection() {
     <section ref={sectionRef} id="ecossistema">
       {/* Desktop — pinned bento box */}
       <div className="hidden lg:flex h-screen flex-col px-6 py-6">
-        <div className="shrink-0 text-center mb-8 pt-20 pb-2">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
-            Pilares Napse
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
-            Nosso Ecossistema
-          </h2>
-        </div>
+        <div className="max-w-[100rem] w-full mx-auto flex-1 flex flex-col min-h-0">
+          <div className="shrink-0 text-center mb-8 pt-20 pb-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
+              Pilares Napse
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
+              Nosso Ecossistema
+            </h2>
+          </div>
 
-        <div className="flex-1 min-h-0 rounded-3xl overflow-hidden grid grid-cols-[2fr_3fr] shadow-xl">
+          <div className="flex-1 min-h-0 rounded-3xl overflow-hidden grid grid-cols-[2fr_3fr] shadow-xl">
           {/* Coluna esquerda (40%) — fundo neutro, título + mascote */}
           <div className="bg-[#F5F5F5] flex flex-col items-center overflow-hidden p-6 pt-10">
             <h3
@@ -313,6 +314,7 @@ export function PillarsSection() {
               ))}
             </div>
           </div>
+        </div>
         </div>
       </div>
 

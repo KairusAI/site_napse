@@ -1,6 +1,11 @@
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Header } from '@/components/layout/Header'
-import { HeroSection, PillarsSection, IntegrationsBentoGrid } from '@/components/sections'
+import {
+  HeroSection,
+  PillarsSection,
+  IntegrationsBentoGrid,
+  SupportOnboardingSection,
+} from '@/components/sections'
 
 function App() {
   return (
@@ -11,6 +16,7 @@ function App() {
       </main>
       <PillarsSection />
       <IntegrationsBentoGrid />
+      <SupportOnboardingSection />
     </MainLayout>
   )
 }

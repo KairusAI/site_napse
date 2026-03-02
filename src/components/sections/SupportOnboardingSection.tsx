@@ -1,6 +1,12 @@
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion } from 'framer-motion'
 import { Database, Users, Headphones } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const onboardingCards: Array<{
   id: string
@@ -95,6 +101,39 @@ function HexagonPattern() {
 }
 
 export function SupportOnboardingSection() {
+  const cardsGridRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      const cards = cardsGridRef.current?.querySelectorAll('[data-support-card]')
+      if (!cards?.length) return
+
+      gsap.fromTo(
+        cards,
+        {
+          opacity: 0,
+          y: 32,
+          scale: 0.94,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: cardsGridRef.current,
+            start: 'top 85%',
+            end: 'top 55%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+    },
+    { scope: cardsGridRef, dependencies: [] }
+  )
+
   return (
     <section
       id="suporte"
@@ -151,36 +190,43 @@ export function SupportOnboardingSection() {
             whileInView="visible"
             viewport={{ once: true, margin: '0px 0px -120px' }}
           >
-            <motion.p
-              variants={itemVariants}
-              className="text-lg lg:text-xl text-neutral-600 mb-6 max-w-xl leading-relaxed tracking-tight font-medium text-balance"
+            <motion.div
+              initial={{ x: -48, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true, margin: '-80px 0px' }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-5 pl-6 pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
             >
-              Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa. Você
-              não precisa ser expert em sistema — só em cuidar de pacientes.
-            </motion.p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6">
-              {onboardingCards.map((card, index) => (
-                <motion.div
+              <p className="text-lg lg:text-xl text-neutral-700 leading-loose tracking-tight font-medium text-balance">
+                Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa.{' '}
+                <span className="text-neutral-900 font-semibold">
+                  Você não precisa ser expert em sistema — só em cuidar de pacientes.
+                </span>
+              </p>
+            </motion.div>
+            <div ref={cardsGridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6">
+              {onboardingCards.map((card) => (
+                <div
                   key={card.id}
-                  variants={itemVariants}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-24px' }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className={`relative rounded-3xl bg-gradient-to-b ${card.gradient} backdrop-blur-md border border-white/40 p-6 lg:p-8 text-center overflow-hidden`}
-                  style={{ boxShadow: card.glow }}
+                  className="transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 cursor-default"
                 >
-                  <card.Icon
-                    className={`mx-auto mb-4 w-12 h-12 lg:w-14 lg:h-14 ${card.iconClass}`}
-                    strokeWidth={1.5}
-                  />
-                  <h3 className="text-base lg:text-lg font-bold text-neutral-900 mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-neutral-600 leading-relaxed font-medium">
-                    {card.description}
-                  </p>
-                </motion.div>
+                  <div
+                    data-support-card
+                    className={`relative rounded-3xl bg-gradient-to-b ${card.gradient} backdrop-blur-md border border-white/40 p-6 lg:p-8 text-center overflow-hidden opacity-0 transition-shadow duration-300 hover:shadow-xl hover:border-white/60`}
+                    style={{ boxShadow: card.glow }}
+                  >
+                    <card.Icon
+                      className={`mx-auto mb-4 w-12 h-12 lg:w-14 lg:h-14 ${card.iconClass}`}
+                      strokeWidth={1.5}
+                    />
+                    <h3 className="text-base lg:text-lg font-bold text-neutral-900 mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm text-neutral-600 leading-relaxed font-medium">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </motion.div>

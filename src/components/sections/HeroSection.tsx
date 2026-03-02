@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 const SCROLL_INDICATOR_OFFSET = 80 // altura aproximada do header para scroll suave
 
@@ -74,12 +75,17 @@ export function HeroSection() {
           </motion.p>
           <motion.a
             href="#contato"
-            className="mt-8 inline-flex items-center justify-center rounded-lg bg-nat-purple px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-nat-purple/90 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
-            initial={{ opacity: 0, y: 20 }}
+            className="group relative mt-8 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-nat-purple px-7 py-4 text-base font-semibold text-white shadow-[0_4px_20px_-4px_hsl(262_83%_52%_/_0.5)] focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.03, boxShadow: '0 12px 32px -8px hsl(262 83% 52% / 0.45)' }}
+            whileTap={{ scale: 0.98 }}
           >
-            Começar agora
+            <span className="relative z-10">Começar agora</span>
+            <ArrowRight className="relative z-10 h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
+            {/* Brilho sutil no hover */}
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out" aria-hidden />
           </motion.a>
         </div>
       </div>

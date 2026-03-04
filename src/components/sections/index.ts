@@ -1,4 +1,5 @@
 export { HeroSection } from './HeroSection'
+export { StatsSection } from './StatsSection'
 export { PillarsSection } from './PillarsSection'
 export { IntegrationsBentoGrid } from './IntegrationsBentoGrid'
 export { SupportOnboardingSection } from './SupportOnboardingSection'

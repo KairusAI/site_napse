@@ -5,6 +5,7 @@ import {
   PillarsSection,
   IntegrationsBentoGrid,
   SupportOnboardingSection,
+  StatsSection,
 } from '@/components/sections'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <PillarsSection />
       <IntegrationsBentoGrid />
       <SupportOnboardingSection />
+      <StatsSection />
     </MainLayout>
   )
 }

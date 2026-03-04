@@ -22,7 +22,7 @@ export function useLenis(
   callback?: (params: { scroll: number; limit: number; velocity: number; progress: number; direction: number }) => void,
   deps: React.DependencyList = []
 ) {
-  return useLenisContext(callback, deps)
+  return useLenisContext(callback, [...deps])
 }
 
 /**

@@ -98,15 +98,15 @@ function BillingToggle({
   const isYearly = billing === 'yearly'
 
   return (
-    <div className="inline-flex items-center gap-3 rounded-full bg-white/60 border border-white/80 px-1.5 py-1 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-xl">
-      <span className="text-xs font-medium text-neutral-500">Cobrança</span>
+    <div className="inline-flex items-center gap-5 rounded-full bg-white/80 border border-white/90 px-3.5 py-2.5 shadow-[0_18px_55px_rgba(15,23,42,0.16)] backdrop-blur-xl">
+      <span className="text-base font-semibold text-neutral-500">Cobrança</span>
       <button
         type="button"
-        className="relative inline-flex items-center rounded-full bg-neutral-100/60 px-1 py-1 text-xs font-medium"
+        className="relative inline-flex items-center rounded-full bg-neutral-100/80 px-2 py-2 text-sm font-medium"
         aria-label="Alternar entre mensal e anual"
       >
         <motion.div
-          className="absolute top-0.5 bottom-0.5 w-1/2 rounded-full bg-gradient-to-r from-nat-purple to-nat-blue shadow-[0_10px_30px_rgba(79,70,229,0.35)]"
+          className="absolute top-0.5 bottom-0.5 left-0 w-1/2 rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
           initial={false}
           animate={{ x: isYearly ? '100%' : '0%' }}
           transition={{ type: 'spring', stiffness: 300, damping: 26 }}
@@ -128,7 +128,7 @@ function BillingToggle({
           Anual
         </span>
       </button>
-      <span className="text-[11px] font-semibold text-emerald-600 bg-emerald-50/80 border border-emerald-100 rounded-full px-2 py-0.5">
+      <span className="text-xs sm:text-sm font-semibold text-emerald-600 bg-emerald-50/90 border border-emerald-100 rounded-full px-3 py-1">
         2 meses grátis no anual
       </span>
     </div>
@@ -137,8 +137,8 @@ function BillingToggle({
 
 function CheckBadge() {
   return (
-    <div className="relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 shadow-[0_8px_22px_rgba(16,185,129,0.4)]">
-      <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-white/80 to-emerald-100/60" />
+    <div className="relative inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 shadow-[0_8px_22px_rgba(16,185,129,0.4)]">
+      <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-white/80 to-emerald-100/60" />
       <Check className="relative z-10 h-3.5 w-3.5 text-emerald-700" strokeWidth={2.4} />
     </div>
   )
@@ -159,7 +159,7 @@ export function PricingSection() {
       className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-24 sm:py-28 lg:py-32"
     >
       {/* Glow de fundo suave */}
-      <div className="pointer-events-none absolute inset-x-0 top-[-8rem] mx-auto h-[380px] max-w-4xl rounded-full bg-gradient-to-b from-nat-purple/12 via-nat-blue/6 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-[-8rem] mx-auto h-[380px] max-w-4xl rounded-full bg-gradient-to-b from-nat-green/14 via-nat-green/6 to-transparent blur-3xl" />
 
       <div className="relative mx-auto max-w-5xl lg:max-w-6xl">
         <motion.div
@@ -168,16 +168,13 @@ export function PricingSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-1">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-green mb-1">
             Planos NAPSE
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
             Planos que crescem com a sua clínica.
           </h2>
-          <p className="text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto">
-            Escolha a melhor opção para o seu momento atual. Você pode evoluir de plano conforme a clínica cresce.
-          </p>
-          <div className="mt-4">
+          <div className="mt-6">
             <BillingToggle billing={billing} onChange={setBilling} />
           </div>
         </motion.div>
@@ -208,7 +205,7 @@ export function PricingSection() {
                 >
                   {isHighlight && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-purple to-nat-blue px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(88,28,135,0.45)]">
+                      <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(22,163,74,0.45)]">
                         Mais escolhido
                       </div>
                     </div>
@@ -234,7 +231,7 @@ export function PricingSection() {
 
                   <button
                     type="button"
-                    className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-purple to-nat-blue px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(88,28,135,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                    className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     <span className="relative z-10">
                       Falar com especialista
@@ -257,7 +254,7 @@ export function PricingSection() {
                 return (
                   <div
                     key={plan.id}
-                    className="relative rounded-[1.9rem] bg-gradient-to-br from-nat-purple/55 via-nat-blue/55 to-nat-purple/70 p-[1.5px]"
+                    className="relative rounded-[1.9rem] bg-gradient-to-br from-nat-green/40 via-nat-green/20 to-nat-green/50 p-[1.5px]"
                   >
                     {cardInner}
                   </div>

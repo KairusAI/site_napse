@@ -1,18 +1,51 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Home, LineChart, PhoneCall } from 'lucide-react'
+import { LineChart, Plug, Headphones, BadgeDollarSign } from 'lucide-react'
 
 const navItems = [
-  { id: 'hero', label: 'Início', href: '#hero', Icon: Home },
   { id: 'ecossistema', label: 'Ecossistema', href: '#ecossistema', Icon: LineChart },
-  { id: 'contato', label: 'Contato', href: '#contato', Icon: PhoneCall },
+  { id: 'integracoes', label: 'Integrações', href: '#integracoes', Icon: Plug },
+  { id: 'suporte', label: 'Suporte', href: '#suporte', Icon: Headphones },
+  { id: 'planos', label: 'Planos', href: '#planos', Icon: BadgeDollarSign },
 ] as const
 
 type NavItemId = (typeof navItems)[number]['id']
 
 export function Header() {
-  const [activeId, setActiveId] = useState<NavItemId>('hero')
+  const [activeId, setActiveId] = useState<NavItemId>('ecossistema')
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const scrollToHero = () => {
+    const element = document.getElementById('hero')
+    if (!element) return
+
+    const headerOffset = 72
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY
+    const offsetPosition = elementPosition - headerOffset
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    })
+  }
+
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, id: NavItemId, href: string) => {
+    event.preventDefault()
+    setActiveId(id)
+
+    const targetId = href.replace('#', '')
+    const element = document.getElementById(targetId)
+    if (!element) return
+
+    const headerOffset = 72
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY
+    const offsetPosition = elementPosition - headerOffset
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    })
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +63,10 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         <motion.a
           href="#hero"
+          onClick={(event) => {
+            event.preventDefault()
+            scrollToHero()
+          }}
           className="flex items-center shrink-0"
           initial={{ opacity: 0, x: -8 }}
           animate={isScrolled ? { opacity: 0, x: -8 } : { opacity: 1, x: 0 }}
@@ -49,7 +86,9 @@ export function Header() {
               initial={false}
               animate={isScrolled ? { width: 'auto', opacity: 1, marginRight: 6 } : { width: 0, opacity: 0, marginRight: 0 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden flex items-center"
+              className="overflow-hidden flex items-center cursor-pointer"
+              onClick={scrollToHero}
+              aria-label="Voltar para o início"
             >
               <img
                 src="/assets/NAPSE-LogotipoPadrao.svg"
@@ -73,7 +112,7 @@ export function Header() {
                   )}
                   <a
                     href={item.href}
-                    onClick={() => setActiveId(item.id)}
+                    onClick={(event) => handleNavClick(event, item.id, item.href)}
                     className={`relative z-10 flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium transition-colors duration-200 ${
                       isActive ? 'text-white' : 'text-neutral-600 hover:text-neutral-900'
                     }`}

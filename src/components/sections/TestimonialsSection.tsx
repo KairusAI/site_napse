@@ -1,0 +1,383 @@
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { Star } from 'lucide-react'
+
+type Layout = 'horizontal' | 'horizontal-narrow' | 'horizontal-tall' | 'vertical' | 'vertical-tall' | 'large'
+
+type CardStyle = 'default' | 'photo-large' | 'stars-top' | 'stars-bottom' | 'photo-right'
+
+type Testimonial = {
+  id: string
+  name: string
+  role: string
+  specialtyColor: 'nat-purple' | 'nat-green' | 'nat-blue' | 'nat-yellow'
+  quote: string
+  layout: Layout
+  cardStyle?: CardStyle
+  rating?: number
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: '1',
+    name: 'Dra. Mariana Costa',
+    role: 'Cardiologista',
+    specialtyColor: 'nat-purple',
+    quote: 'A NAPSE organizou nossa agenda e reduziu no-show em 30%. Recomendo demais.',
+    layout: 'horizontal-narrow',
+    cardStyle: 'photo-large',
+    rating: 5,
+  },
+  {
+    id: '2',
+    name: 'Dr. Ricardo Mendes',
+    role: 'Ortopedista',
+    specialtyColor: 'nat-green',
+    quote: 'Implementação tranquila e suporte sempre disponível. A clínica nunca mais foi a mesma.',
+    layout: 'vertical-tall',
+    cardStyle: 'stars-top',
+    rating: 5,
+  },
+  {
+    id: '3',
+    name: 'Dra. Fernanda Lima',
+    role: 'Pediatra',
+    specialtyColor: 'nat-blue',
+    quote: 'Do agendamento ao faturamento, tudo integrado. Ganhamos tempo e os pacientes adoram a experiência.',
+    layout: 'large',
+    cardStyle: 'photo-large',
+    rating: 5,
+  },
+  {
+    id: '4',
+    name: 'Dr. André Souza',
+    role: 'Clínico Geral',
+    specialtyColor: 'nat-yellow',
+    quote: 'Faturamento TISS e relatórios em um só lugar. Enxergamos o negócio.',
+    layout: 'vertical',
+    cardStyle: 'stars-bottom',
+    rating: 5,
+  },
+  {
+    id: '5',
+    name: 'Dra. Patrícia Rocha',
+    role: 'Dermatologista',
+    specialtyColor: 'nat-purple',
+    quote: 'O marketing integrado trouxe mais pacientes qualificados. Resultado que a gente vê no dia a dia.',
+    layout: 'horizontal-narrow',
+    cardStyle: 'photo-right',
+    rating: 5,
+  },
+  {
+    id: '5b',
+    name: 'Dr. Lucas Teixeira',
+    role: 'Anestesiologista',
+    specialtyColor: 'nat-blue',
+    quote: 'Controle de estoque e agendamento integrados. Operação muito mais fluida.',
+    layout: 'horizontal-narrow',
+    cardStyle: 'default',
+    rating: 5,
+  },
+  {
+    id: '6',
+    name: 'Dr. Bruno Alves',
+    role: 'Gastroenterologista',
+    specialtyColor: 'nat-green',
+    quote: 'Sistema que cresce com a clínica. Escalabilidade e suporte que fazem a diferença.',
+    layout: 'horizontal-tall',
+    cardStyle: 'default',
+    rating: 5,
+  },
+  {
+    id: '7',
+    name: 'Dra. Camila Nascimento',
+    role: 'Endocrinologista',
+    specialtyColor: 'nat-blue',
+    quote: 'Relatórios de faturamento claros e suporte ágil. A NAPSE entende as dores da clínica.',
+    layout: 'vertical',
+    cardStyle: 'stars-top',
+    rating: 5,
+  },
+  {
+    id: '8',
+    name: 'Dra. Gyovanna Vieira',
+    role: 'Neurologista',
+    specialtyColor: 'nat-purple',
+    quote: 'Agenda e prontuário integrados. Menos tempo em burocracia, mais tempo com o paciente.',
+    layout: 'horizontal',
+    cardStyle: 'photo-right',
+    rating: 5,
+  },
+  {
+    id: '9',
+    name: 'Dra. Larissa Martins',
+    role: 'Ginecologista',
+    specialtyColor: 'nat-yellow',
+    quote: 'Confirmação por WhatsApp e controle de no-show mudaram nossa rotina para melhor.',
+    layout: 'vertical',
+    cardStyle: 'stars-bottom',
+    rating: 5,
+  },
+]
+
+const layoutClasses: Record<Layout, string> = {
+  horizontal: 'lg:col-span-2 lg:row-span-1',
+  'horizontal-narrow': 'lg:col-span-1 lg:row-span-1',
+  'horizontal-tall': 'lg:col-span-2 lg:row-span-2',
+  vertical: 'lg:col-span-1 lg:row-span-1',
+  'vertical-tall': 'lg:col-span-1 lg:row-span-2',
+  large: 'lg:col-span-2 lg:row-span-2',
+}
+
+const glowClasses: Record<Testimonial['specialtyColor'], string> = {
+  'nat-purple': 'shadow-[0_0_24px_rgba(139,92,246,0.35)]',
+  'nat-green': 'shadow-[0_0_24px_rgba(34,197,94,0.35)]',
+  'nat-blue': 'shadow-[0_0_24px_rgba(59,130,246,0.35)]',
+  'nat-yellow': 'shadow-[0_0_24px_rgba(234,179,8,0.35)]',
+}
+
+const ringClasses: Record<Testimonial['specialtyColor'], string> = {
+  'nat-purple': 'ring-2 ring-nat-purple/40',
+  'nat-green': 'ring-2 ring-nat-green/40',
+  'nat-blue': 'ring-2 ring-nat-blue/40',
+  'nat-yellow': 'ring-2 ring-nat-yellow/40',
+}
+
+function StarsRow({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
+  const sizeClass = size === 'sm' ? 'h-4 w-4' : size === 'lg' ? 'h-6 w-6' : 'h-5 w-5'
+  const gapClass = size === 'lg' ? 'gap-1' : 'gap-0.5'
+  return (
+    <div className={`flex ${gapClass} text-amber-500`} aria-label={`${rating} estrelas`}>
+      {Array.from({ length: rating }).map((_, i) => (
+        <Star key={i} className={`${sizeClass} fill-current`} strokeWidth={0} />
+      ))}
+    </div>
+  )
+}
+
+function TestimonialCard({
+  testimonial,
+  index,
+}: {
+  testimonial: Testimonial
+  index: number
+}) {
+  const layout = layoutClasses[testimonial.layout]
+  const glow = glowClasses[testimonial.specialtyColor]
+  const ring = ringClasses[testimonial.specialtyColor]
+  const isLarge = testimonial.layout === 'large' || testimonial.layout === 'horizontal-tall'
+  const style = testimonial.cardStyle ?? 'default'
+  const starSize = style === 'stars-top' || style === 'stars-bottom' ? 'lg' : 'md'
+
+  const quoteClass = isLarge ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'
+
+  const Avatar = ({ size = 'md' }: { size?: 'md' | 'lg' | 'xl' }) => (
+    <div
+      className={`flex shrink-0 items-center justify-center rounded-full bg-neutral-200 font-semibold text-neutral-600 ${ring} ${glow} ${
+        size === 'xl' ? 'h-20 w-20 sm:h-24 sm:w-24 text-2xl sm:text-3xl' : size === 'lg' ? 'h-16 w-16 sm:h-20 sm:w-20 text-xl sm:text-2xl' : 'h-12 w-12 text-lg'
+      }`}
+      title={testimonial.role}
+    >
+      {testimonial.name
+        .split(' ')
+        .filter((part) => !/^Dr\.?a?\.?$/i.test(part.trim()))
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join('')}
+    </div>
+  )
+
+  const renderContent = () => {
+    if (style === 'stars-top') {
+      const isTallCard = testimonial.layout === 'vertical-tall'
+      return (
+        <>
+          {testimonial.rating != null && (
+            <div className={isTallCard ? 'mb-3 mt-6 sm:mt-8' : 'mb-3'}>
+              <StarsRow rating={testimonial.rating} size={starSize} />
+            </div>
+          )}
+          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
+          <div className="mt-4 flex items-center gap-3">
+            <Avatar />
+            <div>
+              <p className="font-semibold text-neutral-900">{testimonial.name}</p>
+              <p className="text-sm text-neutral-500">{testimonial.role}</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+    if (style === 'stars-bottom') {
+      const isNarrowCard = testimonial.layout === 'vertical' || testimonial.layout === 'horizontal-narrow'
+      return (
+        <>
+          <p className={`text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
+          <div className={`mt-4 flex gap-3 ${isNarrowCard ? 'flex-col' : 'items-center justify-between'}`}>
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <Avatar />
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-neutral-900">{testimonial.name}</p>
+                <p className="text-sm text-neutral-500">{testimonial.role}</p>
+              </div>
+            </div>
+            {testimonial.rating != null && (
+              <div className={isNarrowCard ? 'flex shrink-0' : ''}>
+                <StarsRow rating={testimonial.rating} size={starSize} />
+              </div>
+            )}
+          </div>
+        </>
+      )
+    }
+    if (style === 'photo-right') {
+      return (
+        <>
+          <div className="flex flex-1 flex-col">
+            <p className={`text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
+            <div className="mt-4 flex items-center justify-between gap-4">
+              <div>
+                <p className="font-semibold text-neutral-900">{testimonial.name}</p>
+                <p className="text-sm text-neutral-500">{testimonial.role}</p>
+                {testimonial.rating != null && (
+                  <div className="mt-1">
+                    <StarsRow rating={testimonial.rating} size={starSize} />
+                  </div>
+                )}
+              </div>
+              <Avatar size="lg" />
+            </div>
+          </div>
+        </>
+      )
+    }
+    if (style === 'photo-large') {
+      const isBigCard = testimonial.layout === 'large'
+      return (
+        <>
+          <div className={`flex items-start ${isBigCard ? 'mt-8 sm:mt-12 gap-5 sm:gap-6' : 'gap-4'}`}>
+            <Avatar size={isBigCard ? 'xl' : 'lg'} />
+            <div className="min-w-0 flex-1">
+              <p className={isBigCard ? 'text-xl sm:text-2xl font-semibold text-neutral-900' : 'font-semibold text-neutral-900'}>{testimonial.name}</p>
+              <p className={isBigCard ? 'text-base sm:text-lg text-neutral-500' : 'text-sm text-neutral-500'}>{testimonial.role}</p>
+              {testimonial.rating != null && (
+                <div className={isBigCard ? 'mt-2' : 'mt-1'}>
+                  <StarsRow rating={testimonial.rating} size={isBigCard ? 'lg' : starSize} />
+                </div>
+              )}
+            </div>
+          </div>
+          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed ${isBigCard ? 'mt-5 sm:mt-6' : 'mt-4'}`}>
+            {testimonial.quote}
+          </p>
+        </>
+      )
+    }
+    const isTallCard = testimonial.layout === 'horizontal-tall'
+    return (
+      <>
+        <div className={`flex items-start ${isTallCard ? 'mt-8 sm:mt-12 gap-5 sm:gap-6' : 'gap-4'}`}>
+          <Avatar size={isTallCard ? 'xl' : undefined} />
+          <div className="min-w-0 flex-1">
+            <p className={isTallCard ? 'text-xl sm:text-2xl font-semibold text-neutral-900' : 'font-semibold text-neutral-900'}>{testimonial.name}</p>
+            <p className={isTallCard ? 'text-base sm:text-lg text-neutral-500' : 'text-sm text-neutral-500'}>{testimonial.role}</p>
+            {testimonial.rating != null && (
+              <div className={isTallCard ? 'mt-2' : 'mt-1'}>
+                <StarsRow rating={testimonial.rating} size={isTallCard ? 'lg' : starSize} />
+              </div>
+            )}
+          </div>
+        </div>
+        <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed ${isTallCard ? 'mt-5 sm:mt-6' : 'mt-4'}`}>
+          {testimonial.quote}
+        </p>
+      </>
+    )
+  }
+
+  return (
+    <motion.div
+      className={layout}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <article
+        className={`relative h-full overflow-hidden rounded-2xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] ${isLarge ? 'p-6 sm:p-8' : 'p-5 sm:p-6'} ${!['vertical-tall', 'horizontal-tall', 'large'].includes(testimonial.layout) ? 'max-h-[220px]' : ''}`}
+        style={{ borderWidth: '0.5px' }}
+      >
+      {/* Aspas gigantes translúcidas no fundo */}
+      <span
+        className="pointer-events-none absolute left-2 top-2 text-[6rem] sm:text-[7rem] font-serif leading-none text-neutral-300/30 select-none"
+        aria-hidden
+      >
+        “
+      </span>
+      <span
+        className="pointer-events-none absolute bottom-2 right-2 text-[6rem] sm:text-[7rem] font-serif leading-none text-neutral-300/30 select-none"
+        aria-hidden
+      >
+        "
+      </span>
+
+      <div className="relative z-10 flex h-full flex-col">{renderContent()}</div>
+      </article>
+    </motion.div>
+  )
+}
+
+export function TestimonialsSection() {
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <section
+      ref={ref}
+      id="depoimentos"
+      className="relative overflow-x-hidden py-24 sm:py-28 lg:py-32 overflow-y-visible"
+    >
+      {/* Fundo com tom para o glass destacar */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/80 via-neutral-50 to-neutral-100/80" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(139,92,246,0.12),transparent_50%)]" />
+
+      {/* Título centralizado com largura contida */}
+      <div className="relative px-4 mx-auto max-w-5xl">
+        <motion.div
+          className="mb-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
+            Depoimentos
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
+            Quem usa recomenda
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto">
+            Clínicas e médicos que transformaram o dia a dia com a NAPSE.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Bento em largura total com fade nas laterais */}
+      <div className="relative w-full min-w-0 max-w-full overflow-x-hidden">
+        <div
+          className="pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-28 sm:w-36 lg:w-52 bg-gradient-to-r from-white via-white/70 to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-28 sm:w-36 lg:w-52 bg-gradient-to-l from-white via-white/70 to-transparent"
+          aria-hidden
+        />
+
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-6 lg:gap-4 lg:auto-rows-[minmax(140px,auto)] px-3 sm:px-4 lg:px-6">
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

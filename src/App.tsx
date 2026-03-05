@@ -7,6 +7,7 @@ import {
   SupportOnboardingSection,
   StatsSection,
   PricingSection,
+  TestimonialsSection,
 } from '@/components/sections'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <SupportOnboardingSection />
       <StatsSection />
       <PricingSection />
+      <TestimonialsSection />
     </MainLayout>
   )
 }

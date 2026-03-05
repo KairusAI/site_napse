@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { LineChart, Plug, Headphones, BadgeDollarSign } from 'lucide-react'
+import { LineChart, Plug, Headphones, BadgeDollarSign, MessageCircle } from 'lucide-react'
 
 const navItems = [
   { id: 'ecossistema', label: 'Ecossistema', href: '#ecossistema', Icon: LineChart },
   { id: 'integracoes', label: 'Integrações', href: '#integracoes', Icon: Plug },
   { id: 'suporte', label: 'Suporte', href: '#suporte', Icon: Headphones },
   { id: 'planos', label: 'Planos', href: '#planos', Icon: BadgeDollarSign },
+  { id: 'depoimentos', label: 'Depoimentos', href: '#depoimentos', Icon: MessageCircle },
 ] as const
 
 type NavItemId = (typeof navItems)[number]['id']

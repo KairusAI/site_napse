@@ -22,7 +22,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       options={lenisOptions}
       className="min-h-screen"
     >
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
         {children}
       </div>
     </ReactLenis>

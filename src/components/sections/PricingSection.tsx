@@ -186,88 +186,100 @@ export function PricingSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8"
+          className="relative"
         >
-          {plans.map((plan) => {
-            const price =
-              billing === 'monthly'
-                ? plan.monthlyPrice
-                : plan.yearlyPrice
+          {/* Cards de preço – grid original em 3 colunas no desktop */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 lg:mr-auto">
+            {plans.map((plan) => {
+              const price =
+                billing === 'monthly'
+                  ? plan.monthlyPrice
+                  : plan.yearlyPrice
 
-            const isHighlight = plan.highlight
+              const isHighlight = plan.highlight
 
-            const cardInner = (
-              <motion.div
-                variants={cardVariants}
-                whileHover={{ y: -8 }}
-                className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-6 py-7 sm:px-8 sm:py-9 backdrop-blur-xl border ${
-                  isHighlight ? 'border-white/60' : 'border-white/50'
-                } shadow-[0_18px_60px_rgba(15,23,42,0.12)]`}
-              >
-                {isHighlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-purple to-nat-blue px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(88,28,135,0.45)]">
-                      Mais escolhido
+              const cardInner = (
+                <motion.div
+                  variants={cardVariants}
+                  whileHover={{ y: -8 }}
+                  className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-6 py-7 sm:px-8 sm:py-9 backdrop-blur-xl border ${
+                    isHighlight ? 'border-white/60' : 'border-white/50'
+                  } shadow-[0_18px_60px_rgba(15,23,42,0.12)]`}
+                >
+                  {isHighlight && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                      <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-purple to-nat-blue px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(88,28,135,0.45)]">
+                        Mais escolhido
+                      </div>
                     </div>
+                  )}
+
+                  <div className="mb-4">
+                    <h3 className="text-base sm:text-lg font-semibold text-neutral-900">
+                      {plan.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-neutral-500">
+                      {plan.description}
+                    </p>
                   </div>
-                )}
 
-                <div className="mb-4">
-                  <h3 className="text-base sm:text-lg font-semibold text-neutral-900">
-                    {plan.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-neutral-500">
-                    {plan.description}
-                  </p>
-                </div>
+                  <div className="mb-6 flex items-baseline gap-2">
+                    <span className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+                      R$ {formatPrice(price)}
+                    </span>
+                    <span className="text-xs sm:text-sm text-neutral-500">
+                      / {billing === 'monthly' ? 'mês' : 'ano'}
+                    </span>
+                  </div>
 
-                <div className="mb-6 flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
-                    R$ {formatPrice(price)}
-                  </span>
-                  <span className="text-xs sm:text-sm text-neutral-500">
-                    / {billing === 'monthly' ? 'mês' : 'ano'}
-                  </span>
-                </div>
+                  <button
+                    type="button"
+                    className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-purple to-nat-blue px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(88,28,135,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                  >
+                    <span className="relative z-10">
+                      Falar com especialista
+                    </span>
+                    <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
+                  </button>
 
-                <button
-                  type="button"
-                  className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-purple to-nat-blue px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(88,28,135,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-                >
-                  <span className="relative z-10">
-                    Falar com especialista
-                  </span>
-                  <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
-                </button>
+                  <ul className="mt-6 space-y-3 text-sm text-neutral-700">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <CheckBadge />
+                        <span className="pt-[2px]">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )
 
-                <ul className="mt-6 space-y-3 text-sm text-neutral-700">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckBadge />
-                      <span className="pt-[2px]">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )
+              if (isHighlight) {
+                return (
+                  <div
+                    key={plan.id}
+                    className="relative rounded-[1.9rem] bg-gradient-to-br from-nat-purple/55 via-nat-blue/55 to-nat-purple/70 p-[1.5px]"
+                  >
+                    {cardInner}
+                  </div>
+                )
+              }
 
-            if (isHighlight) {
               return (
-                <div
-                  key={plan.id}
-                  className="relative rounded-[1.9rem] bg-gradient-to-br from-nat-purple/55 via-nat-blue/55 to-nat-purple/70 p-[1.5px]"
-                >
+                <div key={plan.id} className="relative rounded-[1.9rem] bg-white/40 p-[1.5px]">
                   {cardInner}
                 </div>
               )
-            }
+            })}
+          </div>
 
-            return (
-              <div key={plan.id} className="relative rounded-[1.9rem] bg-white/40 p-[1.5px]">
-                {cardInner}
-              </div>
-            )
-          })}
+          {/* Mascote financeiro com balão — estático, posicionado à direita da grade */}
+          <div className="pointer-events-none hidden lg:block absolute inset-y-4 right-[-620px] flex items-center justify-center">
+            <img
+              src="/assets/imagem_preços.png"
+              alt="Mascote financeiro NAPSE flutuando com balão"
+              className="max-h-[440px] lg:max-h-[520px] w-auto drop-shadow-2xl select-none"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

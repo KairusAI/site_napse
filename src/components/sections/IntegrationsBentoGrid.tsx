@@ -141,14 +141,19 @@ export function IntegrationsBentoGrid() {
         <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-12 xl:gap-16 lg:items-start">
           {/* Coluna esquerda (60%): título + cards */}
           <div>
-            <div className="text-center lg:text-left mb-8 lg:mb-10">
+            <motion.div
+              className="text-center lg:text-left mb-8 lg:mb-10"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
                 Conecte tudo
               </p>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
                 Integrações
               </h2>
-            </div>
+            </motion.div>
 
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4"
@@ -170,14 +175,19 @@ export function IntegrationsBentoGrid() {
           </div>
 
           {/* Coluna direita: imagem integrações */}
-          <div className="mt-12 lg:mt-0 lg:sticky lg:top-24 flex items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[560px]">
+          <motion.div
+            className="mt-12 lg:mt-0 lg:sticky lg:top-24 flex items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[560px]"
+            initial={{ opacity: 0, x: 24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
             <img
               src="/assets/imagem_integracoes.png"
               alt="Integrações NAPSE - WhatsApp, Gmail, Google Calendar, Instagram e Asaas conectados ao hub"
               className="h-full object-contain drop-shadow-lg rounded-2xl"
               style={{ minHeight: '100%', transform: 'scale(1.8)' }}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

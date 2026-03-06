@@ -63,7 +63,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            A <span className="text-mascote-cycle">inteligência</span> que faltava para a sua clínica.
+            A <span className="text-nat-purple">inteligência</span> que faltava para a sua clínica.
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-neutral-600"

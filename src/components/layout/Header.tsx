@@ -49,15 +49,53 @@ export function Header() {
     })
   }
 
+  const scrollToContact = () => {
+    const element = document.getElementById('contato')
+    if (!element) return
+    const headerOffset = 72
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY
+    const offsetPosition = elementPosition - headerOffset
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40)
     }
 
     handleScroll()
-
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Scroll-spy: atualiza a pílula conforme a seção visível
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.id)
+    const headerOffset = 120 // px a partir do topo da viewport para considerar "ativo"
+
+    const updateActiveSection = () => {
+      const scrollY = window.scrollY
+      let current: NavItemId | null = null
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i]
+        const el = document.getElementById(id)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        const top = rect.top + scrollY
+        // Seção está "ativa" quando seu topo passou da linha (headerOffset do viewport)
+        if (scrollY + headerOffset >= top) {
+          current = id as NavItemId
+          break
+        }
+      }
+
+      setActiveId((prev) => (current ?? (scrollY < 100 ? 'ecossistema' : prev)))
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    return () => window.removeEventListener('scroll', updateActiveSection)
   }, [])
 
   return (
@@ -133,7 +171,16 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="hidden sm:block w-[80px]" />
+        <a
+          href="#contato"
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToContact()
+          }}
+          className="hidden sm:inline-flex shrink-0 items-center justify-center rounded-full bg-nat-purple px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)] transition-all duration-200 hover:shadow-[0_6px_20px_-2px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2"
+        >
+          Começar agora
+        </a>
       </div>
     </header>
   )

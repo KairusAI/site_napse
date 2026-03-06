@@ -144,9 +144,9 @@ export function FAQSection() {
       {/* Imagem à esquerda (posicionada, não altera o layout) */}
       <motion.div
         className="pointer-events-none absolute left-0 top-[28%] z-0 hidden -translate-y-1/2 lg:block"
-        initial={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 0, x: -20 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
         <img
           src="/assets/imagem_faq.png"
@@ -158,9 +158,9 @@ export function FAQSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           className="mb-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
             FAQ
@@ -175,25 +175,35 @@ export function FAQSection() {
 
         <motion.div
           className="max-w-3xl ml-auto rounded-2xl border-2 border-neutral-200/90 bg-white/80 bg-gradient-to-br from-white via-neutral-50/80 to-nat-purple/5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_10px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl overflow-hidden"
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          {faqData.map((item) => (
-            <FaqAccordionItem
+          {faqData.map((item, index) => (
+            <motion.div
               key={item.id}
-              item={item}
-              isOpen={openId === item.id}
-              onToggle={() => handleToggle(item.id)}
-            />
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.55,
+                delay: 0.35 + index * 0.07,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <FaqAccordionItem
+                item={item}
+                isOpen={openId === item.id}
+                onToggle={() => handleToggle(item.id)}
+              />
+            </motion.div>
           ))}
         </motion.div>
 
         <motion.p
           className="mt-14 text-center text-base sm:text-lg text-neutral-600"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           Não encontrou sua dúvida?{' '}
           <a

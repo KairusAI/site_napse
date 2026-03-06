@@ -1,5 +1,6 @@
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 import {
   HeroSection,
   PillarsSection,
@@ -9,6 +10,7 @@ import {
   PricingSection,
   TestimonialsSection,
   FAQSection,
+  FinalCTASection,
 } from '@/components/sections'
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
       <PricingSection />
       <TestimonialsSection />
       <FAQSection />
+      <FinalCTASection />
+      <Footer />
     </MainLayout>
   )
 }

@@ -8,6 +8,7 @@ import {
   StatsSection,
   PricingSection,
   TestimonialsSection,
+  FAQSection,
 } from '@/components/sections'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <StatsSection />
       <PricingSection />
       <TestimonialsSection />
+      <FAQSection />
     </MainLayout>
   )
 }

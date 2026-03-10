@@ -19,7 +19,7 @@ function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
 
   return (
     <motion.div
-      className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer select-none"
+      className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 cursor-pointer select-none"
       onClick={scrollToTarget}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -55,8 +55,8 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] overflow-hidden lg:grid lg:grid-cols-2">
       {/* Coluna esquerda: texto */}
-      <div className="relative z-10 flex flex-col justify-center px-6 py-16 lg:px-12 lg:py-20 xl:px-20">
-        <div className="max-w-xl ml-8 lg:ml-16 xl:ml-24">
+      <div className="relative z-10 flex flex-col justify-center px-5 pt-20 pb-6 sm:px-6 sm:py-16 lg:px-12 lg:py-20 xl:px-20">
+        <div className="max-w-xl ml-4 sm:ml-8 lg:ml-16 xl:ml-24">
           <motion.h1
             className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: 24 }}
@@ -91,7 +91,7 @@ export function HeroSection() {
       </div>
 
       {/* Coluna direita: vídeo dos mascotes (loop, sem som) */}
-      <div className="relative flex min-h-[40vh] items-center justify-center lg:min-h-[85vh] lg:justify-end lg:pr-0 lg:pl-4 xl:pl-8">
+      <div className="relative flex min-h-[25vh] sm:min-h-[40vh] items-center justify-center lg:min-h-[85vh] lg:justify-end lg:pr-0 lg:pl-4 xl:pl-8">
         <video
           src="/assets/VideoMascote_hero.mp4"
           autoPlay

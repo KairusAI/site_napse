@@ -109,7 +109,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
           className="relative w-full h-full rounded-3xl bg-white/25 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] px-6 py-8 sm:px-8 sm:py-10 flex flex-col items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/35 hover:border-white/80 hover:shadow-[0_24px_64px_rgba(99,102,241,0.12),inset_0_1px_0_rgba(255,255,255,0.9)]"
           style={{ zIndex: 1 }}
         >
-          <span className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-nat-purple to-nat-blue bg-clip-text text-transparent">
+          <span className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-nat-purple to-nat-blue bg-clip-text text-transparent">
             {formattedValue}
           </span>
           <p className="mt-4 text-sm sm:text-base text-slate-600 font-medium max-w-[18rem]">
@@ -132,7 +132,7 @@ export function StatsSection() {
     <section
       ref={sectionRef}
       aria-labelledby="stats-heading"
-      className="relative bg-white px-4 py-28 sm:py-32 lg:py-40 overflow-hidden"
+      className="relative bg-white px-4 py-20 sm:py-28 lg:py-40 overflow-hidden"
     >
       {/* Linha tipo gráfico no fundo — animação de desenho do início ao fim */}
       <svg
@@ -162,7 +162,7 @@ export function StatsSection() {
 
       <div className="relative z-10 mx-auto max-w-5xl lg:max-w-6xl">
         <motion.div
-          className="mb-16 sm:mb-20 lg:mb-24 text-center"
+          className="mb-10 sm:mb-20 lg:mb-24 text-center"
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -172,7 +172,7 @@ export function StatsSection() {
           </p>
           <h2
             id="stats-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900"
+            className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900"
           >
             Resultados diretos na rotina da clínica
           </h2>
@@ -182,7 +182,7 @@ export function StatsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0 overflow-visible"
+          className="grid grid-cols-2 gap-4 sm:gap-y-10 lg:grid-cols-4 lg:gap-y-0 overflow-visible"
         >
           {stats.map((stat, index) => (
             <StatCard key={stat.id} stat={stat} index={index} />

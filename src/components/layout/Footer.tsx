@@ -47,33 +47,34 @@ export function Footer() {
       />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-14 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {/* Col 1: Logo + Redes sociais (estilo Bubble) */}
-          <div className="flex flex-col gap-6">
-            <a href="#hero" className="inline-flex shrink-0" aria-label="NAPSE - início">
-              <img
-                src="/assets/NAPSE-LogotipoPadrao.svg"
-                alt="NAPSE"
-                className="h-9 w-auto brightness-0 invert"
-              />
-            </a>
-            <div className="flex items-center gap-3">
-              {socialLinks.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/80 transition-colors hover:border-[#6366f1]/50 hover:bg-[#6366f1]/20 hover:text-white"
-                  aria-label={label}
-                >
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
+        {/* Logo + Redes sociais na mesma linha */}
+        <div className="flex items-center justify-between mb-10">
+          <a href="#hero" className="inline-flex shrink-0" aria-label="NAPSE - início">
+            <img
+              src="/assets/NAPSE-LogotipoPadrao.svg"
+              alt="NAPSE"
+              className="h-9 w-auto brightness-0 invert"
+            />
+          </a>
+          <div className="flex items-center gap-3">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/80 transition-colors hover:border-[#6366f1]/50 hover:bg-[#6366f1]/20 hover:text-white"
+                aria-label={label}
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
           </div>
+        </div>
 
-          {/* Col 2: Links */}
+        {/* Navegação, Suporte e Segurança */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+          {/* Navegação */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Navegação
@@ -92,7 +93,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Suporte */}
+          {/* Suporte */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Suporte
@@ -112,12 +113,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Segurança - Selos */}
-          <div>
+          {/* Segurança */}
+          <div className="col-span-2 sm:col-span-1">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Segurança
             </p>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-row sm:flex-col gap-3">
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
                 <Shield className="h-4 w-4 shrink-0 text-emerald-400/90" />
                 <span className="text-xs font-medium text-neutral-400">LGPD Compliant</span>

@@ -53,7 +53,7 @@ export function FinalCTASection() {
             }}
           >
             {/* Card interno */}
-            <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] bg-gradient-to-br from-[#6366f1] via-[#5b5eea] to-[#3b82f6] p-8 sm:p-10 lg:p-12 xl:p-16 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_20px_60px_-15px_rgba(99,102,241,0.35),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-20px_20px_-10px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] bg-gradient-to-br from-[#6366f1] via-[#5b5eea] to-[#3b82f6] p-6 sm:p-10 lg:p-12 xl:p-16 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_20px_60px_-15px_rgba(99,102,241,0.35),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-20px_20px_-10px_rgba(0,0,0,0.12)] backdrop-blur-xl">
               {/* Overlay de luz (radial) */}
               <div
                 className="pointer-events-none absolute inset-0 rounded-[calc(1.5rem-1px)] opacity-60"
@@ -89,7 +89,7 @@ export function FinalCTASection() {
                 </motion.div>
 
                 <motion.h2
-                  className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] leading-tight"
+                  className="text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] leading-tight"
                   initial={{ opacity: 0, y: 16 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -97,7 +97,7 @@ export function FinalCTASection() {
                   Pronto para elevar o nível da sua clínica?
                 </motion.h2>
                 <motion.p
-                  className="text-lg text-white/90 leading-relaxed"
+                  className="text-base sm:text-lg text-white/90 leading-relaxed"
                   initial={{ opacity: 0, y: 12 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -106,19 +106,19 @@ export function FinalCTASection() {
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col gap-6"
+                  className="flex flex-col items-center lg:items-start gap-6"
                   initial={{ opacity: 0, y: 12 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <motion.a
                     href="#contato"
-                    className="group/btn relative inline-flex w-fit items-center justify-center gap-3 overflow-hidden rounded-xl bg-white px-10 py-5 text-lg font-semibold text-[#6366f1] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-shadow duration-200 hover:ring-2 hover:ring-white/30 hover:ring-offset-2 hover:ring-offset-[#6366f1] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6366f1]"
+                    className="group/btn relative inline-flex w-fit items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-xl bg-white px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg font-semibold text-[#6366f1] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-shadow duration-200 hover:ring-2 hover:ring-white/30 hover:ring-offset-2 hover:ring-offset-[#6366f1] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6366f1]"
                     whileHover={{ scale: 1.02, y: -2, boxShadow: '0 12px 32px -8px rgba(99,102,241,0.5)' }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <span className="relative z-10">Começar agora gratuitamente</span>
+                    <span className="relative z-10">Começar Agora</span>
                     <ArrowRight className="relative z-10 h-6 w-6 shrink-0 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-500 ease-out" aria-hidden />
                   </motion.a>

@@ -321,6 +321,9 @@ export function PillarsSection() {
       {/* Mobile — cards empilhados */}
       <div className="lg:hidden px-4 py-16">
         <div className="text-center mb-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
+            Pilares Napse
+          </p>
           <h2 className="text-2xl font-semibold text-neutral-900">
             Nosso Ecossistema
           </h2>
@@ -333,31 +336,37 @@ export function PillarsSection() {
               className="rounded-2xl overflow-hidden shadow-md"
             >
               <div
-                className="p-6 text-white"
+                className="p-5 text-white"
                 style={{ backgroundColor: pillar.bgColor }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <pillar.heroIcon className="w-8 h-8" />
-                  <h3 className="text-xl font-semibold">{pillar.title}</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <pillar.heroIcon className="w-7 h-7" />
+                  <h3 className="text-lg font-semibold">{pillar.title}</h3>
                 </div>
+                <p className="text-sm text-white/80 leading-relaxed mb-4">
+                  {pillar.subtitle} — {pillar.description}
+                </p>
                 <div className="grid grid-cols-4 gap-2">
                   {pillar.features.map((f) => (
                     <div
                       key={f.label}
-                      className="rounded-xl bg-white/20 p-3 flex flex-col items-center gap-1"
+                      className="rounded-xl bg-white/20 p-2.5 flex flex-col items-center gap-1"
                     >
-                      <f.icon className="w-5 h-5" />
-                      <span className="text-xs font-medium">{f.label}</span>
+                      <f.icon className="w-4 h-4" />
+                      <span className="text-[10px] font-medium leading-tight text-center">{f.label}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="bg-[#F5F5F5] p-6">
-                <h4 className="text-lg font-semibold text-neutral-900 mb-2">
-                  {pillar.subtitle}
-                </h4>
-                <p className="text-neutral-600">{pillar.description}</p>
-              </div>
+              {pillar.mascotImage && (
+                <div className="bg-[#F5F5F5] flex items-center justify-center py-4">
+                  <img
+                    src={pillar.mascotImage}
+                    alt={`Mascote ${pillar.title}`}
+                    className={`w-auto object-contain drop-shadow-md ${pillar.id === 'marketing' ? 'h-44' : 'h-32'}`}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </div>

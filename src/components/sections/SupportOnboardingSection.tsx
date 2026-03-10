@@ -143,9 +143,9 @@ export function SupportOnboardingSection() {
 
       <div className="relative max-w-6xl lg:max-w-7xl mx-auto">
         <div className="relative lg:grid lg:grid-cols-[2fr_3fr] lg:gap-16 xl:gap-20 lg:items-stretch">
-          {/* Coluna esquerda: título + parágrafo + mascote */}
+          {/* Coluna esquerda: título + mascote */}
           <motion.div
-            className="relative min-h-[420px] sm:min-h-[480px] lg:min-h-[620px]"
+            className="relative lg:min-h-[620px]"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -160,14 +160,29 @@ export function SupportOnboardingSection() {
 
             <motion.h2
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
+              className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
             >
               Implementação simples. Suporte sempre à mão.
             </motion.h2>
 
-            {/* Imagem de onboarding no canto inferior esquerdo */}
+            {/* Imagem mascote — mobile (centralizada) */}
             <motion.div
-              className="pointer-events-none absolute -bottom-10 -left-48 sm:-bottom-12 sm:-left-44 lg:-bottom-14 lg:-left-56 w-[600px] sm:w-[720px] lg:w-[920px]"
+              className="flex justify-center mt-2 mb-4 lg:hidden"
+              initial={{ opacity: 0, y: 24, scale: 0.94 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              viewport={{ once: true, margin: '0px 0px -80px' }}
+            >
+              <img
+                src="/assets/imagem_onboarding.png"
+                alt="Mascote NAPSE comemorando o onboarding no computador"
+                className="w-full max-w-lg sm:max-w-xl drop-shadow-2xl"
+              />
+            </motion.div>
+
+            {/* Imagem mascote — desktop (absoluta) */}
+            <motion.div
+              className="pointer-events-none absolute -bottom-14 -left-56 w-[920px] hidden lg:block"
               variants={itemVariants}
               initial={{ opacity: 0, y: 40, scale: 0.92 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -195,9 +210,9 @@ export function SupportOnboardingSection() {
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true, margin: '-80px 0px' }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-5 pl-6 pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
+              className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
             >
-              <p className="text-lg lg:text-xl text-neutral-700 leading-loose tracking-tight font-medium text-balance">
+              <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed sm:leading-loose tracking-tight font-medium text-balance">
                 Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa.{' '}
                 <span className="text-neutral-900 font-semibold">
                   Você não precisa ser expert em sistema — só em cuidar de pacientes.

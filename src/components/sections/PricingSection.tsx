@@ -98,36 +98,38 @@ function BillingToggle({
   const isYearly = billing === 'yearly'
 
   return (
-    <div className="inline-flex items-center gap-5 rounded-full bg-white/80 border border-white/90 px-3.5 py-2.5 shadow-[0_18px_55px_rgba(15,23,42,0.16)] backdrop-blur-xl">
-      <span className="text-base font-semibold text-neutral-500">Cobrança</span>
-      <button
-        type="button"
-        className="relative inline-flex items-center rounded-full bg-neutral-100/80 px-2 py-2 text-sm font-medium"
-        aria-label="Alternar entre mensal e anual"
-      >
-        <motion.div
-          className="absolute top-0.5 bottom-0.5 left-0 w-1/2 rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
-          initial={false}
-          animate={{ x: isYearly ? '100%' : '0%' }}
-          transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-        />
-        <span
-          className={`relative z-10 px-3 py-0.5 transition-colors ${
-            billing === 'monthly' ? 'text-white' : 'text-neutral-500'
-          }`}
-          onClick={() => onChange('monthly')}
+    <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-5 rounded-3xl sm:rounded-full bg-white/80 border border-white/90 px-4 py-3 sm:px-3.5 sm:py-2.5 shadow-[0_18px_55px_rgba(15,23,42,0.16)] backdrop-blur-xl">
+      <div className="flex items-center gap-3 sm:gap-5">
+        <span className="text-sm sm:text-base font-semibold text-neutral-500">Cobrança</span>
+        <button
+          type="button"
+          className="relative inline-flex items-center rounded-full bg-neutral-100/80 px-2 py-2 text-sm font-medium"
+          aria-label="Alternar entre mensal e anual"
         >
-          Mensal
-        </span>
-        <span
-          className={`relative z-10 px-3 py-0.5 transition-colors ${
-            billing === 'yearly' ? 'text-white' : 'text-neutral-500'
-          }`}
-          onClick={() => onChange('yearly')}
-        >
-          Anual
-        </span>
-      </button>
+          <motion.div
+            className="absolute top-0.5 bottom-0.5 left-0 w-1/2 rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
+            initial={false}
+            animate={{ x: isYearly ? '100%' : '0%' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+          />
+          <span
+            className={`relative z-10 px-3 py-0.5 transition-colors ${
+              billing === 'monthly' ? 'text-white' : 'text-neutral-500'
+            }`}
+            onClick={() => onChange('monthly')}
+          >
+            Mensal
+          </span>
+          <span
+            className={`relative z-10 px-3 py-0.5 transition-colors ${
+              billing === 'yearly' ? 'text-white' : 'text-neutral-500'
+            }`}
+            onClick={() => onChange('yearly')}
+          >
+            Anual
+          </span>
+        </button>
+      </div>
       <span className="text-xs sm:text-sm font-semibold text-emerald-600 bg-emerald-50/90 border border-emerald-100 rounded-full px-3 py-1">
         2 meses grátis no anual
       </span>
@@ -156,7 +158,7 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="planos"
-      className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-24 sm:py-28 lg:py-32"
+      className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-16 sm:py-24 lg:py-32"
     >
       {/* Glow de fundo suave */}
       <div className="pointer-events-none absolute inset-x-0 top-[-8rem] mx-auto h-[380px] max-w-4xl rounded-full bg-gradient-to-b from-nat-green/14 via-nat-green/6 to-transparent blur-3xl" />
@@ -171,7 +173,7 @@ export function PricingSection() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-green mb-1">
             Planos NAPSE
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
             Planos que crescem com a sua clínica.
           </h2>
           <div className="mt-6">
@@ -269,8 +271,17 @@ export function PricingSection() {
             })}
           </div>
 
-          {/* Mascote financeiro com balão — estático, posicionado à direita da grade */}
-          <div className="pointer-events-none hidden lg:block absolute inset-y-4 right-[-620px] flex items-center justify-center">
+          {/* Mascote financeiro — mobile */}
+          <div className="mt-8 flex justify-center lg:hidden">
+            <img
+              src="/assets/imagem_preços.png"
+              alt="Mascote financeiro NAPSE flutuando com balão"
+              className="max-h-[220px] sm:max-h-[280px] w-auto drop-shadow-2xl select-none"
+            />
+          </div>
+
+          {/* Mascote financeiro — desktop */}
+          <div className="pointer-events-none hidden lg:flex absolute inset-y-4 right-[-620px] items-center justify-center">
             <img
               src="/assets/imagem_preços.png"
               alt="Mascote financeiro NAPSE flutuando com balão"

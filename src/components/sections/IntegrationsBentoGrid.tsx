@@ -150,7 +150,7 @@ export function IntegrationsBentoGrid() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
                 Conecte tudo
               </p>
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
                 Integrações
               </h2>
             </motion.div>
@@ -174,9 +174,23 @@ export function IntegrationsBentoGrid() {
             </motion.div>
           </div>
 
-          {/* Coluna direita: imagem integrações */}
+          {/* Imagem integrações — mobile */}
           <motion.div
-            className="mt-12 lg:mt-0 lg:sticky lg:top-24 flex items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[560px]"
+            className="mt-4 -mb-8 flex items-center justify-center overflow-hidden lg:hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img
+              src="/assets/imagem_integracoes.png"
+              alt="Integrações NAPSE"
+              className="w-full max-w-sm sm:max-w-md object-contain drop-shadow-lg rounded-2xl"
+            />
+          </motion.div>
+
+          {/* Coluna direita: imagem integrações — desktop */}
+          <motion.div
+            className="hidden lg:flex mt-12 lg:mt-0 lg:sticky lg:top-24 items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[560px]"
             initial={{ opacity: 0, x: 24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -207,7 +221,7 @@ function IntegrationCard({
     <motion.div
       className={`group relative flex flex-col rounded-2xl border border-l-4 border-neutral-200 bg-white
         shadow-md hover:shadow-xl transition-all duration-300 h-full overflow-hidden
-        ${isFeatured ? 'p-5 lg:p-6' : 'p-6 lg:p-8'}
+        ${isFeatured ? 'p-4 sm:p-5 lg:p-6' : 'p-4 sm:p-6 lg:p-8'}
         ${integration.borderAccent}`}
       whileHover={{ y: -6, transition: { duration: 0.2 } }}
     >

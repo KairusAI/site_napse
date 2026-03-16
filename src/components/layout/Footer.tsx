@@ -1,5 +1,15 @@
 import { MessageCircle, Mail, HelpCircle, Shield, Lock, Instagram, Linkedin } from 'lucide-react'
 
+function scrollToTop(e: React.MouseEvent<HTMLAnchorElement>) {
+  e.preventDefault()
+  const hero = document.getElementById('hero')
+  if (hero) {
+    hero.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+}
+
 const socialLinks = [
   { label: 'Instagram', href: 'https://instagram.com', Icon: Instagram },
   { label: 'LinkedIn', href: 'https://linkedin.com', Icon: Linkedin },
@@ -49,7 +59,7 @@ export function Footer() {
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-14 lg:py-16">
         {/* Logo + Redes sociais na mesma linha */}
         <div className="flex items-center justify-between mb-10">
-          <a href="#hero" className="inline-flex shrink-0" aria-label="NAPSE - início">
+          <a href="/" onClick={scrollToTop} className="inline-flex shrink-0" aria-label="NAPSE - início">
             <img
               src="/assets/NAPSE-LogotipoPadrao.svg"
               alt="NAPSE"

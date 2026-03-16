@@ -20,8 +20,8 @@ const onboardingCards: Array<{
 }> = [
   {
     id: '1',
-    title: 'Conheça o Sistema',
-    description: 'Nosso onboarding guiado mostra todas as features essenciais.',
+    title: 'Onboarding Guiado',
+    description: 'Tour passo a passo pelo sistema. Em minutos você já sabe onde está cada coisa.',
     Icon: Database,
     color: 'purple',
     gradient: 'from-nat-purple/10 via-white/95 to-white',
@@ -30,8 +30,8 @@ const onboardingCards: Array<{
   },
   {
     id: '2',
-    title: 'Configure sua Equipe',
-    description: 'Ajuste a sua equipe em cada detalhe que precisar.',
+    title: 'Migração dos Dados',
+    description: 'Agenda, cadastros e histórico. Nossa equipe migra tudo — você não perde nada.',
     Icon: Users,
     color: 'green',
     gradient: 'from-nat-green/10 via-white/95 to-white',
@@ -40,8 +40,8 @@ const onboardingCards: Array<{
   },
   {
     id: '3',
-    title: 'Suporte Sempre Pronto',
-    description: 'Conte com nossa equipe para qualquer dúvida ou imprevisto.',
+    title: 'Suporte Humano',
+    description: 'Chat, e-mail e telefone. Dúvida? Resposta em até 24h, sem robô.',
     Icon: Headphones,
     color: 'blue',
     gradient: 'from-nat-blue/10 via-white/95 to-white',
@@ -162,7 +162,7 @@ export function SupportOnboardingSection() {
               variants={itemVariants}
               className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
             >
-              Implementação simples. Suporte sempre à mão.
+              Implementação em dias, não em meses.
             </motion.h2>
 
             {/* Imagem mascote — mobile (centralizada) */}

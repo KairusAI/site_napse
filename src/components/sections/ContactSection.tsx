@@ -38,10 +38,10 @@ export function ContactSection() {
             Fale conosco
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
-            Comece sua jornada com a NAPSE
+            Fale com um especialista
           </h2>
           <p className="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto">
-            Preencha o formulário ou entre em contato direto. Nossa equipe responde em até 24 horas.
+            Conte sobre sua clínica. Respondemos em até 24h — sem compromisso.
           </p>
         </motion.div>
 
@@ -103,7 +103,7 @@ export function ContactSection() {
                     rows={4}
                     required
                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors resize-none"
-                    placeholder="Conte um pouco sobre sua clínica e o que você busca..."
+                    placeholder="Ex: consultório com 2 médicos, quero migrar da planilha, preciso de faturamento TISS..."
                   />
                 </div>
                 <button
@@ -153,7 +153,7 @@ export function ContactSection() {
               </div>
             </div>
             <p className="text-sm text-neutral-500">
-              Sem compromisso. Nossa equipe está pronta para ajudar sua clínica a dar o próximo passo.
+              Sem compromisso. Tire dúvidas, peça uma demonstração ou comece seu teste grátis.
             </p>
           </div>
         </motion.div>

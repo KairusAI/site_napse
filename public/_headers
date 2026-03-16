@@ -1,0 +1,10 @@
+/*
+  Headers de segurança e indexação para napse.app
+  Suportado por: Netlify, Cloudflare Pages
+*/
+/*
+  X-Frame-Options: Defesa contra click-jacking
+  X-Content-Type-Options: Defesa contra MIME type sniffing
+*/
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff

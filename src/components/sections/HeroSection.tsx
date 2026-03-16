@@ -77,7 +77,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            A <span className="text-nat-purple">inteligência</span> que faltava para a sua clínica.
+            Menos burocracia. <span className="text-nat-purple">Mais tempo</span> para o que importa.
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-neutral-600"
@@ -85,7 +85,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Um ecossistema completo, do marketing ao faturamento. Deixe os especialistas cuidarem do operacional enquanto você foca no paciente.
+            Agenda, prontuário, faturamento e marketing em um só lugar. O copiloto que sua clínica precisava — com IA que aprende com você e nunca decide sozinha.
           </motion.p>
           <motion.a
             href="#contato"

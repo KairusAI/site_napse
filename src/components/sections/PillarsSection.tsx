@@ -48,15 +48,15 @@ const pillars: Pillar[] = [
     id: 'marketing',
     title: 'Marketing',
     mascotName: 'Megafone',
-    subtitle: 'Atraia mais pacientes',
+    subtitle: 'Pacientes que chegam sozinhos',
     description:
-      'Gestão completa de campanhas, redes sociais e captação de leads. Transforme visitantes em pacientes fiéis.',
+      'Posts educativos gerados por IA, no tom da sua especialidade. Você aprova antes de publicar. Menos tempo em redes, mais consultas agendadas.',
     bgColor: 'hsl(262, 83%, 52%)',
     bgLight: 'hsl(262, 60%, 92%)',
     heroIcon: Megaphone,
     mascotImage: '/assets/mascote_marketing.png',
     features: [
-      { icon: Megaphone, label: 'Campanhas' },
+      { icon: Megaphone, label: 'Posts com IA' },
       { icon: Target, label: 'Captação' },
       { icon: BarChart3, label: 'Métricas' },
       { icon: Share2, label: 'Redes Sociais' },
@@ -66,9 +66,9 @@ const pillars: Pillar[] = [
     id: 'medico',
     title: 'Médico',
     mascotName: 'Doutor',
-    subtitle: 'Foque no paciente',
+    subtitle: 'Você no comando, a IA no apoio',
     description:
-      'Prontuário eletrônico inteligente, prescrição digital e telemedicina integrada. Tudo para otimizar seu atendimento.',
+      'Prontuário eletrônico, prescrição digital e assistente por chat. A IA sugere e executa — você confirma. Nada sai sem sua aprovação.',
     bgColor: 'hsl(217, 91%, 50%)',
     bgLight: 'hsl(217, 70%, 92%)',
     heroIcon: Stethoscope,
@@ -77,16 +77,16 @@ const pillars: Pillar[] = [
       { icon: Stethoscope, label: 'Prontuário' },
       { icon: ClipboardList, label: 'Prescrição' },
       { icon: Calendar, label: 'Agenda' },
-      { icon: FileText, label: 'Laudos' },
+      { icon: FileText, label: 'Documentos' },
     ],
   },
   {
     id: 'secretaria',
     title: 'Secretaria',
     mascotName: 'Recepcionista',
-    subtitle: 'Recepção eficiente',
+    subtitle: 'Menos faltas, mais cadeiras cheias',
     description:
-      'Agendamento automatizado, confirmação por WhatsApp e gestão de filas. Sua recepção nunca mais será a mesma.',
+      'Confirmação automática por WhatsApp, lembretes e link de agendamento para o paciente. A recepção roda sem você precisar lembrar.',
     bgColor: 'hsl(42, 96%, 50%)',
     bgLight: 'hsl(42, 90%, 92%)',
     heroIcon: Headphones,
@@ -102,9 +102,9 @@ const pillars: Pillar[] = [
     id: 'financeiro',
     title: 'Financeiro',
     mascotName: 'Contador',
-    subtitle: 'Controle total',
+    subtitle: 'O que entra, o que sai — na palma da mão',
     description:
-      'Faturamento TISS, fluxo de caixa, relatórios gerenciais e glosas automatizadas. Sua saúde financeira em dia.',
+      'Faturamento TISS, fluxo de caixa e relatórios que mostram a saúde real da clínica. Menos planilhas, mais decisão.',
     bgColor: 'hsl(142, 76%, 36%)',
     bgLight: 'hsl(142, 45%, 92%)',
     heroIcon: DollarSign,
@@ -224,7 +224,7 @@ export function PillarsSection() {
               Pilares Napse
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
-              Tudo que sua clínica precisa, em um só lugar
+              Do consultório ao caixa — um ecossistema pensado para médicos
             </h2>
           </div>
 
@@ -325,7 +325,7 @@ export function PillarsSection() {
             Pilares Napse
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900">
-            Tudo que sua clínica precisa, em um só lugar
+            Do consultório ao caixa — um ecossistema pensado para médicos
           </h2>
         </div>
 

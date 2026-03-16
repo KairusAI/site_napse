@@ -18,7 +18,7 @@ const integrations: Integration[] = [
     id: 'instagram',
     brand: 'Instagram',
     title: 'Presença Digital',
-    description: 'Sincronize sua captação de pacientes e mensagens diretas com o hub da NAPSE.',
+    description: 'Sua captação e mensagens diretas em um só lugar. Menos apps abertos, mais pacientes qualificados.',
     iconBg: 'bg-nat-purple-muted',
     iconColor: 'text-nat-purple',
     borderAccent: 'border-l-nat-purple',
@@ -28,8 +28,8 @@ const integrations: Integration[] = [
   {
     id: 'asaas',
     brand: 'Asaas',
-    title: 'Gestão de Cobranças',
-    description: 'Automação total de boletos, cartões e antecipação de recebíveis com o Asaas.',
+    title: 'Cobranças Automáticas',
+    description: 'Boletos, cartões e antecipação de recebíveis integrados. Receba no prazo, sem cobrança manual.',
     iconBg: 'bg-nat-green-muted',
     iconColor: 'text-nat-green',
     borderAccent: 'border-l-nat-green',
@@ -39,7 +39,7 @@ const integrations: Integration[] = [
     id: 'google-calendar',
     brand: 'Google Calendar',
     title: 'Agenda Unificada',
-    description: 'Seu Google Calendar sempre em dia com o prontuário e horários da clínica.',
+    description: 'Seu Google Calendar sincronizado com a clínica. Uma agenda, todos os compromissos.',
     iconBg: 'bg-nat-blue-muted',
     iconColor: 'text-nat-blue',
     borderAccent: 'border-l-nat-blue',
@@ -48,8 +48,8 @@ const integrations: Integration[] = [
   {
     id: 'whatsapp',
     brand: 'WhatsApp',
-    title: 'Agendamento Inteligente',
-    description: 'Confirmações automáticas e suporte humanizado via WhatsApp Business.',
+    title: 'Confirmação no WhatsApp',
+    description: 'Lembretes e confirmações automáticas. O paciente agenda e confirma sem ligar para a recepção.',
     iconBg: 'bg-nat-yellow-muted',
     iconColor: 'text-nat-yellow',
     borderAccent: 'border-l-nat-yellow',
@@ -59,7 +59,7 @@ const integrations: Integration[] = [
     id: 'gmail',
     brand: 'Gmail',
     title: 'Alertas Críticos',
-    description: 'Notificações de exames e avisos importantes direto na sua caixa de entrada.',
+    description: 'Exames, avisos e resultados importantes direto na sua caixa. Nada perde no meio do caminho.',
     iconBg: 'bg-neutral-100',
     iconColor: 'text-neutral-600',
     borderAccent: 'border-l-neutral-400',
@@ -151,7 +151,7 @@ export function IntegrationsBentoGrid() {
                 Conecte tudo
               </p>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-                Conecte suas ferramentas favoritas
+                Conecte o que você já usa
               </h2>
             </motion.div>
 

@@ -18,25 +18,25 @@ const plans: Plan[] = [
   {
     id: 'start',
     name: 'Essencial',
-    description: 'Para clínicas que estão iniciando a organização digital.',
+    description: 'Para consultório solo ou clínica pequena que quer sair do papel e da planilha.',
     monthlyPrice: 297,
     yearlyPrice: 297 * 10, // 2 meses de desconto
     features: [
       'Agenda online para equipe reduzida',
-      'Confirmação de consultas básica',
+      'Confirmação automática de consultas',
       'Relatórios essenciais de produção',
     ],
   },
   {
     id: 'growth',
     name: 'Crescimento',
-    description: 'Ideal para clínicas em expansão e com múltiplos profissionais.',
+    description: 'Para clínicas com vários médicos que precisam de visão completa.',
     monthlyPrice: 497,
     yearlyPrice: 497 * 10,
     highlight: true,
     features: [
-      'Agenda avançada por profissional',
-      'Fluxo completo de confirmação e no-show',
+      'Agenda por profissional e por especialidade',
+      'Fluxo completo de confirmação e controle de no-show',
       'Dashboards de faturamento e ocupação',
       'Suporte prioritário NAPSE',
     ],
@@ -44,13 +44,13 @@ const plans: Plan[] = [
   {
     id: 'scale',
     name: 'Escala',
-    description: 'Para grupos e redes com alto volume operacional.',
+    description: 'Para grupos, redes e clínicas com múltiplas unidades.',
     monthlyPrice: 897,
     yearlyPrice: 897 * 10,
     features: [
       'Múltiplas unidades e centros de custo',
       'Integrações avançadas (ERP, billing, BI)',
-      'Acompanhamento dedicado de Customer Success',
+      'Customer Success dedicado à sua operação',
     ],
   },
 ]
@@ -178,7 +178,7 @@ export function PricingSection() {
             Planos NAPSE
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-            Planos que crescem com a sua clínica.
+            Investimento que paga em tempo e tranquilidade.
           </h2>
           <div className="mt-6">
             <BillingToggle billing={billing} onChange={setBilling} />

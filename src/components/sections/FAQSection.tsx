@@ -13,31 +13,31 @@ const faqData: FaqItem[] = [
     id: '1',
     question: 'Como funciona o período de teste?',
     answer:
-      'Você tem 14 dias para testar a NAPSE com acesso completo. Não pedimos cartão de crédito. Se precisar de mais tempo, nossa equipe pode estender conforme o seu processo de avaliação.',
+      '14 dias de acesso completo, sem cartão de crédito. Teste agenda, prontuário, confirmações e relatórios. Se precisar de mais tempo para avaliar, nossa equipe pode estender.',
   },
   {
     id: '2',
     question: 'Posso migrar meus dados de outro sistema?',
     answer:
-      'Sim. Oferecemos suporte à migração de agendas, cadastros e histórico. O processo é guiado pela nossa equipe para garantir que nada se perca.',
+      'Sim. Migramos agendas, cadastros de pacientes e histórico. O processo é guiado pela nossa equipe — você não precisa fazer nada sozinho.',
   },
   {
     id: '3',
-    question: 'A NAPSE é adequada para clínicas pequenas?',
+    question: 'Funciona para consultório solo?',
     answer:
-      'Sim. Nossos planos começam para equipes enxutas e escalam conforme você cresce. Você paga pelo que usa e pode evoluir de plano a qualquer momento.',
+      'Sim. O plano Essencial foi feito para quem está começando ou tem equipe pequena. Você paga pelo que usa e pode evoluir quando a clínica crescer.',
   },
   {
     id: '4',
-    question: 'Como é o suporte técnico?',
+    question: 'Como é o suporte?',
     answer:
-      'Suporte por chat, e-mail e telefone em horário comercial. Nos planos superiores, há prioridade e acompanhamento dedicado para implementação e dúvidas.',
+      'Chat, e-mail e telefone em horário comercial. Resposta em até 24h. Nos planos Crescimento e Escala, há prioridade e acompanhamento dedicado.',
   },
   {
     id: '5',
-    question: 'Os dados da clínica ficam seguros?',
+    question: 'Meus dados ficam seguros?',
     answer:
-      'Sim. Utilizamos infraestrutura em nuvem com criptografia e práticas alinhadas à LGPD. Seus dados são backupados e acessíveis apenas por quem você autorizar.',
+      'Sim. Infraestrutura em nuvem, criptografia e conformidade com LGPD. Backup automático. Acesso apenas por quem você autorizar.',
   },
 ]
 
@@ -166,10 +166,10 @@ export function FAQSection() {
             FAQ
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-            Perguntas frequentes
+            Dúvidas comuns
           </h2>
           <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-xl mx-auto">
-            Tire suas dúvidas sobre a NAPSE e nossa forma de trabalhar.
+            Respostas diretas sobre teste, migração, planos e segurança.
           </p>
         </motion.div>
 

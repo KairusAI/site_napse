@@ -12,27 +12,27 @@ type StatItem = {
 const stats: StatItem[] = [
   {
     id: 'productivity',
-    label: 'Aumento em produtividade',
+    label: 'Ganho de produtividade reportado',
     value: 45,
     prefix: '+',
     suffix: '%',
   },
   {
     id: 'no-show',
-    label: 'Redução em faltas/no-show',
+    label: 'Menos faltas com confirmação automática',
     value: 30,
     prefix: '-',
     suffix: '%',
   },
   {
     id: 'time-saving',
-    label: 'Economia mensal em gestão',
+    label: 'Horas economizadas por mês em burocracia',
     value: 15,
     suffix: 'h',
   },
   {
     id: 'security',
-    label: 'Segurança de dados e LGPD',
+    label: 'Segurança e conformidade LGPD',
     value: 100,
     suffix: '%',
   },
@@ -180,7 +180,7 @@ export function StatsSection() {
             id="stats-heading"
             className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900"
           >
-            Resultados diretos na rotina da clínica
+            Números que você sente no dia a dia
           </h2>
         </motion.div>
 

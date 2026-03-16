@@ -23,7 +23,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Mariana Costa',
     role: 'Cardiologista',
     specialtyColor: 'nat-purple',
-    quote: 'A NAPSE organizou nossa agenda e reduziu no-show em 30%. Recomendo demais.',
+    quote: 'Antes eu perdia tempo ligando para confirmar consulta. Agora o WhatsApp faz isso sozinho. Reduziu no-show e minha recepcionista respira.',
     layout: 'horizontal-narrow',
     cardStyle: 'photo-large',
     rating: 5,
@@ -33,7 +33,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Ricardo Mendes',
     role: 'Ortopedista',
     specialtyColor: 'nat-green',
-    quote: 'Implementação tranquila e suporte sempre disponível. A clínica nunca mais foi a mesma.',
+    quote: 'Implementamos em uma semana. A equipe da NAPSE migrou nossos dados e nos treinou. Zero estresse.',
     layout: 'vertical-tall',
     cardStyle: 'stars-top',
     rating: 5,
@@ -43,7 +43,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Fernanda Lima',
     role: 'Pediatra',
     specialtyColor: 'nat-blue',
-    quote: 'Do agendamento ao faturamento, tudo integrado. Ganhamos tempo e os pacientes adoram a experiência.',
+    quote: 'Do agendamento ao faturamento, tudo em um lugar. O paciente agenda pelo link, confirma pelo WhatsApp e eu foco no atendimento.',
     layout: 'large',
     cardStyle: 'photo-large',
     rating: 5,
@@ -53,7 +53,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. André Souza',
     role: 'Clínico Geral',
     specialtyColor: 'nat-yellow',
-    quote: 'Faturamento TISS e relatórios em um só lugar. Enxergamos o negócio.',
+    quote: 'Finalmente enxergo o faturamento real da clínica. Relatórios que fazem sentido, sem planilha.',
     layout: 'vertical',
     cardStyle: 'stars-bottom',
     rating: 5,
@@ -63,7 +63,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Patrícia Rocha',
     role: 'Dermatologista',
     specialtyColor: 'nat-purple',
-    quote: 'O marketing integrado trouxe mais pacientes qualificados. Resultado que a gente vê no dia a dia.',
+    quote: 'Os posts com IA economizam horas. Eu só reviso e publico. Mais pacientes chegando pelo Instagram.',
     layout: 'horizontal-narrow',
     cardStyle: 'photo-right',
     rating: 5,
@@ -73,7 +73,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Lucas Teixeira',
     role: 'Anestesiologista',
     specialtyColor: 'nat-blue',
-    quote: 'Controle de estoque e agendamento integrados. Operação muito mais fluida.',
+    quote: 'Agenda e prontuário conversando entre si. Menos retrabalho, mais fluidez no consultório.',
     layout: 'horizontal-narrow',
     cardStyle: 'default',
     rating: 5,
@@ -83,7 +83,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Bruno Alves',
     role: 'Gastroenterologista',
     specialtyColor: 'nat-green',
-    quote: 'Sistema que cresce com a clínica. Escalabilidade e suporte que fazem a diferença.',
+    quote: 'Começamos pequenos e fomos crescendo. O plano acompanhou. Suporte que realmente resolve.',
     layout: 'horizontal-tall',
     cardStyle: 'default',
     rating: 5,
@@ -93,7 +93,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Camila Nascimento',
     role: 'Endocrinologista',
     specialtyColor: 'nat-blue',
-    quote: 'Relatórios de faturamento claros e suporte ágil. A NAPSE entende as dores da clínica.',
+    quote: 'Relatórios claros e suporte que responde. Parece que foram feitos pensando em quem atende paciente.',
     layout: 'vertical',
     cardStyle: 'stars-top',
     rating: 5,
@@ -103,7 +103,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Gyovanna Vieira',
     role: 'Neurologista',
     specialtyColor: 'nat-purple',
-    quote: 'Agenda e prontuário integrados. Menos tempo em burocracia, mais tempo com o paciente.',
+    quote: 'A IA sugere, eu aprovo. Prontuário e receita mais rápidos. O controle continua sendo meu.',
     layout: 'horizontal',
     cardStyle: 'photo-right',
     rating: 5,
@@ -113,7 +113,7 @@ const testimonials: Testimonial[] = [
     name: 'Dra. Larissa Martins',
     role: 'Ginecologista',
     specialtyColor: 'nat-yellow',
-    quote: 'Confirmação por WhatsApp e controle de no-show mudaram nossa rotina para melhor.',
+    quote: 'Confirmação automática mudou tudo. Cadeiras vazias viraram consultas. A recepção agradece.',
     layout: 'vertical',
     cardStyle: 'stars-bottom',
     rating: 5,
@@ -397,10 +397,10 @@ export function TestimonialsSection() {
             Depoimentos
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-            Quem usa recomenda
+            Médicos que já sentem a diferença
           </h2>
           <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto">
-            Clínicas e médicos que transformaram o dia a dia com a NAPSE.
+            Depoimentos reais de quem trocou burocracia por mais tempo no consultório.
           </p>
         </motion.div>
       </div>

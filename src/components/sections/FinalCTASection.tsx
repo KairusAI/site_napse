@@ -25,7 +25,7 @@ export function FinalCTASection() {
       >
         <img
           src="/assets/imagem_cta2.png"
-          alt=""
+          alt="Mascote NAPSE convidando para começar"
           className="max-h-[420px] w-auto object-contain xl:max-h-[500px]"
           style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}
         />

@@ -54,6 +54,20 @@ function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] overflow-hidden lg:grid lg:grid-cols-2">
+      {/* Textura sutil — evita flat white (Awwwards trend) */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
+        aria-hidden
+      />
+      {/* Gradiente suave — depth sem purple-on-white genérico */}
+      <div
+        className="pointer-events-none absolute -right-1/4 -top-1/4 w-[80vw] h-[80vw] rounded-full opacity-30 blur-[80px]"
+        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 60%)' }}
+        aria-hidden
+      />
       {/* Coluna esquerda: texto */}
       <div className="relative z-10 flex flex-col justify-center px-5 pt-20 pb-6 sm:px-6 sm:py-16 lg:px-12 lg:py-20 xl:px-20">
         <div className="max-w-xl ml-4 sm:ml-8 lg:ml-16 xl:ml-24">

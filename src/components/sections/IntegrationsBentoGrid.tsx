@@ -151,7 +151,7 @@ export function IntegrationsBentoGrid() {
                 Conecte tudo
               </p>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-                Integrações
+                Conecte suas ferramentas favoritas
               </h2>
             </motion.div>
 

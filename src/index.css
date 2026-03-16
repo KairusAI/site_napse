@@ -10,6 +10,9 @@
     --nat-yellow: 42 96% 50%;
     --nat-blue: 217 91% 50%;
     --nat-purple: 262 83% 52%;
+    /* Gradientes multicolor — evita purple-on-white genérico */
+    --gradient-hero: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(99,102,241,0.04), transparent 50%);
+    --gradient-accent: linear-gradient(135deg, hsl(262 83% 52% / 0.08), hsl(217 91% 50% / 0.06));
   }
 
   html {
@@ -19,6 +22,11 @@
   body {
     @apply text-neutral-900 antialiased font-sans;
     background-color: #fcfcfc;
+  }
+
+  /* Headlines usam display font para hierarquia premium */
+  h1, h2, h3, .font-display {
+    font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
   }
 }
 

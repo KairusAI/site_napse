@@ -101,10 +101,10 @@ function BillingToggle({
     <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-5 rounded-3xl sm:rounded-full bg-white/80 border border-white/90 px-4 py-3 sm:px-3.5 sm:py-2.5 shadow-[0_18px_55px_rgba(15,23,42,0.16)] backdrop-blur-xl">
       <div className="flex items-center gap-3 sm:gap-5">
         <span className="text-sm sm:text-base font-semibold text-neutral-500">Cobrança</span>
-        <button
-          type="button"
+        <div
+          role="group"
+          aria-label="Período de cobrança"
           className="relative inline-flex items-center rounded-full bg-neutral-100/80 px-2 py-2 text-sm font-medium"
-          aria-label="Alternar entre mensal e anual"
         >
           <motion.div
             className="absolute top-0.5 bottom-0.5 left-0 w-1/2 rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
@@ -112,23 +112,27 @@ function BillingToggle({
             animate={{ x: isYearly ? '100%' : '0%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 26 }}
           />
-          <span
-            className={`relative z-10 px-3 py-0.5 transition-colors ${
+          <button
+            type="button"
+            className={`relative z-10 px-3 py-0.5 transition-colors rounded-full ${
               billing === 'monthly' ? 'text-white' : 'text-neutral-500'
             }`}
             onClick={() => onChange('monthly')}
+            aria-pressed={billing === 'monthly'}
           >
             Mensal
-          </span>
-          <span
-            className={`relative z-10 px-3 py-0.5 transition-colors ${
+          </button>
+          <button
+            type="button"
+            className={`relative z-10 px-3 py-0.5 transition-colors rounded-full ${
               billing === 'yearly' ? 'text-white' : 'text-neutral-500'
             }`}
             onClick={() => onChange('yearly')}
+            aria-pressed={billing === 'yearly'}
           >
             Anual
-          </span>
-        </button>
+          </button>
+        </div>
       </div>
       <span className="text-xs sm:text-sm font-semibold text-emerald-600 bg-emerald-50/90 border border-emerald-100 rounded-full px-3 py-1">
         2 meses grátis no anual

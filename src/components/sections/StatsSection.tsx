@@ -134,6 +134,12 @@ export function StatsSection() {
       aria-labelledby="stats-heading"
       className="relative bg-white px-4 py-20 sm:py-28 lg:py-40 overflow-hidden"
     >
+      {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{ background: 'linear-gradient(135deg, hsl(262 83% 52% / 0.03), hsl(217 91% 50% / 0.02))' }}
+        aria-hidden
+      />
       {/* Linha tipo gráfico no fundo — animação de desenho do início ao fim */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none select-none"

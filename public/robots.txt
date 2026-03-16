@@ -1,0 +1,5 @@
+# robots.txt para NAPSE - napse.app
+User-agent: *
+Allow: /
+
+Sitemap: https://napse.app/sitemap.xml

@@ -224,7 +224,7 @@ export function PillarsSection() {
               Pilares Napse
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
-              Nosso Ecossistema
+              Tudo que sua clínica precisa, em um só lugar
             </h2>
           </div>
 
@@ -325,7 +325,7 @@ export function PillarsSection() {
             Pilares Napse
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900">
-            Nosso Ecossistema
+            Tudo que sua clínica precisa, em um só lugar
           </h2>
         </div>
 

@@ -11,6 +11,7 @@ import {
   TestimonialsSection,
   FAQSection,
   FinalCTASection,
+  ContactSection,
 } from '@/components/sections'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <PricingSection />
       <TestimonialsSection />
       <FAQSection />
+      <ContactSection />
       <FinalCTASection />
       <Footer />
     </MainLayout>

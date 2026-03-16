@@ -150,7 +150,7 @@ export function FAQSection() {
       >
         <img
           src="/assets/imagem_faq.png"
-          alt=""
+          alt="Mascote NAPSE ajudando com dúvidas frequentes"
           className="max-h-[480px] w-auto object-contain xl:max-h-[560px]"
         />
       </motion.div>

@@ -85,7 +85,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Agenda, prontuário, faturamento e marketing em um só lugar. O copiloto que sua clínica precisava — com IA que aprende com você e nunca decide sozinha.
+            Agenda, prontuário eletrônico, prescrição digital e marketing com IA em um só lugar. O copiloto que sua clínica precisava — você aprova, a IA executa.
           </motion.p>
           <motion.a
             href="#contato"

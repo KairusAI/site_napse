@@ -50,7 +50,7 @@ const pillars: Pillar[] = [
     mascotName: 'Megafone',
     subtitle: 'Pacientes que chegam sozinhos',
     description:
-      'Posts educativos gerados por IA, no tom da sua especialidade. Você aprova antes de publicar. Menos tempo em redes, mais consultas agendadas.',
+      'Legendas e posts educativos gerados por IA, no tom da sua especialidade. Você aprova antes de publicar. Menos tempo em redes, mais consultas agendadas.',
     bgColor: 'hsl(262, 83%, 52%)',
     bgLight: 'hsl(262, 60%, 92%)',
     heroIcon: Megaphone,
@@ -68,7 +68,7 @@ const pillars: Pillar[] = [
     mascotName: 'Doutor',
     subtitle: 'Você no comando, a IA no apoio',
     description:
-      'Prontuário eletrônico, prescrição digital e assistente por chat. A IA sugere e executa — você confirma. Nada sai sem sua aprovação.',
+      'Prontuário eletrônico, prescrição digital (Memed) e assistente por chat. A IA sugere e executa — você confirma. Nada sai sem sua aprovação.',
     bgColor: 'hsl(217, 91%, 50%)',
     bgLight: 'hsl(217, 70%, 92%)',
     heroIcon: Stethoscope,
@@ -86,7 +86,7 @@ const pillars: Pillar[] = [
     mascotName: 'Recepcionista',
     subtitle: 'Menos faltas, mais cadeiras cheias',
     description:
-      'Confirmação automática por WhatsApp, lembretes e link de agendamento para o paciente. A recepção roda sem você precisar lembrar.',
+      'WhatsApp integrado (API oficial), link de agendamento para o paciente escolher horário sozinho e confirmações por mensagem. A recepção roda sem você precisar lembrar.',
     bgColor: 'hsl(42, 96%, 50%)',
     bgLight: 'hsl(42, 90%, 92%)',
     heroIcon: Headphones,
@@ -104,16 +104,16 @@ const pillars: Pillar[] = [
     mascotName: 'Contador',
     subtitle: 'O que entra, o que sai — na palma da mão',
     description:
-      'Faturamento TISS, fluxo de caixa e relatórios que mostram a saúde real da clínica. Menos planilhas, mais decisão.',
+      'Tabela de preços e procedimentos, relatórios de produção e ocupação. Visão clara da saúde financeira da clínica. Menos planilhas, mais decisão.',
     bgColor: 'hsl(142, 76%, 36%)',
     bgLight: 'hsl(142, 45%, 92%)',
     heroIcon: DollarSign,
     mascotImage: '/assets/mascote_financeiro.png',
     features: [
-      { icon: DollarSign, label: 'Faturamento' },
-      { icon: Receipt, label: 'TISS' },
+      { icon: DollarSign, label: 'Tabela de Preços' },
+      { icon: Receipt, label: 'Procedimentos' },
       { icon: TrendingUp, label: 'Relatórios' },
-      { icon: PieChart, label: 'Fluxo de Caixa' },
+      { icon: PieChart, label: 'Produção e Ocupação' },
     ],
   },
 ]

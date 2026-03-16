@@ -73,6 +73,7 @@ export function ContactSection() {
                   </label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     required
                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
@@ -85,6 +86,7 @@ export function ContactSection() {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
@@ -97,6 +99,7 @@ export function ContactSection() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={4}
                     required
                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors resize-none"

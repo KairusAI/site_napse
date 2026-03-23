@@ -27,6 +27,11 @@ const supportItems = [
   { label: 'FAQ', href: '#faq', Icon: HelpCircle },
 ]
 
+const termsItems = [
+  { label: 'Termos de uso', href: '/termos-de-uso' },
+  { label: 'Política de privacidade', href: '/politica-de-privacidade' },
+]
+
 export function Footer() {
   return (
     <footer className="relative bg-[#080808] text-neutral-300 overflow-hidden">
@@ -128,6 +133,18 @@ export function Footer() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Segurança
             </p>
+            <ul className="space-y-3">
+              {termsItems.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-sm text-neutral-300 transition-colors hover:text-[#6366f1]"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <div className="flex flex-row sm:flex-col gap-3">
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
                 <Shield className="h-4 w-4 shrink-0 text-emerald-400/90" />

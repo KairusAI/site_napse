@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
+import { useReducedMotionPreference } from '@/hooks/useReducedMotion'
 import {
   Megaphone,
   Target,
@@ -127,6 +128,7 @@ export function PillarsSection() {
   const featuresRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const prevIndexRef = useRef(-1)
+  const prefersReducedMotion = useReducedMotionPreference()
 
   useLenis(() => {
     ScrollTrigger.update()
@@ -137,6 +139,10 @@ export function PillarsSection() {
       const mm = gsap.matchMedia()
 
       mm.add('(min-width: 1024px)', () => {
+        if (prefersReducedMotion) {
+          return undefined
+        }
+
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top',
@@ -157,7 +163,7 @@ export function PillarsSection() {
         })
       })
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] },
   )
 
   useEffect(() => {
@@ -226,6 +232,9 @@ export function PillarsSection() {
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
               Do consultório ao caixa — um ecossistema pensado para médicos
             </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-base text-neutral-600">
+              Cada frente da sua operação ganha clareza, automação e acompanhamento humano para evoluir sem travar a rotina da equipe.
+            </p>
           </div>
 
           <div className="flex-1 min-h-0 rounded-3xl overflow-hidden grid grid-cols-[2fr_3fr] shadow-xl">
@@ -346,14 +355,14 @@ export function PillarsSection() {
                 <p className="text-sm text-white/80 leading-relaxed mb-4">
                   {pillar.subtitle} — {pillar.description}
                 </p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   {pillar.features.map((f) => (
                     <div
                       key={f.label}
                       className="rounded-xl bg-white/20 p-2.5 flex flex-col items-center gap-1"
                     >
                       <f.icon className="w-4 h-4" />
-                      <span className="text-[10px] font-medium leading-tight text-center">{f.label}</span>
+                      <span className="text-xs font-medium leading-tight text-center">{f.label}</span>
                     </div>
                   ))}
                 </div>

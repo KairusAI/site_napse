@@ -1,4 +1,4 @@
-import { MessageCircle, Mail, HelpCircle, Shield, Lock, Instagram, Linkedin } from 'lucide-react'
+import { MessageCircle, Mail, HelpCircle, Shield, Lock } from 'lucide-react'
 
 function scrollToTop(e: React.MouseEvent<HTMLAnchorElement>) {
   e.preventDefault()
@@ -10,11 +10,6 @@ function scrollToTop(e: React.MouseEvent<HTMLAnchorElement>) {
   }
 }
 
-const socialLinks = [
-  { label: 'Instagram', href: 'https://instagram.com', Icon: Instagram },
-  { label: 'LinkedIn', href: 'https://linkedin.com', Icon: Linkedin },
-]
-
 const linkItems = [
   { label: 'Funcionalidades', href: '#ecossistema' },
   { label: 'Planos', href: '#planos' },
@@ -22,8 +17,8 @@ const linkItems = [
 ]
 
 const supportItems = [
-  { label: 'WhatsApp', href: 'https://wa.me/5511999999999', Icon: MessageCircle },
-  { label: 'E-mail', href: 'mailto:contato@napse.com.br', Icon: Mail },
+  { label: 'Falar com especialista', href: '#contato', Icon: MessageCircle },
+  { label: 'Contato consultivo', href: '#contato', Icon: Mail },
   { label: 'FAQ', href: '#faq', Icon: HelpCircle },
 ]
 
@@ -57,7 +52,7 @@ export function Footer() {
       />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-14 lg:py-16">
-        {/* Logo + Redes sociais na mesma linha */}
+        {/* Logo + posicionamento na mesma linha */}
         <div className="flex items-center justify-between mb-10">
           <a href="/" onClick={scrollToTop} className="inline-flex shrink-0" aria-label="NAPSE - início">
             <img
@@ -66,20 +61,9 @@ export function Footer() {
               className="h-9 w-auto brightness-0 invert"
             />
           </a>
-          <div className="flex items-center gap-3">
-            {socialLinks.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/80 transition-colors hover:border-[#6366f1]/50 hover:bg-[#6366f1]/20 hover:text-white"
-                aria-label={label}
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
-          </div>
+          <p className="max-w-sm text-right text-sm text-neutral-400">
+            Ecossistema para clínicas que querem organizar operação, crescer com mais clareza e abrir uma conversa comercial consultiva.
+          </p>
         </div>
 
         {/* Navegação, Suporte e Segurança */}
@@ -131,11 +115,11 @@ export function Footer() {
             <div className="flex flex-row sm:flex-col gap-3">
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
                 <Shield className="h-4 w-4 shrink-0 text-emerald-400/90" />
-                <span className="text-xs font-medium text-neutral-400">LGPD Compliant</span>
+                <span className="text-xs font-medium text-neutral-400">Conformidade LGPD</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
                 <Lock className="h-4 w-4 shrink-0 text-sky-400/90" />
-                <span className="text-xs font-medium text-neutral-400">SSL Secure</span>
+                <span className="text-xs font-medium text-neutral-400">Criptografia e acesso protegido</span>
               </div>
             </div>
           </div>

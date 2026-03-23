@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, CreditCard, Sparkles, X } from 'lucide-react'
+import { ArrowRight, ClipboardList, Sparkles, Users } from 'lucide-react'
 
 export function FinalCTASection() {
   const ref = useRef<HTMLElement>(null)
@@ -94,7 +94,7 @@ export function FinalCTASection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Pronto para focar no que você faz de melhor?
+                  Vamos descobrir o melhor caminho para a sua clínica?
                 </motion.h2>
                 <motion.p
                   className="text-base sm:text-lg text-white/90 leading-relaxed"
@@ -102,7 +102,7 @@ export function FinalCTASection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  14 dias grátis. Sem cartão. Comece em minutos.
+                  Antes de qualquer decisão, entendemos sua operação, prioridades e momento de crescimento para indicar como a NAPSE pode ajudar.
                 </motion.p>
 
                 <motion.div
@@ -118,19 +118,19 @@ export function FinalCTASection() {
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <span className="relative z-10">Começar Agora</span>
+                    <span className="relative z-10">Falar com um especialista</span>
                     <ArrowRight className="relative z-10 h-6 w-6 shrink-0 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-500 ease-out" aria-hidden />
                   </motion.a>
 
                   <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                     <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white/95 backdrop-blur-sm">
-                      <CreditCard className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
-                      Sem cartão
+                      <ClipboardList className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+                      Formulário consultivo
                     </span>
                     <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white/95 backdrop-blur-sm">
-                      <X className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
-                      Cancele quando quiser
+                      <Users className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+                      Contato comercial humanizado
                     </span>
                   </div>
                 </motion.div>

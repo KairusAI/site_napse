@@ -1,5 +1,6 @@
 import { ReactNode, useEffect } from 'react'
 import { ReactLenis, getDefaultLenisOptions } from '@/hooks/useLenis'
+import { useReducedMotionPreference } from '@/hooks/useReducedMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -10,6 +11,7 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
+  useReducedMotionPreference()
   const lenisOptions = getDefaultLenisOptions()
 
   useEffect(() => {

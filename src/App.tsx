@@ -3,12 +3,15 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import {
   HeroSection,
+  TrustSection,
+  ProductDemoSection,
   PillarsSection,
   IntegrationsBentoGrid,
   SupportOnboardingSection,
   StatsSection,
   PricingSection,
   TestimonialsSection,
+  SecuritySection,
   FAQSection,
   FinalCTASection,
   ContactSection,
@@ -21,15 +24,18 @@ function App() {
       <main id="hero">
         <HeroSection />
       </main>
+      <TrustSection />
+      <ProductDemoSection />
       <PillarsSection />
       <IntegrationsBentoGrid />
       <SupportOnboardingSection />
       <StatsSection />
-      <PricingSection />
       <TestimonialsSection />
+      <SecuritySection />
+      <PricingSection />
       <FAQSection />
-      <ContactSection />
       <FinalCTASection />
+      <ContactSection />
       <Footer />
     </MainLayout>
   )

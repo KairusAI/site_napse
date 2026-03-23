@@ -178,8 +178,11 @@ export function PricingSection() {
             Planos NAPSE
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-            Investimento que paga em tempo e tranquilidade.
+            Planos para entender o melhor encaixe da sua operação.
           </h2>
+          <p className="mx-auto max-w-2xl text-sm sm:text-base text-neutral-600">
+            Use os planos como referência inicial. Nosso especialista entende o momento da sua clínica e indica o caminho mais aderente para a sua equipe.
+          </p>
           <div className="mt-6">
             <BillingToggle billing={billing} onChange={setBilling} />
           </div>
@@ -235,15 +238,15 @@ export function PricingSection() {
                     </span>
                   </div>
 
-                  <button
-                    type="button"
+                  <a
+                    href="#contato"
                     className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     <span className="relative z-10">
-                      Falar com especialista
+                      Falar com um especialista
                     </span>
                     <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
-                  </button>
+                  </a>
 
                   <ul className="mt-6 space-y-3 text-sm text-neutral-700">
                     {plan.features.map((feature) => (
@@ -293,6 +296,9 @@ export function PricingSection() {
             />
           </div>
         </motion.div>
+        <p className="mt-8 text-center text-sm text-neutral-500">
+          Nao existe checkout automatico nesta etapa. Primeiro entendemos seu contexto e indicamos o plano ideal para a sua clinica.
+        </p>
       </div>
     </section>
   )

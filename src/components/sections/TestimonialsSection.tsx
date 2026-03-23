@@ -400,13 +400,16 @@ export function TestimonialsSection() {
             Médicos que já sentem a diferença
           </h2>
           <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto">
-            Depoimentos reais de quem trocou burocracia por mais tempo no consultório.
+            Histórias de clínicas que ganharam mais controle operacional e menos fricção no dia a dia.
           </p>
         </motion.div>
       </div>
 
       {/* Mobile: carrossel horizontal com snap */}
       <div className="relative w-full lg:hidden">
+        <p className="px-6 pb-3 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+          Arraste para ver mais histórias
+        </p>
         <div
           className="pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-8 sm:w-16 bg-gradient-to-r from-white to-transparent"
           aria-hidden

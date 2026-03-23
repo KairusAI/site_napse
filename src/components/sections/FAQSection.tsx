@@ -169,7 +169,7 @@ export function FAQSection() {
             Dúvidas comuns
           </h2>
           <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-xl mx-auto">
-            Respostas diretas sobre teste, migração, planos e segurança.
+            Respostas diretas para as principais dúvidas antes de falar com nosso especialista.
           </p>
         </motion.div>
 
@@ -210,7 +210,7 @@ export function FAQSection() {
             href="#contato"
             className="font-semibold text-nat-purple hover:underline focus:outline-none focus-visible:underline"
           >
-            Fale conosco
+            Fale com um especialista
           </a>
         </motion.p>
       </div>

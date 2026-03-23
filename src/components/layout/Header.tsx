@@ -199,7 +199,7 @@ export function Header() {
             }}
             className="hidden sm:inline-flex shrink-0 items-center justify-center rounded-full bg-nat-purple px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)] transition-all duration-200 hover:shadow-[0_6px_20px_-2px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2"
           >
-            Começar agora
+            Falar com um especialista
           </a>
 
           {/* Botão hamburguer mobile */}
@@ -208,6 +208,8 @@ export function Header() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             className="sm:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 border border-white/90 shadow-md backdrop-blur-xl"
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileMenuOpen ? (
@@ -248,11 +250,15 @@ export function Header() {
           >
             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
             <motion.nav
+              id="mobile-navigation"
               className="absolute top-16 right-4 left-4 rounded-2xl border border-white/80 bg-white/95 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-xl"
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navegação principal"
             >
               <ul className="flex flex-col gap-1">
                 {navItems.map((item) => {
@@ -286,7 +292,7 @@ export function Header() {
                   }}
                   className="flex w-full items-center justify-center rounded-xl bg-nat-purple px-5 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)]"
                 >
-                  Começar agora
+                  Falar com um especialista
                 </a>
               </div>
             </motion.nav>

@@ -24,6 +24,14 @@
     background-color: #fcfcfc;
   }
 
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
+
   /* Headlines usam display font para hierarquia premium */
   h1, h2, h3, .font-display {
     font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
@@ -62,5 +70,20 @@
   }
   75% {
     color: hsl(var(--nat-green));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

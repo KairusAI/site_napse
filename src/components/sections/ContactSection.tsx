@@ -2,6 +2,14 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MessageCircle, Mail, Send, CheckCircle } from 'lucide-react'
 
+const challengeOptions = [
+  'Organizar agenda e confirmações',
+  'Centralizar prontuário e operação',
+  'Melhorar financeiro e relatórios',
+  'Ganhar previsibilidade comercial',
+  'Entender o melhor setup para a clínica',
+]
+
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
@@ -18,16 +26,15 @@ export function ContactSection() {
       id="contato"
       className="relative overflow-hidden py-20 sm:py-24 lg:py-32"
     >
-      {/* Fundo com gradiente suave — evita flat white */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-neutral-50/60 to-white" />
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
-          backgroundImage: `radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.08), transparent 60%)`,
+          backgroundImage: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.08), transparent 60%)',
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 24 }}
@@ -35,23 +42,23 @@ export function ContactSection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
-            Fale conosco
+            Fale com um especialista
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
-            Fale com um especialista
+            Vamos entender a operação da sua clínica
           </h2>
-          <p className="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto">
-            Conte sobre sua clínica. Respondemos em até 24h — sem compromisso.
+          <p className="text-base sm:text-lg text-neutral-600 max-w-3xl mx-auto">
+            Preencha o formulário com o contexto da sua operação. Nossa equipe analisa as
+            informações e entra em contato com você para orientar os próximos passos.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start"
+          className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.95fr] gap-8 lg:gap-12 items-start"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Formulário */}
           <div className="rounded-2xl border border-neutral-200/90 bg-white/90 backdrop-blur-xl p-6 sm:p-8 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -59,43 +66,112 @@ export function ContactSection() {
                   <CheckCircle className="w-8 h-8 text-nat-green" />
                 </div>
                 <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-                  Mensagem enviada!
+                  Recebemos seu contato
                 </h3>
-                <p className="text-neutral-600">
-                  Entraremos em contato em até 24 horas.
+                <p className="max-w-md text-neutral-600">
+                  Nosso time vai analisar os detalhes enviados e entrar em contato com você.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    Nome completo
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
-                    placeholder="Seu nome"
-                  />
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      Nome completo
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                      placeholder="Seu nome"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="clinic" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      Nome da clínica
+                    </label>
+                    <input
+                      id="clinic"
+                      name="clinic"
+                      type="text"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                      placeholder="Nome da clínica"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="whatsapp" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      WhatsApp
+                    </label>
+                    <input
+                      id="whatsapp"
+                      name="whatsapp"
+                      type="tel"
+                      autoComplete="tel"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                      placeholder="(00) 00000-0000"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      E-mail
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                      placeholder="seu@email.com"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    E-mail
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
-                    placeholder="seu@email.com"
-                  />
+
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-[1fr_220px]">
+                  <div>
+                    <label htmlFor="challenge" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      Principal desafio hoje
+                    </label>
+                    <select
+                      id="challenge"
+                      name="challenge"
+                      required
+                      defaultValue=""
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                    >
+                      <option value="" disabled>
+                        Selecione uma opção
+                      </option>
+                      {challengeOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="doctors" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                      Quantidade de médicos
+                    </label>
+                    <input
+                      id="doctors"
+                      name="doctors"
+                      type="text"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                      placeholder="Ex: 3 a 5"
+                    />
+                  </div>
                 </div>
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    Mensagem
+                    Conte um pouco sobre sua operação
                   </label>
                   <textarea
                     id="message"
@@ -103,57 +179,74 @@ export function ContactSection() {
                     rows={4}
                     required
                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors resize-none"
-                    placeholder="Ex: consultório com 2 médicos, quero migrar da planilha, preciso de faturamento TISS..."
+                    placeholder="Ex: hoje usamos planilha e WhatsApp para confirmar agenda, queremos centralizar atendimento, prontuário e financeiro."
                   />
                 </div>
+
+                <div className="rounded-2xl border border-nat-purple/10 bg-nat-purple/5 px-4 py-3 text-sm text-neutral-600">
+                  Este formulário é o principal ponto de contato comercial da landing. Depois você pode substituir manualmente o destino por um form externo, sem mudar a narrativa da página.
+                </div>
+
                 <button
                   type="submit"
                   className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-nat-purple px-6 py-4 text-base font-semibold text-white shadow-[0_4px_20px_-4px_hsl(262_83%_52%_/_0.5)] transition-all hover:shadow-[0_8px_28px_-4px_hsl(262_83%_52%_/_0.5)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
                 >
                   <Send className="w-5 h-5" />
-                  Enviar mensagem
+                  Falar com um especialista
                 </button>
               </form>
             )}
           </div>
 
-          {/* Contato direto */}
           <div className="space-y-6">
             <div className="rounded-2xl border border-neutral-200/80 bg-white/70 backdrop-blur-sm p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]">
+              <p className="mb-3 inline-flex rounded-full bg-nat-green/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-nat-green">
+                Fluxo comercial
+              </p>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                O que acontece depois do envio
+              </h3>
+              <div className="space-y-3 text-sm text-neutral-600">
+                <p>1. Recebemos o contexto da sua clínica e avaliamos o momento da operação.</p>
+                <p>2. Nosso time organiza o encaminhamento comercial com o sócio responsável.</p>
+                <p>3. Entramos em contato para aprofundar prioridades, estrutura e melhor aderência do produto.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-neutral-200/80 bg-white/70 backdrop-blur-sm p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]">
               <h3 className="text-lg font-semibold text-neutral-900 mb-4">
-                Ou fale direto conosco
+                Canais de apoio
               </h3>
               <div className="space-y-4">
                 <a
-                  href="https://wa.me/5511999999999"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contato"
                   className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-green/50 hover:shadow-md group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-nat-green/10 flex items-center justify-center group-hover:bg-nat-green/20 transition-colors">
                     <MessageCircle className="w-6 h-6 text-nat-green" />
                   </div>
                   <div>
-                    <p className="font-semibold text-neutral-900">WhatsApp</p>
-                    <p className="text-sm text-neutral-600">Resposta rápida</p>
+                    <p className="font-semibold text-neutral-900">WhatsApp comercial</p>
+                    <p className="text-sm text-neutral-600">Direcionado a partir do formulário</p>
                   </div>
                 </a>
                 <a
-                  href="mailto:contato@napse.com.br"
+                  href="#contato"
                   className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-purple/50 hover:shadow-md group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-nat-purple/10 flex items-center justify-center group-hover:bg-nat-purple/20 transition-colors">
                     <Mail className="w-6 h-6 text-nat-purple" />
                   </div>
                   <div>
-                    <p className="font-semibold text-neutral-900">E-mail</p>
-                    <p className="text-sm text-neutral-600">contato@napse.com.br</p>
+                    <p className="font-semibold text-neutral-900">Contato consultivo</p>
+                    <p className="text-sm text-neutral-600">Análise guiada da operação e próximos passos</p>
                   </div>
                 </a>
               </div>
             </div>
+
             <p className="text-sm text-neutral-500">
-              Sem compromisso. Tire dúvidas, peça uma demonstração ou comece seu teste grátis.
+              Sem compromisso inicial. O foco aqui é entender o seu contexto e abrir a conversa comercial certa.
             </p>
           </div>
         </motion.div>

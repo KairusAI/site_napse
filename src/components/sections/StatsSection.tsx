@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, animate } from 'framer-motion'
+import { useReducedMotionPreference } from '@/hooks/useReducedMotion'
 
 type StatItem = {
   id: string
@@ -69,9 +70,15 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
     margin: '0px 0px -120px',
   })
   const [displayValue, setDisplayValue] = useState(0)
+  const prefersReducedMotion = useReducedMotionPreference()
 
   useEffect(() => {
     if (!isInView) return
+
+    if (prefersReducedMotion) {
+      setDisplayValue(stat.value)
+      return
+    }
 
     const controls = animate(0, stat.value, {
       duration: 1.6,
@@ -84,7 +91,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
     return () => {
       controls.stop()
     }
-  }, [isInView, stat.value])
+  }, [isInView, prefersReducedMotion, stat.value])
 
   const formattedValue = `${stat.prefix ?? ''}${Math.round(displayValue)}${stat.suffix ?? ''}`
   const isLast = index === stats.length - 1
@@ -182,6 +189,9 @@ export function StatsSection() {
           >
             Números que você sente no dia a dia
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base text-neutral-600">
+            A conversa com nosso especialista ajuda a identificar onde a NAPSE reduz retrabalho, organiza a agenda e traz mais previsibilidade para a rotina da clínica.
+          </p>
         </motion.div>
 
         <motion.div

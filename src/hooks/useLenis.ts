@@ -1,4 +1,5 @@
 import { useLenis as useLenisContext } from 'lenis/react'
+import { getPrefersReducedMotion } from '@/hooks/useReducedMotion'
 
 export interface LenisScrollOptions {
   duration?: number
@@ -29,6 +30,15 @@ export function useLenis(
  * Opções padrão do Lenis para uso no ReactLenis.
  */
 export function getDefaultLenisOptions(): LenisScrollOptions {
+  if (getPrefersReducedMotion()) {
+    return {
+      duration: 0,
+      lerp: 1,
+      smoothWheel: false,
+      syncTouch: false,
+    }
+  }
+
   return { ...defaultOptions }
 }
 

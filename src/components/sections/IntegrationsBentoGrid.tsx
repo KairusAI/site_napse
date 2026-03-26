@@ -162,7 +162,7 @@ export function IntegrationsBentoGrid() {
 
           {/* Coluna direita: imagem integrações — desktop */}
           <motion.div
-            className="hidden lg:flex mt-12 lg:mt-0 lg:sticky lg:top-24 items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[560px]"
+            className="hidden lg:flex mt-12 lg:mt-0 lg:sticky lg:top-24 items-center justify-center overflow-hidden min-h-[400px] lg:min-h-[900px]"
             initial={{ opacity: 0, x: 24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -170,8 +170,8 @@ export function IntegrationsBentoGrid() {
             <img
               src="/assets/imagem_integracoes.png"
               alt="Integrações NAPSE - WhatsApp, Gmail, Google Calendar, Instagram e Asaas conectados ao hub"
-              className="w-full max-w-[34rem] object-contain"
-              style={{ transform: 'translateX(4%) scale(1.15)', transformOrigin: 'top center' }}
+              className="h-full object-contain drop-shadow-lg"
+              style={{ minHeight: '100%', transform: 'scale(1.8)' }}
             />
           </motion.div>
         </div>

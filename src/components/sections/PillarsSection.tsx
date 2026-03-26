@@ -48,8 +48,8 @@ const pillars: Pillar[] = [
   {
     id: 'marketing',
     title: 'Marketing',
-    mascotName: 'Megafone',
-    agentName: 'Agente de IA de Marketing',
+    mascotName: 'Alcance',
+    agentName: 'Napse Alcance',
     subtitle: 'Pacientes chegam com mais previsibilidade',
     description:
       'Conteudo educativo e comercial com IA para manter presenca digital sem sobrecarregar a equipe.',
@@ -66,8 +66,8 @@ const pillars: Pillar[] = [
   {
     id: 'medico',
     title: 'Medico',
-    mascotName: 'Doutor',
-    agentName: 'Agente de IA Medico',
+    mascotName: 'Clinico',
+    agentName: 'Napse Clinico',
     subtitle: 'Consulta fluida com suporte inteligente',
     description:
       'Prontuario, prescricao e documentos em um unico fluxo para reduzir retrabalho sem perder controle clinico.',
@@ -84,8 +84,8 @@ const pillars: Pillar[] = [
   {
     id: 'secretaria',
     title: 'Recepcao',
-    mascotName: 'Recepcionista',
-    agentName: 'Agente de IA da Secretaria',
+    mascotName: 'Atende',
+    agentName: 'Napse Atende',
     subtitle: 'Menos faltas e mais organizacao diaria',
     description:
       'WhatsApp oficial, confirmacoes e agendamento em uma jornada simples para paciente e equipe.',
@@ -102,8 +102,8 @@ const pillars: Pillar[] = [
   {
     id: 'financeiro',
     title: 'Financeiro',
-    mascotName: 'Contador',
-    agentName: 'Agente de IA Financeiro',
+    mascotName: 'Fluxo',
+    agentName: 'Napse Fluxo',
     subtitle: 'Controle economico sem planilhas soltas',
     description:
       'Tabela de precos, producao e relatorios para apoiar decisoes com base no que realmente acontece na clinica.',

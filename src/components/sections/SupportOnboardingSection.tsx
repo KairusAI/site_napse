@@ -24,8 +24,8 @@ const onboardingCards: Array<{
   },
   {
     id: '2',
-    title: 'Migração dos Dados',
-    description: 'Agenda, cadastros e histórico. Nossa equipe migra tudo — você não perde nada.',
+    title: 'Treinamento gravado e acesso permanente',
+    description: 'Acesso permanente ao treinamento gravado, para você assistir quantas vezes quiser.',
     Icon: Users,
     iconClass: 'text-nat-blue',
   },
@@ -117,7 +117,7 @@ export function SupportOnboardingSection() {
               variants={itemVariants}
               className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
             >
-              Implementação em dias, não em meses.
+              Implementação em dias, sem sobrecarregar a equipe.
             </motion.h2>
 
             {/* Imagem mascote — mobile (centralizada) */}
@@ -168,7 +168,7 @@ export function SupportOnboardingSection() {
               className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-blue bg-neutral-50 py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-sm"
             >
               <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed sm:leading-loose tracking-tight font-medium text-balance">
-                Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa.{' '}
+                Do treinamento ao suporte, nossa equipe guia sua clínica em cada etapa.{' '}
                 <span className="text-neutral-900 font-semibold">
                   Você não precisa ser expert em sistema — só em cuidar de pacientes.
                 </span>

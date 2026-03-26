@@ -99,12 +99,12 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50">
-        {/* Barra glass mobile */}
-        <div className="sm:hidden absolute inset-0 h-16 bg-white/70 border-b border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl" />
+      <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4 pointer-events-none">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/85 via-white/45 to-transparent" />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          {/* Logo desktop: some ao scrollar */}
+        <div
+          className={`relative mx-auto max-w-7xl h-16 flex items-center justify-between gap-4 pointer-events-auto`}
+        >
           <motion.a
             href="#hero"
             onClick={(event) => {
@@ -120,7 +120,7 @@ export function Header() {
             <img
               src="/assets/NAPSE-LogotipoPadrao.svg"
               alt="Napse"
-              className="h-8 w-auto"
+              className="h-12 w-auto"
             />
           </motion.a>
 
@@ -134,13 +134,13 @@ export function Header() {
             <img
               src="/assets/NAPSE-LogotipoPadrao.svg"
               alt="Napse"
-              className="h-7 w-auto"
+              className="h-6 w-auto"
             />
           </a>
 
           {/* Nav desktop */}
           <nav className="hidden sm:flex flex-1 justify-center">
-            <div className="relative inline-flex items-center rounded-full bg-white/70 border border-white/80 shadow-[0_10px_35px_rgba(15,23,42,0.12)] px-2 py-1 backdrop-blur-xl">
+            <div className="relative inline-flex items-center rounded-full border border-white/80 bg-white/78 px-2 py-1.5 shadow-soft backdrop-blur-xl">
               <motion.div
                 initial={false}
                 animate={isScrolled ? { width: 'auto', opacity: 1, marginRight: 6 } : { width: 0, opacity: 0, marginRight: 0 }}
@@ -165,7 +165,7 @@ export function Header() {
                     {isActive && (
                       <motion.div
                         layoutId="header-bubble"
-                        className="absolute inset-0 rounded-full bg-gradient-to-r from-nat-purple to-nat-purple/85 shadow-[0_12px_40px_rgba(88,28,135,0.55)]"
+                        className="absolute inset-0 rounded-full bg-brand-gradient shadow-brand"
                         transition={{ type: 'spring', stiffness: 360, damping: 26 }}
                       />
                     )}
@@ -173,12 +173,12 @@ export function Header() {
                       href={item.href}
                       onClick={(event) => handleNavClick(event, item.id, item.href)}
                       className={`relative z-10 flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium transition-colors duration-200 ${
-                        isActive ? 'text-white' : 'text-neutral-600 hover:text-neutral-900'
+                        isActive ? 'text-white' : 'text-neutral-700 hover:text-neutral-900'
                       }`}
                     >
                       <Icon
                         className={`h-4 w-4 ${
-                          isActive ? 'text-white' : 'text-nat-purple/80'
+                          isActive ? 'text-white' : 'text-neutral-500'
                         }`}
                         strokeWidth={1.8}
                       />
@@ -197,7 +197,7 @@ export function Header() {
               e.preventDefault()
               scrollToContact()
             }}
-            className="hidden sm:inline-flex shrink-0 items-center justify-center rounded-full bg-nat-purple px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)] transition-all duration-200 hover:shadow-[0_6px_20px_-2px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2"
+            className="hidden sm:inline-flex shrink-0 items-center justify-center rounded-full bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-brand transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-blue focus-visible:ring-offset-2"
           >
             Falar com um especialista
           </a>
@@ -206,7 +206,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="sm:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 border border-white/90 shadow-md backdrop-blur-xl"
+            className="sm:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/90 bg-white/88 shadow-soft backdrop-blur-xl"
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
@@ -248,10 +248,10 @@ export function Header() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+            <div className="absolute inset-0 bg-slate-950/38 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
             <motion.nav
               id="mobile-navigation"
-              className="absolute top-16 right-4 left-4 rounded-2xl border border-white/80 bg-white/95 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-xl"
+              className="absolute top-16 right-4 left-4 rounded-3xl border border-white/80 bg-white/92 p-5 shadow-lift backdrop-blur-xl"
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -269,13 +269,13 @@ export function Header() {
                       <a
                         href={item.href}
                         onClick={(event) => handleNavClick(event, item.id, item.href)}
-                        className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                          isActive
-                            ? 'bg-nat-purple/10 text-nat-purple'
-                            : 'text-neutral-700 hover:bg-neutral-100'
-                        }`}
-                      >
-                        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-nat-purple' : 'text-neutral-400'}`} strokeWidth={1.8} />
+                          className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                            isActive
+                              ? 'bg-nat-blue/10 text-nat-blue'
+                              : 'text-neutral-700 hover:bg-neutral-100'
+                          }`}
+                        >
+                        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-nat-blue' : 'text-neutral-400'}`} strokeWidth={1.8} />
                         {item.label}
                       </a>
                     </li>
@@ -290,7 +290,7 @@ export function Header() {
                     setMobileMenuOpen(false)
                     scrollToContact()
                   }}
-                  className="flex w-full items-center justify-center rounded-xl bg-nat-purple px-5 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)]"
+                  className="flex w-full items-center justify-center rounded-xl bg-brand-gradient px-5 py-3.5 text-base font-semibold text-white shadow-brand"
                 >
                   Falar com um especialista
                 </a>

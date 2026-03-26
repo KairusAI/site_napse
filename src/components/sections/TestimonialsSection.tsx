@@ -130,10 +130,10 @@ const layoutClasses: Record<Layout, string> = {
 }
 
 const glowClasses: Record<Testimonial['specialtyColor'], string> = {
-  'nat-purple': 'shadow-[0_0_24px_rgba(139,92,246,0.35)]',
-  'nat-green': 'shadow-[0_0_24px_rgba(34,197,94,0.35)]',
-  'nat-blue': 'shadow-[0_0_24px_rgba(59,130,246,0.35)]',
-  'nat-yellow': 'shadow-[0_0_24px_rgba(234,179,8,0.35)]',
+  'nat-purple': 'shadow-none',
+  'nat-green': 'shadow-none',
+  'nat-blue': 'shadow-none',
+  'nat-yellow': 'shadow-none',
 }
 
 const ringClasses: Record<Testimonial['specialtyColor'], string> = {
@@ -304,7 +304,7 @@ function TestimonialCard({
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
       <article
-        className={`relative h-full overflow-hidden rounded-2xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] ${isLarge ? 'p-5 sm:p-6 lg:p-8' : 'p-4 sm:p-5 lg:p-6'} ${!['vertical-tall', 'horizontal-tall', 'large'].includes(testimonial.layout) ? 'lg:max-h-[220px]' : ''}`}
+        className={`relative h-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm ${isLarge ? 'p-5 sm:p-6 lg:p-8' : 'p-4 sm:p-5 lg:p-6'} ${!['vertical-tall', 'horizontal-tall', 'large'].includes(testimonial.layout) ? 'lg:max-h-[220px]' : ''}`}
         style={{ borderWidth: '0.5px' }}
       >
       {/* Aspas gigantes translúcidas no fundo */}
@@ -333,7 +333,7 @@ function MobileTestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
   return (
     <article
-      className="relative h-full overflow-hidden rounded-2xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] p-5"
+      className="relative h-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm"
       style={{ borderWidth: '0.5px' }}
     >
       <span
@@ -379,12 +379,8 @@ export function TestimonialsSection() {
     <section
       ref={ref}
       id="depoimentos"
-      className="relative overflow-x-hidden py-16 sm:py-24 lg:py-32 overflow-y-visible"
+      className="relative overflow-x-hidden overflow-y-visible bg-white py-16 sm:py-24 lg:py-32"
     >
-      {/* Fundo com tom para o glass destacar */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/80 via-neutral-50 to-neutral-100/80" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(139,92,246,0.12),transparent_50%)]" />
-
       {/* Título centralizado com largura contida */}
       <div className="relative px-4 mx-auto max-w-5xl">
         <motion.div
@@ -393,7 +389,7 @@ export function TestimonialsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
+          <p className="section-kicker text-nat-blue mb-2">
             Depoimentos
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
@@ -410,14 +406,6 @@ export function TestimonialsSection() {
         <p className="px-6 pb-3 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
           Arraste para ver mais histórias
         </p>
-        <div
-          className="pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-8 sm:w-16 bg-gradient-to-r from-white to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-8 sm:w-16 bg-gradient-to-l from-white to-transparent"
-          aria-hidden
-        />
 
         <div className="flex gap-4 overflow-x-auto px-6 pb-4 snap-x snap-mandatory scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
           {testimonials.map((testimonial) => (
@@ -430,15 +418,6 @@ export function TestimonialsSection() {
 
       {/* Desktop: bento grid com fade nas laterais */}
       <div className="relative w-full min-w-0 max-w-full overflow-x-hidden hidden lg:block">
-        <div
-          className="pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-52 bg-gradient-to-r from-white via-white/70 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-52 bg-gradient-to-l from-white via-white/70 to-transparent"
-          aria-hidden
-        />
-
         <div className="grid grid-cols-6 gap-4 auto-rows-[minmax(140px,auto)] px-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />

@@ -24,32 +24,7 @@ const supportItems = [
 
 export function Footer() {
   return (
-    <footer className="relative bg-[#080808] text-neutral-300 overflow-hidden">
-      {/* Blurry Glow - Roxo (canto superior esquerdo) */}
-      <div
-        className="pointer-events-none absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%)' }}
-      />
-      {/* Blurry Glow - Azul (canto inferior direito) */}
-      <div
-        className="pointer-events-none absolute -bottom-32 -right-32 w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 70%)' }}
-      />
-
-      {/* Textura: malha de linhas (image_8.png) - 5% opacidade */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05] bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/assets/image_8.png)' }}
-      />
-
-      {/* Divisor superior: linha ultra-fina 0.5px com gradiente que some nas pontas */}
-      <div
-        className="absolute left-0 right-0 top-0 pointer-events-none"
-        style={{
-          height: '0.5px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.15) 80%, transparent 100%)',
-        }}
-      />
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#101217] text-neutral-300">
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-14 lg:py-16">
         {/* Logo + posicionamento na mesma linha */}

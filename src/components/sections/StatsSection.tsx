@@ -104,26 +104,14 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
         !isLast ? 'lg:border-r lg:border-slate-100' : ''
       }`}
     >
-      <div className="relative w-full h-full max-w-xs sm:max-w-sm group isolate">
-        {/* Iluminação atrás do card — fora da animação, sempre visível */}
-        <div
-          className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-nat-purple/30 via-nat-blue/25 to-nat-purple/30 blur-2xl group-hover:from-nat-purple/40 group-hover:via-nat-blue/35 group-hover:to-nat-purple/40 transition-all duration-500 pointer-events-none"
-          style={{ zIndex: 0 }}
-          aria-hidden
-        />
-        {/* Liquid glass card — só o card anima */}
-        <motion.div
-          className="relative w-full h-full rounded-3xl bg-white/25 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] px-6 py-8 sm:px-8 sm:py-10 flex flex-col items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/35 hover:border-white/80 hover:shadow-[0_24px_64px_rgba(99,102,241,0.12),inset_0_1px_0_rgba(255,255,255,0.9)]"
-          style={{ zIndex: 1 }}
-        >
-          <span className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-nat-purple to-nat-blue bg-clip-text text-transparent">
-            {formattedValue}
-          </span>
-          <p className="mt-4 text-sm sm:text-base text-slate-600 font-medium max-w-[18rem]">
-            {stat.label}
-          </p>
-        </motion.div>
-      </div>
+      <motion.div className="w-full h-full max-w-xs rounded-3xl border border-neutral-200 bg-white px-6 py-8 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 sm:max-w-sm sm:px-8 sm:py-10">
+        <span className="text-3xl leading-none font-extrabold tracking-tight text-nat-blue sm:text-5xl lg:text-7xl">
+          {formattedValue}
+        </span>
+        <p className="mt-4 max-w-[18rem] text-sm font-medium text-slate-600 sm:text-base">
+          {stat.label}
+        </p>
+      </motion.div>
     </motion.div>
   )
 }
@@ -139,17 +127,15 @@ export function StatsSection() {
     <section
       ref={sectionRef}
       aria-labelledby="stats-heading"
-      className="relative bg-white px-4 py-20 sm:py-28 lg:py-40 overflow-hidden"
+      className="relative overflow-hidden bg-white px-4 py-20 sm:py-28 lg:py-40"
     >
-      {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
-        style={{ background: 'linear-gradient(135deg, hsl(262 83% 52% / 0.03), hsl(217 91% 50% / 0.02))' }}
+        style={{ background: 'linear-gradient(135deg, hsl(262 83% 52% / 0.03), hsl(239 84% 67% / 0.02))' }}
         aria-hidden
       />
-      {/* Linha tipo gráfico no fundo — animação de desenho do início ao fim */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none select-none"
+        className="pointer-events-none absolute inset-0 h-full w-full select-none"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         aria-hidden
@@ -157,7 +143,7 @@ export function StatsSection() {
         <motion.path
           d="M 0 98 L 18 82 L 32 78 L 48 62 L 58 58 L 72 38 L 85 22 L 100 8"
           fill="none"
-          stroke="hsl(var(--nat-purple))"
+          stroke="hsl(var(--nat-blue))"
           strokeOpacity="0.14"
           strokeWidth="0.7"
           strokeLinecap="round"
@@ -180,7 +166,7 @@ export function StatsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
+          <p className="section-kicker text-nat-blue mb-3">
             Impacto em números
           </p>
           <h2

@@ -24,24 +24,16 @@ export function ContactSection() {
     <section
       ref={ref}
       id="contato"
-      className="relative overflow-hidden py-20 sm:py-24 lg:py-32"
+      className="bg-white py-20 sm:py-24 lg:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-neutral-50/60 to-white" />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.08), transparent 60%)',
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
+          <p className="section-kicker text-nat-blue mb-3">
             Fale com um especialista
           </p>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
@@ -59,7 +51,7 @@ export function ContactSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="rounded-2xl border border-neutral-200/90 bg-white/90 backdrop-blur-xl p-6 sm:p-8 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]">
+          <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-nat-green/15 flex items-center justify-center mb-4">
@@ -85,7 +77,7 @@ export function ContactSection() {
                       type="text"
                       autoComplete="name"
                       required
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                       placeholder="Seu nome"
                     />
                   </div>
@@ -98,7 +90,7 @@ export function ContactSection() {
                       name="clinic"
                       type="text"
                       required
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                       placeholder="Nome da clínica"
                     />
                   </div>
@@ -112,7 +104,7 @@ export function ContactSection() {
                       type="tel"
                       autoComplete="tel"
                       required
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                       placeholder="(00) 00000-0000"
                     />
                   </div>
@@ -126,7 +118,7 @@ export function ContactSection() {
                       type="email"
                       autoComplete="email"
                       required
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                       placeholder="seu@email.com"
                     />
                   </div>
@@ -142,7 +134,7 @@ export function ContactSection() {
                       name="challenge"
                       required
                       defaultValue=""
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                     >
                       <option value="" disabled>
                         Selecione uma opção
@@ -163,7 +155,7 @@ export function ContactSection() {
                       name="doctors"
                       type="text"
                       required
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                       className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors"
                       placeholder="Ex: 3 a 5"
                     />
                   </div>
@@ -178,18 +170,18 @@ export function ContactSection() {
                     name="message"
                     rows={4}
                     required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors resize-none"
+                     className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-blue focus:ring-2 focus:ring-nat-blue/20 focus:outline-none transition-colors resize-none"
                     placeholder="Ex: hoje usamos planilha e WhatsApp para confirmar agenda, queremos centralizar atendimento, prontuário e financeiro."
                   />
                 </div>
 
-                <div className="rounded-2xl border border-nat-purple/10 bg-nat-purple/5 px-4 py-3 text-sm text-neutral-600">
+                <div className="rounded-2xl border border-nat-blue/10 bg-nat-blue/5 px-4 py-3 text-sm text-neutral-600">
                   Este formulário é o principal ponto de contato comercial da landing. Depois você pode substituir manualmente o destino por um form externo, sem mudar a narrativa da página.
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-nat-purple px-6 py-4 text-base font-semibold text-white shadow-[0_4px_20px_-4px_hsl(262_83%_52%_/_0.5)] transition-all hover:shadow-[0_8px_28px_-4px_hsl(262_83%_52%_/_0.5)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-6 py-4 text-base font-semibold text-white shadow-brand transition-all hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-nat-blue focus:ring-offset-2"
                 >
                   <Send className="w-5 h-5" />
                   Falar com um especialista
@@ -199,7 +191,7 @@ export function ContactSection() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-2xl border border-neutral-200/80 bg-white/70 backdrop-blur-sm p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]">
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
               <p className="mb-3 inline-flex rounded-full bg-nat-green/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-nat-green">
                 Fluxo comercial
               </p>
@@ -213,17 +205,17 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-neutral-200/80 bg-white/70 backdrop-blur-sm p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]">
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold text-neutral-900 mb-4">
                 Canais de apoio
               </h3>
               <div className="space-y-4">
                 <a
                   href="#contato"
-                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-green/50 hover:shadow-md group"
+                  className="group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:border-nat-blue/50 hover:shadow-md"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-nat-green/10 flex items-center justify-center group-hover:bg-nat-green/20 transition-colors">
-                    <MessageCircle className="w-6 h-6 text-nat-green" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-nat-blue/10 transition-colors group-hover:bg-nat-blue/20">
+                    <MessageCircle className="w-6 h-6 text-nat-blue" />
                   </div>
                   <div>
                     <p className="font-semibold text-neutral-900">WhatsApp comercial</p>
@@ -232,10 +224,10 @@ export function ContactSection() {
                 </a>
                 <a
                   href="#contato"
-                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-purple/50 hover:shadow-md group"
+                  className="group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:border-nat-blue/50 hover:shadow-md"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-nat-purple/10 flex items-center justify-center group-hover:bg-nat-purple/20 transition-colors">
-                    <Mail className="w-6 h-6 text-nat-purple" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-nat-blue/10 transition-colors group-hover:bg-nat-blue/20">
+                    <Mail className="w-6 h-6 text-nat-blue" />
                   </div>
                   <div>
                     <p className="font-semibold text-neutral-900">Contato consultivo</p>

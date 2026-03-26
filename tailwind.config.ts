@@ -27,10 +27,10 @@ export default {
           muted: 'hsl(42, 40%, 96%)',
         },
         'nat-blue': {
-          DEFAULT: 'hsl(217, 91%, 50%)',
+          DEFAULT: 'hsl(239, 84%, 67%)',
           foreground: 'hsl(0, 0%, 100%)',
-          light: 'hsl(217, 70%, 92%)',
-          muted: 'hsl(217, 35%, 96%)',
+          light: 'hsl(239, 86%, 93%)',
+          muted: 'hsl(239, 42%, 96%)',
         },
         'nat-purple': {
           DEFAULT: 'hsl(262, 83%, 52%)',
@@ -38,10 +38,22 @@ export default {
           light: 'hsl(262, 60%, 92%)',
           muted: 'hsl(262, 35%, 96%)',
         },
+        primary: {
+          DEFAULT: 'hsl(239, 84%, 67%)',
+          foreground: 'hsl(0, 0%, 100%)',
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.5s ease-out forwards',
         'slide-up': 'slide-up 0.5s ease-out forwards',
+      },
+      boxShadow: {
+        soft: '0 12px 36px rgba(15, 23, 42, 0.08)',
+        lift: '0 24px 68px rgba(15, 23, 42, 0.14)',
+        brand: '0 20px 52px rgba(99, 102, 241, 0.34)',
+      },
+      backgroundImage: {
+        'brand-gradient': 'linear-gradient(112deg, rgb(147 197 253), rgb(99 102 241))',
       },
       keyframes: {
         'fade-in': {

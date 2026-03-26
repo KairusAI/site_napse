@@ -4,24 +4,35 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98.8%; /* #fcfcfc */
-    --foreground: 0 0% 9%;
+    --background: 220 33% 99%;
+    --foreground: 224 17% 10%;
     --nat-green: 142 76% 36%;
     --nat-yellow: 42 96% 50%;
-    --nat-blue: 217 91% 50%;
+    --nat-blue: 239 84% 67%;
     --nat-purple: 262 83% 52%;
-    /* Gradientes multicolor — evita purple-on-white genérico */
-    --gradient-hero: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(99,102,241,0.04), transparent 50%);
-    --gradient-accent: linear-gradient(135deg, hsl(262 83% 52% / 0.08), hsl(217 91% 50% / 0.06));
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 239 84% 67%;
+    --surface-0: 220 30% 99%;
+    --surface-1: 220 30% 97%;
+    --surface-2: 225 28% 94%;
+    --ink-muted: 225 10% 42%;
+    --gradient-hero: radial-gradient(ellipse 72% 54% at 82% 16%, hsl(239 84% 67% / 0.1), transparent 56%);
+    --gradient-accent: linear-gradient(125deg, hsl(213 97% 78% / 0.24), hsl(239 84% 67% / 0.18));
+    --gradient-brand: linear-gradient(112deg, hsl(213 97% 78%) 0%, hsl(239 84% 67%) 100%);
+    --shadow-soft: 0 12px 36px rgba(15, 23, 42, 0.08);
+    --shadow-lift: 0 24px 68px rgba(15, 23, 42, 0.14);
   }
 
   html {
-    scroll-behavior: auto; /* Lenis controla o scroll */
+    scroll-behavior: auto;
   }
 
   body {
-    @apply text-neutral-900 antialiased font-sans;
-    background-color: #fcfcfc;
+    @apply font-sans antialiased;
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    min-height: 100vh;
   }
 
   button,
@@ -32,9 +43,45 @@
     touch-action: manipulation;
   }
 
-  /* Headlines usam display font para hierarquia premium */
-  h1, h2, h3, .font-display {
+  h1,
+  h2,
+  h3,
+  .font-display {
     font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .section-kicker {
+    @apply text-xs sm:text-sm font-semibold uppercase tracking-[0.2em];
+  }
+
+  .section-title {
+    @apply mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900;
+  }
+
+  .section-subtitle {
+    @apply mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-neutral-600;
+  }
+
+  .surface-card {
+    @apply rounded-3xl border border-white/70 bg-white/75 backdrop-blur-xl;
+    box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  }
+
+  .surface-card-lift {
+    @apply rounded-3xl border border-white/80 bg-white/80 backdrop-blur-xl;
+    box-shadow: var(--shadow-lift), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  }
+
+  .mascot-stage {
+    @apply relative overflow-hidden rounded-[2.2rem] border border-white/70 bg-white/55 backdrop-blur-xl;
+    box-shadow: var(--shadow-lift), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  }
+
+  .brand-gradient-text {
+    background-image: var(--gradient-brand);
+    @apply bg-clip-text text-transparent;
   }
 }
 
@@ -43,9 +90,19 @@
     text-wrap: balance;
   }
 
-  /** Ciclo de cores dos mascotes: azul → roxo → amarelo → verde */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   .text-mascote-cycle {
     animation: mascote-color-cycle 10s ease-in-out infinite;
+  }
+
+  .glow-brand {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.42),
+      0 22px 52px rgba(147, 197, 253, 0.28),
+      0 26px 68px rgba(99, 102, 241, 0.24);
   }
 }
 

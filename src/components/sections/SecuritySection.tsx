@@ -25,11 +25,10 @@ const securityPoints = [
 
 export function SecuritySection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-neutral-50 via-white to-neutral-50/80 px-4 py-20 text-neutral-900 lg:px-8 lg:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_88%_at_20%_16%,rgba(37,99,235,0.08),transparent_76%),radial-gradient(ellipse_110%_80%_at_80%_8%,rgba(16,185,129,0.05),transparent_78%)]" />
-      <div className="relative mx-auto max-w-6xl">
+    <section className="bg-white px-4 py-20 text-neutral-900 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-blue">
+          <p className="section-kicker text-nat-blue">
             Segurança e confiança
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -44,7 +43,7 @@ export function SecuritySection() {
           {securityPoints.map(({ title, description, Icon }) => (
             <article
               key={title}
-              className="rounded-3xl border border-neutral-200/80 bg-white/90 p-5 shadow-[0_20px_40px_rgba(15,23,42,0.08)] backdrop-blur-sm"
+              className="rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-nat-blue/10 text-nat-blue">
                 <Icon className="h-5 w-5" strokeWidth={1.8} />

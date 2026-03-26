@@ -13,9 +13,6 @@ const onboardingCards: Array<{
   title: string
   description: string
   Icon: LucideIcon
-  color: 'purple' | 'green' | 'blue'
-  gradient: string
-  glow: string
   iconClass: string
 }> = [
   {
@@ -23,29 +20,20 @@ const onboardingCards: Array<{
     title: 'Onboarding Guiado',
     description: 'Tour passo a passo pelo sistema. Em minutos você já sabe onde está cada coisa.',
     Icon: Database,
-    color: 'purple',
-    gradient: 'from-nat-purple/10 via-white/95 to-white',
-    glow: '0 0 40px 12px hsl(262 83% 52% / 0.12), 0 0 80px 24px hsl(262 83% 52% / 0.06)',
-    iconClass: 'text-nat-purple',
+    iconClass: 'text-nat-blue',
   },
   {
     id: '2',
     title: 'Migração dos Dados',
     description: 'Agenda, cadastros e histórico. Nossa equipe migra tudo — você não perde nada.',
     Icon: Users,
-    color: 'green',
-    gradient: 'from-nat-green/10 via-white/95 to-white',
-    glow: '0 0 40px 12px hsl(142 76% 36% / 0.12), 0 0 80px 24px hsl(142 76% 36% / 0.06)',
-    iconClass: 'text-nat-green',
+    iconClass: 'text-nat-blue',
   },
   {
     id: '3',
     title: 'Suporte Humano',
     description: 'Chat, e-mail e telefone. Dúvida? Resposta em até 24h, sem robô.',
     Icon: Headphones,
-    color: 'blue',
-    gradient: 'from-nat-blue/10 via-white/95 to-white',
-    glow: '0 0 40px 12px hsl(217 91% 50% / 0.12), 0 0 80px 24px hsl(217 91% 50% / 0.06)',
     iconClass: 'text-nat-blue',
   },
 ]
@@ -67,37 +55,6 @@ const containerVariants = {
 const itemVariants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
-
-function HexagonPattern() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.25]" aria-hidden>
-      <svg className="absolute -right-20 -top-10 w-[400px] h-[400px]" viewBox="0 0 200 200" fill="none" strokeWidth="0.5">
-        {[...Array(5)].map((_, i) =>
-          [...Array(5)].map((_, j) => (
-            <polygon
-              key={`${i}-${j}`}
-              points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-              transform={`translate(${i * 55},${j * 55}) scale(0.35)`}
-              className="stroke-slate-200"
-            />
-          ))
-        )}
-      </svg>
-      <svg className="absolute right-1/4 top-1/2 w-[280px] h-[280px]" viewBox="0 0 200 200" fill="none" strokeWidth="0.5">
-        {[...Array(4)].map((_, i) =>
-          [...Array(4)].map((_, j) => (
-            <polygon
-              key={`b-${i}-${j}`}
-              points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-              transform={`translate(${i * 52},${j * 52}) scale(0.3)`}
-              className="stroke-slate-200"
-            />
-          ))
-        )}
-      </svg>
-    </div>
-  )
 }
 
 export function SupportOnboardingSection() {
@@ -137,11 +94,9 @@ export function SupportOnboardingSection() {
   return (
     <section
       id="suporte"
-      className="relative overflow-hidden px-4 py-20 lg:py-32 bg-[#F8FAFC]"
+      className="bg-white px-4 py-20 lg:py-32"
     >
-      <HexagonPattern />
-
-      <div className="relative max-w-6xl lg:max-w-7xl mx-auto">
+      <div className="max-w-6xl lg:max-w-7xl mx-auto">
         <div className="relative lg:grid lg:grid-cols-[2fr_3fr] lg:gap-16 xl:gap-20 lg:items-stretch">
           {/* Coluna esquerda: título + mascote */}
           <motion.div
@@ -153,7 +108,7 @@ export function SupportOnboardingSection() {
           >
             <motion.p
               variants={itemVariants}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3"
+              className="section-kicker text-nat-blue mb-3"
             >
               Suporte e Onboarding
             </motion.p>
@@ -210,7 +165,7 @@ export function SupportOnboardingSection() {
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true, margin: '-80px 0px' }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
+              className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-blue bg-neutral-50 py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-sm"
             >
               <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed sm:leading-loose tracking-tight font-medium text-balance">
                 Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa.{' '}
@@ -227,8 +182,7 @@ export function SupportOnboardingSection() {
                 >
                   <div
                     data-support-card
-                    className={`relative rounded-3xl bg-gradient-to-b ${card.gradient} backdrop-blur-md border border-white/40 p-6 lg:p-8 text-center overflow-hidden opacity-0 transition-shadow duration-300 hover:shadow-xl hover:border-white/60`}
-                    style={{ boxShadow: card.glow }}
+                    className="relative rounded-3xl border border-neutral-200 bg-white p-6 text-center opacity-0 shadow-sm transition-shadow duration-300 hover:shadow-md lg:p-8"
                   >
                     <card.Icon
                       className={`mx-auto mb-4 w-12 h-12 lg:w-14 lg:h-14 ${card.iconClass}`}

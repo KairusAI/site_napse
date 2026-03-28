@@ -18,15 +18,15 @@ export function FinalCTASection() {
 
       {/* Imagem à direita (posicionada, não altera o layout – como na FAQ) */}
       <motion.div
-        className="pointer-events-none absolute right-0 top-[12%] z-0 hidden -translate-y-1/2 lg:block"
-        initial={{ opacity: 0, x: 10 }}
+        className="pointer-events-none absolute right-0 top-[12%] z-0 hidden -translate-y-1/2 lg:block xl:right-2 2xl:right-4"
+        initial={{ opacity: 0, x: 28 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <img
           src="/assets/imagem_cta2.png"
           alt="Mascote NAPSE convidando para começar"
-          className="max-h-[420px] w-auto object-contain xl:max-h-[500px]"
+          className="max-h-[260px] w-auto object-contain sm:max-h-[280px] xl:max-h-[320px] 2xl:max-h-[340px]"
           style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}
         />
       </motion.div>

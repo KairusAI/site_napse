@@ -143,8 +143,8 @@ export function FAQSection() {
 
       {/* Imagem à esquerda (posicionada, não altera o layout) */}
       <motion.div
-        className="pointer-events-none absolute left-0 top-[28%] z-0 hidden -translate-y-1/2 lg:block"
-        initial={{ opacity: 0, x: -20 }}
+        className="pointer-events-none absolute -left-10 top-[28%] z-0 hidden -translate-y-1/2 lg:block xl:-left-16 2xl:-left-20"
+        initial={{ opacity: 0, x: -24 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
@@ -173,46 +173,49 @@ export function FAQSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="max-w-3xl ml-auto rounded-2xl border-2 border-neutral-200/90 bg-white/80 bg-gradient-to-br from-white via-neutral-50/80 to-nat-purple/5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_10px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl overflow-hidden"
-          initial={{ opacity: 0, y: 20, scale: 0.98 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {faqData.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.55,
-                delay: 0.35 + index * 0.07,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <FaqAccordionItem
-                item={item}
-                isOpen={openId === item.id}
-                onToggle={() => handleToggle(item.id)}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.p
-          className="mt-14 text-center text-base sm:text-lg text-neutral-600"
-          initial={{ opacity: 0, y: 12 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          Não encontrou sua dúvida?{' '}
-          <a
-            href="#contato"
-            className="font-semibold text-nat-purple hover:underline focus:outline-none focus-visible:underline"
+        {/* Mesma caixa horizontal: centro do acordeão e do CTA coincidem */}
+        <div className="mx-auto w-full max-w-3xl lg:ml-auto lg:mr-16 xl:mr-24 2xl:mr-32">
+          <motion.div
+            className="w-full rounded-2xl border-2 border-neutral-200/90 bg-white/80 bg-gradient-to-br from-white via-neutral-50/80 to-nat-purple/5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_10px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Fale conosco
-          </a>
-        </motion.p>
+            {faqData.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.35 + index * 0.07,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <FaqAccordionItem
+                  item={item}
+                  isOpen={openId === item.id}
+                  onToggle={() => handleToggle(item.id)}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.p
+            className="mt-14 w-full text-center text-base text-neutral-600 sm:text-lg"
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Não encontrou sua dúvida?{' '}
+            <a
+              href="#contato"
+              className="font-semibold text-nat-purple hover:underline focus:outline-none focus-visible:underline"
+            >
+              Fale conosco
+            </a>
+          </motion.p>
+        </div>
       </div>
     </section>
   )

@@ -12,10 +12,10 @@ export function AppShowcaseSection() {
     <section
       ref={sectionRef}
       id="plataforma"
-      className="relative overflow-hidden bg-[#fcfcfc]"
+      className="relative overflow-hidden bg-[#f4f6f9]"
       aria-labelledby="app-showcase-heading"
     >
-      <div className="relative z-10 mx-auto w-full max-w-[100rem] px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-6 lg:pb-24 lg:pt-20">
+      <div className="relative z-10 mx-auto w-full max-w-[100rem] bg-gradient-to-b from-slate-200/25 via-transparent to-slate-200/20 px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-6 lg:pb-24 lg:pt-20">
         <motion.div
           className="mx-auto mb-10 max-w-3xl text-center lg:max-w-4xl"
           initial={{ opacity: 0, y: 20 }}
@@ -48,8 +48,8 @@ export function AppShowcaseSection() {
             <div
               className={
                 reduceMotion
-                  ? 'relative drop-shadow-[0_12px_28px_-8px_rgba(15,23,42,0.35)] sm:drop-shadow-[0_20px_40px_-10px_rgba(15,23,42,0.35)]'
-                  : 'relative origin-bottom transform-gpu will-change-transform drop-shadow-[0_16px_32px_-10px_rgba(15,23,42,0.4)] sm:drop-shadow-[0_28px_48px_-14px_rgba(15,23,42,0.42)] [transform:rotateY(10deg)_rotateX(4deg)] sm:[transform:rotateY(14deg)_rotateX(5deg)] md:[transform:rotateY(18deg)_rotateX(4deg)] lg:[transform:rotateY(22deg)_rotateX(4deg)]'
+                  ? 'relative [filter:drop-shadow(0_6px_14px_rgba(15,23,42,0.06))_drop-shadow(0_14px_28px_-6px_rgba(15,23,42,0.1))] sm:[filter:drop-shadow(0_8px_18px_rgba(15,23,42,0.07))_drop-shadow(0_22px_44px_-10px_rgba(15,23,42,0.11))]'
+                  : 'relative origin-bottom transform-gpu will-change-transform [filter:drop-shadow(0_6px_14px_rgba(15,23,42,0.07))_drop-shadow(0_16px_36px_-8px_rgba(15,23,42,0.12))] sm:[filter:drop-shadow(0_8px_18px_rgba(15,23,42,0.08))_drop-shadow(0_24px_52px_-12px_rgba(15,23,42,0.14))] [transform:rotateY(10deg)_rotateX(4deg)] sm:[transform:rotateY(14deg)_rotateX(5deg)] md:[transform:rotateY(18deg)_rotateX(4deg)] lg:[transform:rotateY(22deg)_rotateX(4deg)]'
               }
             >
               <div
@@ -76,8 +76,8 @@ export function AppShowcaseSection() {
             <div
               className={
                 reduceMotion
-                  ? 'relative drop-shadow-[0_16px_36px_-12px_rgba(15,23,42,0.36)] sm:drop-shadow-[0_28px_56px_-16px_rgba(15,23,42,0.38)]'
-                  : 'relative origin-bottom transform-gpu will-change-transform drop-shadow-[0_20px_40px_-14px_rgba(15,23,42,0.42)] sm:drop-shadow-[0_36px_60px_-18px_rgba(15,23,42,0.44)] [transform:rotateY(-8deg)_rotateX(4deg)] sm:[transform:rotateY(-12deg)_rotateX(5deg)] md:[transform:rotateY(-16deg)_rotateX(4deg)] lg:[transform:rotateY(-20deg)_rotateX(4deg)]'
+                  ? 'relative [filter:drop-shadow(0_8px_18px_rgba(15,23,42,0.07))_drop-shadow(0_18px_40px_-10px_rgba(15,23,42,0.11))] sm:[filter:drop-shadow(0_10px_22px_rgba(15,23,42,0.08))_drop-shadow(0_26px_52px_-12px_rgba(15,23,42,0.12))]'
+                  : 'relative origin-bottom transform-gpu will-change-transform [filter:drop-shadow(0_8px_18px_rgba(15,23,42,0.08))_drop-shadow(0_20px_44px_-10px_rgba(15,23,42,0.13))] sm:[filter:drop-shadow(0_10px_24px_rgba(15,23,42,0.09))_drop-shadow(0_28px_60px_-14px_rgba(15,23,42,0.15))] [transform:rotateY(-8deg)_rotateX(4deg)] sm:[transform:rotateY(-12deg)_rotateX(5deg)] md:[transform:rotateY(-16deg)_rotateX(4deg)] lg:[transform:rotateY(-20deg)_rotateX(4deg)]'
               }
             >
               <div className="rounded-t-lg bg-gradient-to-b from-neutral-700 to-neutral-800 px-2 pb-1.5 pt-2 shadow-lg sm:rounded-t-xl sm:px-4 sm:pb-2 sm:pt-2.5 lg:px-5 lg:pt-3">

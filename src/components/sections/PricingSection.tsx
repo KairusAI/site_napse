@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView, animate } from 'framer-motion'
 import { Check } from 'lucide-react'
 
 type BillingPeriod = 'monthly' | 'yearly'
@@ -88,6 +88,31 @@ function formatPrice(value: number) {
   })
 }
 
+/** Contagem animada entre valores ao trocar mensal/anual (mesmo padrão da seção de KPIs). */
+function AnimatedPlanPrice({ value, staggerIndex = 0 }: { value: number; staggerIndex?: number }) {
+  const displayRef = useRef(value)
+  const [display, setDisplay] = useState(value)
+
+  useEffect(() => {
+    const controls = animate(displayRef.current, value, {
+      duration: 1.2,
+      delay: staggerIndex * 0.06,
+      ease: 'easeOut',
+      onUpdate: (latest) => {
+        displayRef.current = latest
+        setDisplay(latest)
+      },
+    })
+    return () => controls.stop()
+  }, [value, staggerIndex])
+
+  return (
+    <span className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 tabular-nums">
+      R$ {formatPrice(Math.round(display))}
+    </span>
+  )
+}
+
 function BillingToggle({
   billing,
   onChange,
@@ -162,25 +187,25 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="planos"
-      className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-16 sm:py-24 lg:py-32"
+      className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-16 sm:py-24 lg:px-6 lg:py-32"
     >
       {/* Glow de fundo suave */}
       <div className="pointer-events-none absolute inset-x-0 top-[-8rem] mx-auto h-[380px] max-w-4xl rounded-full bg-gradient-to-b from-nat-green/14 via-nat-green/6 to-transparent blur-3xl" />
 
-      <div className="relative mx-auto max-w-5xl lg:max-w-6xl">
+      <div className="relative mx-auto w-full max-w-[100rem]">
         <motion.div
-          className="mb-12 text-center space-y-4"
+          className="mb-10 text-center lg:pt-20"
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-green mb-1">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-green lg:mb-3">
             Planos NAPSE
           </p>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
             Investimento que paga em tempo e tranquilidade.
           </h2>
-          <div className="mt-6">
+          <div className="mt-4 flex justify-center lg:mt-6">
             <BillingToggle billing={billing} onChange={setBilling} />
           </div>
         </motion.div>
@@ -193,7 +218,7 @@ export function PricingSection() {
         >
           {/* Cards de preço – grid original em 3 colunas no desktop */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 lg:mr-auto">
-            {plans.map((plan) => {
+            {plans.map((plan, planIndex) => {
               const price =
                 billing === 'monthly'
                   ? plan.monthlyPrice
@@ -227,12 +252,16 @@ export function PricingSection() {
                   </div>
 
                   <div className="mb-6 flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
-                      R$ {formatPrice(price)}
-                    </span>
-                    <span className="text-xs sm:text-sm text-neutral-500">
+                    <AnimatedPlanPrice value={price} staggerIndex={planIndex} />
+                    <motion.span
+                      key={billing}
+                      className="text-xs sm:text-sm text-neutral-500"
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    >
                       / {billing === 'monthly' ? 'mês' : 'ano'}
-                    </span>
+                    </motion.span>
                   </div>
 
                   <button

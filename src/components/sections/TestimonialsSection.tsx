@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Star } from 'lucide-react'
 
@@ -143,6 +143,66 @@ const ringClasses: Record<Testimonial['specialtyColor'], string> = {
   'nat-yellow': 'ring-2 ring-nat-yellow/40',
 }
 
+function initialsFromName(name: string) {
+  return name
+    .split(' ')
+    .filter((part) => !/^Dr\.?a?\.?$/i.test(part.trim()))
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join('')
+}
+
+function TestimonialAvatar({
+  testimonial,
+  size = 'md',
+}: {
+  testimonial: Testimonial
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+}) {
+  const [photoFailed, setPhotoFailed] = useState(false)
+  const ring = ringClasses[testimonial.specialtyColor]
+  const glow = glowClasses[testimonial.specialtyColor]
+  const src = `/assets/testimonials/${testimonial.id}.jpg`
+  const initials = initialsFromName(testimonial.name)
+
+  const frame =
+    size === 'xl'
+      ? 'h-16 w-16 sm:h-20 sm:w-20'
+      : size === 'lg'
+        ? 'h-14 w-14 sm:h-16 sm:w-16'
+        : size === 'sm'
+          ? 'h-9 w-9'
+          : 'h-11 w-11'
+
+  const textSize =
+    size === 'xl'
+      ? 'text-xl sm:text-2xl'
+      : size === 'lg'
+        ? 'text-lg sm:text-xl'
+        : size === 'sm'
+          ? 'text-xs'
+          : 'text-base'
+
+  return (
+    <div
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-200 font-semibold text-neutral-600 ${ring} ${glow} ${frame}`}
+      title={testimonial.role}
+    >
+      {!photoFailed && (
+        <img
+          src={src}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+          onError={() => setPhotoFailed(true)}
+        />
+      )}
+      {photoFailed && <span className={`relative z-10 ${textSize}`}>{initials || '?'}</span>}
+    </div>
+  )
+}
+
 function StarsRow({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
   const sizeClass = size === 'sm' ? 'h-4 w-4' : size === 'lg' ? 'h-6 w-6' : 'h-5 w-5'
   const gapClass = size === 'lg' ? 'gap-1' : 'gap-0.5'
@@ -163,29 +223,11 @@ function TestimonialCard({
   index: number
 }) {
   const layout = layoutClasses[testimonial.layout]
-  const glow = glowClasses[testimonial.specialtyColor]
-  const ring = ringClasses[testimonial.specialtyColor]
   const isLarge = testimonial.layout === 'large' || testimonial.layout === 'horizontal-tall'
   const style = testimonial.cardStyle ?? 'default'
   const starSize = style === 'stars-top' || style === 'stars-bottom' ? 'lg' : 'md'
 
-  const quoteClass = isLarge ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'
-
-  const Avatar = ({ size = 'md' }: { size?: 'md' | 'lg' | 'xl' }) => (
-    <div
-      className={`flex shrink-0 items-center justify-center rounded-full bg-neutral-200 font-semibold text-neutral-600 ${ring} ${glow} ${
-        size === 'xl' ? 'h-20 w-20 sm:h-24 sm:w-24 text-2xl sm:text-3xl' : size === 'lg' ? 'h-16 w-16 sm:h-20 sm:w-20 text-xl sm:text-2xl' : 'h-12 w-12 text-lg'
-      }`}
-      title={testimonial.role}
-    >
-      {testimonial.name
-        .split(' ')
-        .filter((part) => !/^Dr\.?a?\.?$/i.test(part.trim()))
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join('')}
-    </div>
-  )
+  const quoteClass = isLarge ? 'text-base sm:text-lg' : 'text-sm sm:text-[0.9375rem]'
 
   const renderContent = () => {
     if (style === 'stars-top') {
@@ -193,16 +235,16 @@ function TestimonialCard({
       return (
         <>
           {testimonial.rating != null && (
-            <div className={isTallCard ? 'mb-3 mt-6 sm:mt-8' : 'mb-3'}>
+            <div className={isTallCard ? 'mb-1.5 mt-3 sm:mt-4' : 'mb-1.5'}>
               <StarsRow rating={testimonial.rating} size={starSize} />
             </div>
           )}
-          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
-          <div className="mt-4 flex items-center gap-3">
-            <Avatar />
+          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-snug sm:leading-relaxed`}>{testimonial.quote}</p>
+          <div className="mt-2 flex items-center gap-2">
+            <TestimonialAvatar testimonial={testimonial} />
             <div>
-              <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-              <p className="text-sm text-neutral-500">{testimonial.role}</p>
+              <p className="text-sm font-semibold text-neutral-900">{testimonial.name}</p>
+              <p className="text-xs text-neutral-500">{testimonial.role}</p>
             </div>
           </div>
         </>
@@ -212,13 +254,13 @@ function TestimonialCard({
       const isNarrowCard = testimonial.layout === 'vertical' || testimonial.layout === 'horizontal-narrow'
       return (
         <>
-          <p className={`text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
-          <div className={`mt-4 flex gap-3 ${isNarrowCard ? 'flex-col' : 'items-center justify-between'}`}>
-            <div className="flex min-w-0 flex-1 items-center gap-3">
-              <Avatar />
+          <p className={`text-neutral-700 ${quoteClass} leading-snug sm:leading-relaxed`}>{testimonial.quote}</p>
+          <div className={`mt-2 flex gap-2 ${isNarrowCard ? 'flex-col' : 'items-center justify-between'}`}>
+            <div className="flex min-w-0 flex-1 items-center gap-2">
+              <TestimonialAvatar testimonial={testimonial} />
               <div className="min-w-0 flex-1">
-                <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                <p className="text-sm text-neutral-500">{testimonial.role}</p>
+                <p className="text-sm font-semibold text-neutral-900">{testimonial.name}</p>
+                <p className="text-xs text-neutral-500">{testimonial.role}</p>
               </div>
             </div>
             {testimonial.rating != null && (
@@ -234,18 +276,18 @@ function TestimonialCard({
       return (
         <>
           <div className="flex flex-1 flex-col">
-            <p className={`text-neutral-700 ${quoteClass} leading-relaxed`}>{testimonial.quote}</p>
-            <div className="mt-4 flex items-center justify-between gap-4">
+            <p className={`text-neutral-700 ${quoteClass} leading-snug sm:leading-relaxed`}>{testimonial.quote}</p>
+            <div className="mt-2 flex items-center justify-between gap-2">
               <div>
-                <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                <p className="text-sm text-neutral-500">{testimonial.role}</p>
+                <p className="text-sm font-semibold text-neutral-900">{testimonial.name}</p>
+                <p className="text-xs text-neutral-500">{testimonial.role}</p>
                 {testimonial.rating != null && (
                   <div className="mt-1">
                     <StarsRow rating={testimonial.rating} size={starSize} />
                   </div>
                 )}
               </div>
-              <Avatar size="lg" />
+              <TestimonialAvatar testimonial={testimonial} size="lg" />
             </div>
           </div>
         </>
@@ -255,19 +297,19 @@ function TestimonialCard({
       const isBigCard = testimonial.layout === 'large'
       return (
         <>
-          <div className={`flex items-start ${isBigCard ? 'mt-8 sm:mt-12 gap-5 sm:gap-6' : 'gap-4'}`}>
-            <Avatar size={isBigCard ? 'xl' : 'lg'} />
+          <div className={`flex items-start ${isBigCard ? 'mt-3 gap-3 sm:mt-5 sm:gap-4' : 'gap-2'}`}>
+            <TestimonialAvatar testimonial={testimonial} size={isBigCard ? 'xl' : 'lg'} />
             <div className="min-w-0 flex-1">
-              <p className={isBigCard ? 'text-xl sm:text-2xl font-semibold text-neutral-900' : 'font-semibold text-neutral-900'}>{testimonial.name}</p>
-              <p className={isBigCard ? 'text-base sm:text-lg text-neutral-500' : 'text-sm text-neutral-500'}>{testimonial.role}</p>
+              <p className={isBigCard ? 'text-lg font-semibold text-neutral-900 sm:text-xl' : 'text-sm font-semibold text-neutral-900'}>{testimonial.name}</p>
+              <p className={isBigCard ? 'text-sm text-neutral-500 sm:text-base' : 'text-xs text-neutral-500'}>{testimonial.role}</p>
               {testimonial.rating != null && (
-                <div className={isBigCard ? 'mt-2' : 'mt-1'}>
+                <div className={isBigCard ? 'mt-1' : 'mt-0.5'}>
                   <StarsRow rating={testimonial.rating} size={isBigCard ? 'lg' : starSize} />
                 </div>
               )}
             </div>
           </div>
-          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed ${isBigCard ? 'mt-5 sm:mt-6' : 'mt-4'}`}>
+          <p className={`flex-1 text-neutral-700 ${quoteClass} leading-snug sm:leading-relaxed ${isBigCard ? 'mt-2 sm:mt-3' : 'mt-2'}`}>
             {testimonial.quote}
           </p>
         </>
@@ -276,19 +318,19 @@ function TestimonialCard({
     const isTallCard = testimonial.layout === 'horizontal-tall'
     return (
       <>
-        <div className={`flex items-start ${isTallCard ? 'mt-8 sm:mt-12 gap-5 sm:gap-6' : 'gap-4'}`}>
-          <Avatar size={isTallCard ? 'xl' : undefined} />
+        <div className={`flex items-start ${isTallCard ? 'mt-3 gap-3 sm:mt-5 sm:gap-4' : 'gap-2'}`}>
+          <TestimonialAvatar testimonial={testimonial} size={isTallCard ? 'xl' : 'md'} />
           <div className="min-w-0 flex-1">
-            <p className={isTallCard ? 'text-xl sm:text-2xl font-semibold text-neutral-900' : 'font-semibold text-neutral-900'}>{testimonial.name}</p>
-            <p className={isTallCard ? 'text-base sm:text-lg text-neutral-500' : 'text-sm text-neutral-500'}>{testimonial.role}</p>
+            <p className={isTallCard ? 'text-lg font-semibold text-neutral-900 sm:text-xl' : 'text-sm font-semibold text-neutral-900'}>{testimonial.name}</p>
+            <p className={isTallCard ? 'text-sm text-neutral-500 sm:text-base' : 'text-xs text-neutral-500'}>{testimonial.role}</p>
             {testimonial.rating != null && (
-              <div className={isTallCard ? 'mt-2' : 'mt-1'}>
+              <div className={isTallCard ? 'mt-1' : 'mt-0.5'}>
                 <StarsRow rating={testimonial.rating} size={isTallCard ? 'lg' : starSize} />
               </div>
             )}
           </div>
         </div>
-        <p className={`flex-1 text-neutral-700 ${quoteClass} leading-relaxed ${isTallCard ? 'mt-5 sm:mt-6' : 'mt-4'}`}>
+        <p className={`flex-1 text-neutral-700 ${quoteClass} leading-snug sm:leading-relaxed ${isTallCard ? 'mt-2 sm:mt-3' : 'mt-2'}`}>
           {testimonial.quote}
         </p>
       </>
@@ -304,18 +346,18 @@ function TestimonialCard({
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
       <article
-        className={`relative h-full overflow-hidden rounded-2xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] ${isLarge ? 'p-5 sm:p-6 lg:p-8' : 'p-4 sm:p-5 lg:p-6'} ${!['vertical-tall', 'horizontal-tall', 'large'].includes(testimonial.layout) ? 'lg:max-h-[220px]' : ''}`}
+        className={`relative h-full overflow-hidden rounded-xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] ${isLarge ? 'p-3 sm:p-4 lg:p-5' : 'p-2.5 sm:p-3 lg:p-4'} ${!['vertical-tall', 'horizontal-tall', 'large'].includes(testimonial.layout) ? 'lg:max-h-[162px]' : ''}`}
         style={{ borderWidth: '0.5px' }}
       >
       {/* Aspas gigantes translúcidas no fundo */}
       <span
-        className="pointer-events-none absolute left-2 top-2 text-[6rem] sm:text-[7rem] font-serif leading-none text-neutral-300/30 select-none"
+        className="pointer-events-none absolute left-1 top-1 text-[3.25rem] font-serif leading-none text-neutral-300/30 select-none sm:left-1.5 sm:top-1.5 sm:text-[3.75rem] lg:text-[4.25rem]"
         aria-hidden
       >
         “
       </span>
       <span
-        className="pointer-events-none absolute bottom-2 right-2 text-[6rem] sm:text-[7rem] font-serif leading-none text-neutral-300/30 select-none"
+        className="pointer-events-none absolute bottom-1 right-1 text-[3.25rem] font-serif leading-none text-neutral-300/30 select-none sm:bottom-1.5 sm:right-1.5 sm:text-[3.75rem] lg:text-[4.25rem]"
         aria-hidden
       >
         "
@@ -328,16 +370,13 @@ function TestimonialCard({
 }
 
 function MobileTestimonialCard({ testimonial }: { testimonial: Testimonial }) {
-  const glow = glowClasses[testimonial.specialtyColor]
-  const ring = ringClasses[testimonial.specialtyColor]
-
   return (
     <article
-      className="relative h-full overflow-hidden rounded-2xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] p-5"
+      className="relative h-full overflow-hidden rounded-xl border border-white/90 bg-white/50 bg-gradient-to-br from-white/60 via-white/45 to-nat-purple/10 shadow-[0_8px_32px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] p-3"
       style={{ borderWidth: '0.5px' }}
     >
       <span
-        className="pointer-events-none absolute left-2 top-2 text-[5rem] font-serif leading-none text-neutral-300/30 select-none"
+        className="pointer-events-none absolute left-1 top-1 text-[3rem] font-serif leading-none text-neutral-300/30 select-none sm:left-1.5 sm:top-1.5 sm:text-[3.25rem]"
         aria-hidden
       >
         "
@@ -345,25 +384,16 @@ function MobileTestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
       <div className="relative z-10 flex h-full flex-col">
         {testimonial.rating != null && (
-          <div className="mb-3">
+          <div className="mb-1.5">
             <StarsRow rating={testimonial.rating} size="sm" />
           </div>
         )}
-        <p className="flex-1 text-sm text-neutral-700 leading-relaxed">{testimonial.quote}</p>
-        <div className="mt-4 flex items-center gap-3">
-          <div
-            className={`flex shrink-0 items-center justify-center rounded-full bg-neutral-200 font-semibold text-neutral-600 h-10 w-10 text-sm ${ring} ${glow}`}
-          >
-            {testimonial.name
-              .split(' ')
-              .filter((part) => !/^Dr\.?a?\.?$/i.test(part.trim()))
-              .map((n) => n[0])
-              .slice(0, 2)
-              .join('')}
-          </div>
+        <p className="flex-1 text-xs text-neutral-700 leading-snug sm:text-sm sm:leading-relaxed">{testimonial.quote}</p>
+        <div className="mt-2 flex items-center gap-2">
+          <TestimonialAvatar testimonial={testimonial} size="sm" />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-neutral-900 truncate">{testimonial.name}</p>
-            <p className="text-xs text-neutral-500">{testimonial.role}</p>
+            <p className="truncate text-xs font-semibold text-neutral-900 sm:text-sm">{testimonial.name}</p>
+            <p className="text-[0.65rem] text-neutral-500 sm:text-xs">{testimonial.role}</p>
           </div>
         </div>
       </div>
@@ -379,27 +409,27 @@ export function TestimonialsSection() {
     <section
       ref={ref}
       id="depoimentos"
-      className="relative overflow-x-hidden py-16 sm:py-24 lg:py-32 overflow-y-visible"
+      className="relative overflow-x-hidden py-8 sm:py-12 lg:py-14 overflow-y-visible"
     >
       {/* Fundo com tom para o glass destacar */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/80 via-neutral-50 to-neutral-100/80" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(139,92,246,0.12),transparent_50%)]" />
 
-      {/* Título centralizado com largura contida */}
-      <div className="relative px-4 mx-auto max-w-5xl">
+      {/* Título — mesmo ritmo visual que PillarsSection (#ecossistema) */}
+      <div className="relative mx-auto w-full max-w-[100rem] px-4 lg:px-6">
         <motion.div
-          className="mb-8 sm:mb-12 text-center"
+          className="mb-10 text-center lg:pt-20"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Depoimentos
           </p>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
             Médicos que já sentem a diferença
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4">
             Depoimentos reais de quem trocou burocracia por mais tempo no consultório.
           </p>
         </motion.div>
@@ -416,9 +446,9 @@ export function TestimonialsSection() {
           aria-hidden
         />
 
-        <div className="flex gap-4 overflow-x-auto px-6 pb-4 snap-x snap-mandatory scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="flex gap-2 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scrollbar-hide sm:gap-3 sm:px-5 sm:pb-2.5" style={{ WebkitOverflowScrolling: 'touch' }}>
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="w-[260px] sm:w-[280px] flex-shrink-0 snap-center">
+            <div key={testimonial.id} className="w-[220px] shrink-0 snap-center sm:w-[240px]">
               <MobileTestimonialCard testimonial={testimonial} />
             </div>
           ))}
@@ -436,7 +466,7 @@ export function TestimonialsSection() {
           aria-hidden
         />
 
-        <div className="grid grid-cols-6 gap-4 auto-rows-[minmax(140px,auto)] px-6">
+        <div className="grid grid-cols-6 gap-2 auto-rows-[minmax(100px,auto)] px-3 sm:px-5">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />
           ))}

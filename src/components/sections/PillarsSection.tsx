@@ -1,4 +1,5 @@
-import { useRef, useState, useLayoutEffect, useCallback } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Megaphone,
   Target,
@@ -112,100 +113,82 @@ const pillars: Pillar[] = [
   },
 ]
 
-function DesktopPillarSlide({
-  pillar,
-  pillarIndex,
-  activeIndex,
-  onSelectPillar,
-}: {
-  pillar: Pillar
-  pillarIndex: number
-  activeIndex: number
-  onSelectPillar: (index: number) => void
-}) {
+/** Duração de cada tab antes de avançar automaticamente (desktop). */
+const TAB_AUTO_ADVANCE_MS = 7000
+
+/** Card único: esquerda clara + mascote | direita cor do pilar + texto + 4 “botões” de recurso */
+function DesktopServiceCard({ pillar }: { pillar: Pillar }) {
   const HeroIcon = pillar.heroIcon
-  const activeColor = pillars[activeIndex]?.bgColor ?? pillar.bgColor
+  const minH = 'min-h-[min(52dvh,26rem)]'
 
   return (
-    <div
-      className="grid h-full min-h-full shrink-0 snap-start snap-always grid-cols-[2fr_3fr]"
-      data-pillar-index={pillarIndex}
-    >
-      <div className="flex flex-col items-center overflow-hidden bg-[#F5F5F5] p-6 pt-10">
-        <h3
-          className="shrink-0 text-3xl font-bold tracking-tight"
-          style={{ color: pillar.bgColor }}
-        >
-          {pillar.mascotName}
-        </h3>
-
-        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden">
-          {pillar.mascotImage ? (
-            <img
-              src={pillar.mascotImage}
-              alt={`Mascote ${pillar.title}`}
-              className="h-full object-contain drop-shadow-lg"
-              style={{ minHeight: '100%', transform: 'scale(1.6)' }}
-            />
-          ) : null}
-        </div>
-
-        <div className="mt-2 flex shrink-0 items-center justify-center gap-2.5 pb-4">
-          {pillars.map((p, i) => (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => onSelectPillar(i)}
-              aria-label={`Ir para ${p.title}`}
-              aria-current={i === activeIndex ? 'true' : undefined}
-              className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 ${
-                i === activeIndex ? 'w-6' : 'w-2.5 opacity-30 hover:opacity-50'
-              }`}
-              style={{ backgroundColor: i === activeIndex ? activeColor : '#999' }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="relative flex flex-col justify-start p-12 pt-16"
-        style={{ backgroundColor: pillar.bgColor }}
-      >
-        <div
-          className="flex items-center justify-center rounded-full bg-white/15"
-          style={{
-            position: 'absolute',
-            top: 24,
-            right: 24,
-            width: 56,
-            height: 56,
-            minWidth: 56,
-            minHeight: 56,
-            zIndex: 10,
-          }}
-        >
-          <HeroIcon className="text-white" size={28} strokeWidth={1.5} />
-        </div>
-        <div className="mb-8">
-          <h3 className="mb-10 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            {pillar.title}
+    <div className={`overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/[0.06] ${minH}`}>
+      <div className={`grid h-full ${minH} grid-cols-[2fr_3fr]`}>
+        {/* Lado esquerdo do card — fundo claro + mascote */}
+        <div className="flex flex-col items-center overflow-hidden bg-[#F5F5F5] p-5 pt-7">
+          <h3
+            className="shrink-0 text-2xl font-bold tracking-tight sm:text-3xl"
+            style={{ color: pillar.bgColor }}
+          >
+            {pillar.mascotName}
           </h3>
-          <h3 className="mb-3 text-3xl font-semibold text-white">{pillar.subtitle}</h3>
-          <p className="max-w-lg text-lg leading-relaxed text-white/80">{pillar.description}</p>
+
+          <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden py-2">
+            {pillar.mascotImage ? (
+              <img
+                src={pillar.mascotImage}
+                alt={`Mascote ${pillar.title}`}
+                className="max-h-full w-auto object-contain drop-shadow-lg"
+                style={{ transform: 'scale(1.35)' }}
+              />
+            ) : null}
+          </div>
         </div>
 
-        <div className="grid max-w-lg grid-cols-2 gap-3">
-          {pillar.features.map((f) => (
-            <div
-              key={`${pillar.id}-${f.label}`}
-              className="flex items-center gap-3 rounded-xl bg-white/15 p-4 backdrop-blur-sm"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                <f.icon className="h-5 w-5 text-white" />
+        {/* Lado direito do card — cor vibrante + conteúdo */}
+        <div
+          className="relative flex flex-col justify-start p-6 pt-10 sm:p-8 sm:pt-11"
+          style={{ backgroundColor: pillar.bgColor }}
+        >
+          <div
+            className="flex items-center justify-center rounded-full bg-white/15"
+            style={{
+              position: 'absolute',
+              top: 20,
+              right: 20,
+              width: 48,
+              height: 48,
+              minWidth: 48,
+              minHeight: 48,
+              zIndex: 10,
+            }}
+          >
+            <HeroIcon className="text-white" size={24} strokeWidth={1.5} />
+          </div>
+
+          <div className="mb-5">
+            <h3 className="mb-4 text-2xl font-bold tracking-tight text-white sm:mb-5 sm:text-3xl lg:text-4xl">
+              {pillar.title}
+            </h3>
+            <p className="mb-2 text-lg font-semibold text-white sm:text-xl">{pillar.subtitle}</p>
+            <p className="max-w-lg text-sm leading-relaxed text-white/85 sm:text-base">
+              {pillar.description}
+            </p>
+          </div>
+
+          <div className="grid max-w-lg grid-cols-2 gap-2 sm:gap-2.5">
+            {pillar.features.map((f) => (
+              <div
+                key={`${pillar.id}-${f.label}`}
+                className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/15 p-3 shadow-sm backdrop-blur-sm transition-[transform,box-shadow] duration-200 hover:bg-white/20 hover:shadow-md sm:gap-3 sm:p-3.5"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/20 sm:h-10 sm:w-10">
+                  <f.icon className="h-4 w-4 text-white sm:h-5 sm:w-5" />
+                </div>
+                <span className="text-xs font-medium text-white sm:text-sm">{f.label}</span>
               </div>
-              <span className="text-sm font-medium text-white">{f.label}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -214,94 +197,159 @@ function DesktopPillarSlide({
 
 export function PillarsSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const bentoScrollRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
-
-  const scrollToPillarIndex = useCallback((index: number) => {
-    const el = bentoScrollRef.current
-    if (!el || index < 0 || index >= pillars.length) return
-    const h = el.clientHeight
-    if (h <= 0) return
-    el.scrollTo({ top: index * h, behavior: 'smooth' })
-  }, [])
-
-  useLayoutEffect(() => {
-    const root = bentoScrollRef.current
-    if (!root || root.children.length === 0) return
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting && e.intersectionRatio >= 0.45)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (!visible?.target) return
-        const i = Number((visible.target as HTMLElement).dataset.pillarIndex)
-        if (!Number.isNaN(i)) setActiveIndex(i)
-      },
-      { root, rootMargin: '0px', threshold: [0.45, 0.5, 0.55, 0.65, 0.8, 1] },
-    )
-
-    Array.from(root.children).forEach((ch) => io.observe(ch))
-    return () => io.disconnect()
-  }, [])
+  const [tabProgress, setTabProgress] = useState(0)
+  const navPausedRef = useRef(false)
+  const timerRef = useRef({
+    start: 0,
+    pauseAccum: 0,
+    pauseStart: null as number | null,
+    raf: 0,
+  })
 
   const activePillar = pillars[activeIndex]
 
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      setTabProgress(0)
+      return
+    }
+
+    const t = timerRef.current
+    t.start = performance.now()
+    t.pauseAccum = 0
+    t.pauseStart = null
+    setTabProgress(0)
+
+    const tick = (now: number) => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setTabProgress(0)
+        return
+      }
+
+      if (navPausedRef.current) {
+        if (t.pauseStart === null) t.pauseStart = now
+        t.raf = requestAnimationFrame(tick)
+        return
+      }
+      if (t.pauseStart !== null) {
+        t.pauseAccum += now - t.pauseStart
+        t.pauseStart = null
+      }
+
+      const elapsed = now - t.start - t.pauseAccum
+      const p = Math.min(1, elapsed / TAB_AUTO_ADVANCE_MS)
+      setTabProgress(p)
+
+      if (p >= 1) {
+        setActiveIndex((i) => (i + 1) % pillars.length)
+        return
+      }
+      t.raf = requestAnimationFrame(tick)
+    }
+
+    t.raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(t.raf)
+  }, [activeIndex])
+
   return (
     <section ref={sectionRef} id="ecossistema" className="scroll-mt-20">
-      {/* Desktop — scroll da troca de pilares só dentro do bento */}
+      {/* Desktop — 30% tabs | 70% card */}
       <div className="hidden lg:block px-6 py-16">
-        <div className="mx-auto flex w-full max-w-[100rem] flex-col">
-          <div className="mb-8 shrink-0 pb-2 pt-20 text-center">
+        <div className="mx-auto w-full max-w-[100rem]">
+          <div className="mb-10 pt-20 text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
               Pilares Napse
             </p>
             <h2 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
               Do consultório ao caixa — um ecossistema pensado para médicos
             </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
+              Selecione um serviço na lista para ver os detalhes.
+            </p>
           </div>
 
-          <div
-            className="mx-auto mb-5 flex max-w-4xl shrink-0 flex-wrap justify-center gap-2 px-2"
-            role="tablist"
-            aria-label="Pilares do ecossistema"
-          >
-            {pillars.map((pillar, i) => (
-              <button
-                key={pillar.id}
-                type="button"
-                role="tab"
-                aria-selected={i === activeIndex}
-                id={`ecossistema-tab-${pillar.id}`}
-                onClick={() => scrollToPillarIndex(i)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 ${
-                  i === activeIndex
-                    ? 'text-white shadow-md'
-                    : 'bg-neutral-200/85 text-neutral-800 hover:bg-neutral-300/90'
-                }`}
-                style={i === activeIndex ? { backgroundColor: pillar.bgColor } : undefined}
-              >
-                {pillar.title}
-              </button>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[3fr_7fr] lg:gap-10 xl:gap-12">
+            {/* Coluna esquerda ~30% — lista vertical (tabs) */}
+            <nav
+              className="lg:sticky lg:top-28"
+              role="tablist"
+              aria-label="Serviços do ecossistema"
+              onMouseEnter={() => {
+                navPausedRef.current = true
+              }}
+              onMouseLeave={() => {
+                navPausedRef.current = false
+              }}
+            >
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
+                Serviços
+              </p>
+              <ul className="flex flex-col gap-1">
+                {pillars.map((pillar, i) => {
+                  const isActive = i === activeIndex
+                  return (
+                    <li key={pillar.id}>
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        aria-controls="ecossistema-tabpanel"
+                        id={`ecossistema-tab-${pillar.id}`}
+                        onClick={() => setActiveIndex(i)}
+                        className={`relative w-full overflow-hidden rounded-xl border-2 px-4 py-4 text-left text-base font-semibold transition-[color,box-shadow] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 sm:py-5 sm:text-lg ${
+                          isActive
+                            ? 'border-transparent text-white shadow-lg'
+                            : 'border-transparent bg-neutral-100 text-neutral-700 hover:bg-neutral-200/90'
+                        }`}
+                        style={
+                          isActive
+                            ? {
+                                backgroundColor: pillar.bgColor,
+                                boxShadow: '0 14px 36px -10px rgba(15, 23, 42, 0.28)',
+                              }
+                            : undefined
+                        }
+                      >
+                        {isActive && (
+                          <span
+                            className="pointer-events-none absolute inset-y-0 left-0 rounded-xl bg-gradient-to-r from-white/40 via-white/25 to-white/10"
+                            style={{
+                              width: `${tabProgress * 100}%`,
+                              transition: 'none',
+                            }}
+                            aria-hidden
+                          />
+                        )}
+                        <span className="relative z-10">{pillar.title}</span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
 
-          <div
-            ref={bentoScrollRef}
-            data-lenis-prevent
-            className="scrollbar-hide h-[min(36rem,calc(100dvh-12rem))] snap-y snap-mandatory overflow-y-auto overflow-x-hidden rounded-3xl shadow-xl scroll-smooth"
-            role="tabpanel"
-            aria-labelledby={`ecossistema-tab-${activePillar.id}`}
-          >
-            {pillars.map((pillar, i) => (
-              <DesktopPillarSlide
-                key={pillar.id}
-                pillar={pillar}
-                pillarIndex={i}
-                activeIndex={activeIndex}
-                onSelectPillar={scrollToPillarIndex}
-              />
-            ))}
+            {/* Coluna direita ~70% — painel do serviço ativo */}
+            <div
+              id="ecossistema-tabpanel"
+              role="tabpanel"
+              aria-labelledby={`ecossistema-tab-${activePillar.id}`}
+              aria-live="polite"
+              className="min-w-0"
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePillar.id}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <DesktopServiceCard pillar={activePillar} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
@@ -328,7 +376,7 @@ export function PillarsSection() {
                 <p className="mb-4 text-sm leading-relaxed text-white/80">
                   {pillar.subtitle} — {pillar.description}
                 </p>
-                <div className="grid gap-2 grid-cols-4">
+                <div className="grid grid-cols-4 gap-2">
                   {pillar.features.map((f) => (
                     <div
                       key={f.label}

@@ -132,7 +132,7 @@ export function StatsSection() {
     <section
       ref={sectionRef}
       aria-labelledby="stats-heading"
-      className="relative bg-white px-4 py-20 sm:py-28 lg:py-40 overflow-hidden"
+      className="relative overflow-hidden bg-white px-4 py-20 sm:py-28 lg:px-6 lg:py-40"
     >
       {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
       <div
@@ -166,19 +166,19 @@ export function StatsSection() {
         />
       </svg>
 
-      <div className="relative z-10 mx-auto max-w-5xl lg:max-w-6xl">
+      <div className="relative z-10 mx-auto w-full max-w-[100rem]">
         <motion.div
-          className="mb-10 sm:mb-20 lg:mb-24 text-center"
+          className="mb-10 text-center sm:mb-20 lg:mb-24 lg:pt-20"
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Impacto em números
           </p>
           <h2
             id="stats-heading"
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900"
+            className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight"
           >
             Números que você sente no dia a dia
           </h2>

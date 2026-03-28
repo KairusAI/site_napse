@@ -6,6 +6,7 @@ import {
   HeroSection,
   PillarsSection,
   IntegrationsBentoGrid,
+  AppShowcaseSection,
   SupportOnboardingSection,
   StatsSection,
   PricingSection,
@@ -26,6 +27,7 @@ function HomePage() {
       </main>
       <PillarsSection />
       <IntegrationsBentoGrid />
+      <AppShowcaseSection />
       <SupportOnboardingSection />
       <StatsSection />
       <PricingSection />

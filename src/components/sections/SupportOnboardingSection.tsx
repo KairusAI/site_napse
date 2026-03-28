@@ -219,25 +219,28 @@ export function SupportOnboardingSection() {
                 </span>
               </p>
             </motion.div>
-            <div ref={cardsGridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6">
+            <div
+              ref={cardsGridRef}
+              className="grid grid-cols-1 items-stretch sm:grid-cols-3 gap-5 lg:gap-6"
+            >
               {onboardingCards.map((card) => (
                 <div
                   key={card.id}
-                  className="transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 cursor-default"
+                  className="flex h-full min-h-0 transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 cursor-default"
                 >
                   <div
                     data-support-card
-                    className={`relative rounded-3xl bg-gradient-to-b ${card.gradient} backdrop-blur-md border border-white/40 p-6 lg:p-8 text-center overflow-hidden opacity-0 transition-shadow duration-300 hover:shadow-xl hover:border-white/60`}
+                    className={`relative flex h-full min-h-0 w-full flex-col rounded-3xl bg-gradient-to-b ${card.gradient} backdrop-blur-md border border-white/40 p-6 lg:p-8 text-center overflow-hidden opacity-0 transition-shadow duration-300 hover:shadow-xl hover:border-white/60`}
                     style={{ boxShadow: card.glow }}
                   >
                     <card.Icon
-                      className={`mx-auto mb-4 w-12 h-12 lg:w-14 lg:h-14 ${card.iconClass}`}
+                      className={`mx-auto mb-4 w-12 h-12 shrink-0 lg:w-14 lg:h-14 ${card.iconClass}`}
                       strokeWidth={1.5}
                     />
-                    <h3 className="text-base lg:text-lg font-bold text-neutral-900 mb-2">
+                    <h3 className="mb-2 shrink-0 text-base font-bold text-neutral-900 lg:text-lg">
                       {card.title}
                     </h3>
-                    <p className="text-sm text-neutral-600 leading-relaxed font-medium">
+                    <p className="flex-1 text-sm font-medium leading-relaxed text-neutral-600">
                       {card.description}
                     </p>
                   </div>

@@ -182,7 +182,7 @@ export function SupportOnboardingSection() {
 
             {/* Imagem mascote — desktop (absoluta) */}
             <motion.div
-              className="pointer-events-none absolute -bottom-14 -left-56 w-[920px] hidden lg:block"
+              className="pointer-events-none absolute -bottom-14 -left-[22rem] w-[920px] hidden lg:block xl:-left-[28rem]"
               variants={itemVariants}
               initial={{ opacity: 0, y: 40, scale: 0.92 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}

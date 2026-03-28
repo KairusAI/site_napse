@@ -27,26 +27,26 @@ export function ContactSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto w-full max-w-[100rem] px-4 lg:px-6">
         <motion.div
-          className="text-center mb-12"
+          className="mb-10 text-center lg:pt-20"
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Fale conosco
           </p>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
+          <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
             Fale com um especialista
           </h2>
-          <p className="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4">
             Conte sobre sua clínica. Respondemos em até 24h — sem compromisso.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start"
+          className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}

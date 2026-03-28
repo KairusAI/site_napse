@@ -17,6 +17,12 @@
 
   html {
     scroll-behavior: auto; /* Lenis controla o scroll */
+    /*
+     * Escala global (~80% da base 16px → ~12,8px por rem).
+     * Deixa o site mais “denso” em zoom 100%, próximo do que você via com ~80% de zoom no navegador.
+     * Quase tudo do Tailwind usa rem; valores fixos em px em alguns lugares não mudam.
+     */
+    font-size: 80%;
   }
 
   body {

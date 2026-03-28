@@ -155,20 +155,20 @@ export function FAQSection() {
         />
       </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto w-full max-w-[100rem] px-4 lg:px-6">
         <motion.div
-          className="mb-12 text-center"
+          className="mb-10 text-center lg:pt-20"
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-2">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             FAQ
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
             Dúvidas comuns
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-neutral-600 max-w-xl mx-auto">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4">
             Respostas diretas sobre teste, migração, planos e segurança.
           </p>
         </motion.div>

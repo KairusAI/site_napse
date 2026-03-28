@@ -17,21 +17,21 @@ export function AppShowcaseSection() {
     >
       <div className="relative z-10 mx-auto w-full max-w-[100rem] px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-6 lg:pb-24 lg:pt-20">
         <motion.div
-          className="mx-auto mb-6 max-w-3xl text-center lg:mb-8 lg:max-w-4xl"
+          className="mx-auto mb-10 max-w-3xl text-center lg:max-w-4xl"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-blue lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Plataforma
           </p>
           <h2
             id="app-showcase-heading"
-            className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight"
+            className="text-2xl font-semibold text-neutral-900 sm:text-5xl sm:font-bold sm:tracking-tight"
           >
             O mesmo painel no consultório e em qualquer lugar
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4 lg:text-base">
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
             Interface pensada para o dia a dia da clínica — responsiva no celular e confortável no
             computador.
           </p>

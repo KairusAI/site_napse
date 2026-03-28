@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, animate } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { AnimatePresence, motion, useInView, animate } from 'framer-motion'
+import { Check, ChevronDown } from 'lucide-react'
 
 type BillingPeriod = 'monthly' | 'yearly'
 
@@ -107,7 +107,7 @@ function AnimatedPlanPrice({ value, staggerIndex = 0 }: { value: number; stagger
   }, [value, staggerIndex])
 
   return (
-    <span className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 tabular-nums">
+    <span className="text-2xl font-bold tracking-tight text-neutral-900 tabular-nums sm:text-3xl lg:text-3xl xl:text-4xl">
       R$ {formatPrice(Math.round(display))}
     </span>
   )
@@ -182,6 +182,8 @@ export function PricingSection() {
     margin: '-80px 0px',
   })
   const [billing, setBilling] = useState<BillingPeriod>('monthly')
+  /** Plano expandido no mobile (< lg); no desktop o conteúdo completo fica sempre visível. */
+  const [expandedPlanId, setExpandedPlanId] = useState<string | null>(null)
 
   return (
     <section
@@ -216,8 +218,7 @@ export function PricingSection() {
           animate={isInView ? 'visible' : 'hidden'}
           className="relative"
         >
-          {/* Cards de preço – grid original em 3 colunas no desktop */}
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 lg:mr-auto">
+          <div className="grid grid-cols-1 gap-3 lg:mr-auto lg:grid-cols-3 lg:gap-8">
             {plans.map((plan, planIndex) => {
               const price =
                 billing === 'monthly'
@@ -225,37 +226,84 @@ export function PricingSection() {
                   : plan.yearlyPrice
 
               const isHighlight = plan.highlight
+              const isOpen = expandedPlanId === plan.id
+              const detailsId = `planos-detalhes-${plan.id}`
 
               const cardInner = (
                 <motion.div
                   variants={cardVariants}
                   whileHover={{ y: -8 }}
-                  className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-6 py-7 sm:px-8 sm:py-9 backdrop-blur-xl border ${
+                  className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-4 py-4 backdrop-blur-xl border sm:px-5 sm:py-5 lg:px-8 lg:py-9 ${
                     isHighlight ? 'border-white/60' : 'border-white/50'
                   } shadow-[0_18px_60px_rgba(15,23,42,0.12)]`}
                 >
                   {isHighlight && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <div className="absolute -top-3 left-1/2 hidden -translate-x-1/2 lg:block lg:-top-4">
                       <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(22,163,74,0.45)]">
                         Mais escolhido
                       </div>
                     </div>
                   )}
 
-                  <div className="mb-4">
-                    <h3 className="text-base sm:text-lg font-semibold text-neutral-900">
+                  {/* Mobile: cabeçalho compacto + expandir */}
+                  <button
+                    type="button"
+                    className="flex w-full items-start gap-3 rounded-xl text-left outline-none transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-nat-green/50 lg:hidden"
+                    aria-expanded={isOpen}
+                    aria-controls={detailsId}
+                    id={`planos-trigger-${plan.id}`}
+                    onClick={() =>
+                      setExpandedPlanId((prev) => (prev === plan.id ? null : plan.id))
+                    }
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-base font-semibold text-neutral-900">
+                          {plan.name}
+                        </h3>
+                        {isHighlight && (
+                          <span className="inline-flex rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm">
+                            Mais escolhido
+                          </span>
+                        )}
+                      </div>
+                      <div className="mt-1 flex flex-wrap items-baseline gap-1.5">
+                        <AnimatedPlanPrice value={price} staggerIndex={planIndex} />
+                        <motion.span
+                          key={billing}
+                          className="text-xs text-neutral-500"
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          / {billing === 'monthly' ? 'mês' : 'ano'}
+                        </motion.span>
+                      </div>
+                      <p className="mt-1.5 line-clamp-2 text-xs text-neutral-500">
+                        {plan.description}
+                      </p>
+                    </div>
+                    <ChevronDown
+                      className={`mt-0.5 h-5 w-5 shrink-0 text-neutral-500 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                      aria-hidden
+                    />
+                  </button>
+
+                  {/* Desktop: título + descrição + preço */}
+                  <div className="mb-4 hidden lg:block">
+                    <h3 className="text-base font-semibold text-neutral-900 sm:text-lg">
                       {plan.name}
                     </h3>
-                    <p className="mt-1 text-sm text-neutral-500">
-                      {plan.description}
-                    </p>
+                    <p className="mt-1 text-sm text-neutral-500">{plan.description}</p>
                   </div>
 
-                  <div className="mb-6 flex items-baseline gap-2">
+                  <div className="mb-6 hidden items-baseline gap-2 lg:flex">
                     <AnimatedPlanPrice value={price} staggerIndex={planIndex} />
                     <motion.span
                       key={billing}
-                      className="text-xs sm:text-sm text-neutral-500"
+                      className="text-xs text-neutral-500 sm:text-sm"
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -264,24 +312,49 @@ export function PricingSection() {
                     </motion.span>
                   </div>
 
-                  <button
-                    type="button"
-                    className="relative mt-auto inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                  {/* Detalhes: acordeão no mobile; sempre visível no desktop */}
+                  <div
+                    id={detailsId}
+                    role="region"
+                    aria-label={`${plan.name}: benefícios e contato`}
+                    className={isOpen ? 'block' : 'hidden lg:block'}
                   >
-                    <span className="relative z-10">
-                      Falar com especialista
-                    </span>
-                    <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
-                  </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key={`${plan.id}-resumo`}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden lg:hidden"
+                        >
+                          <p className="border-t border-white/20 pt-3 text-sm text-neutral-600">
+                            {plan.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                  <ul className="mt-6 space-y-3 text-sm text-neutral-700">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <CheckBadge />
-                        <span className="pt-[2px]">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    <div className={isOpen ? 'lg:mt-0' : 'max-lg:hidden'}>
+                      <button
+                        type="button"
+                        className="relative mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:mt-auto lg:py-3"
+                      >
+                        <span className="relative z-10">Falar com especialista</span>
+                        <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
+                      </button>
+
+                      <ul className="mt-4 space-y-2.5 text-sm text-neutral-700 lg:mt-6 lg:space-y-3">
+                        {plan.features.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2.5 lg:gap-3">
+                            <CheckBadge />
+                            <span className="pt-[2px]">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </motion.div>
               )
 
@@ -289,7 +362,7 @@ export function PricingSection() {
                 return (
                   <div
                     key={plan.id}
-                    className="relative rounded-[1.9rem] bg-gradient-to-br from-nat-green/40 via-nat-green/20 to-nat-green/50 p-[1.5px]"
+                    className="relative rounded-[1.35rem] bg-gradient-to-br from-nat-green/40 via-nat-green/20 to-nat-green/50 p-[1.5px] lg:rounded-[1.9rem]"
                   >
                     {cardInner}
                   </div>
@@ -297,15 +370,22 @@ export function PricingSection() {
               }
 
               return (
-                <div key={plan.id} className="relative rounded-[1.9rem] bg-white/40 p-[1.5px]">
+                <div
+                  key={plan.id}
+                  className="relative rounded-[1.35rem] bg-white/40 p-[1.5px] lg:rounded-[1.9rem]"
+                >
                   {cardInner}
                 </div>
               )
             })}
           </div>
 
+          <p className="mt-2 text-center text-xs text-neutral-500 lg:hidden">
+            Toque no plano para ver benefícios e detalhes
+          </p>
+
           {/* Mascote financeiro — mobile */}
-          <div className="mt-8 flex justify-center lg:hidden">
+          <div className="mt-6 flex justify-center lg:hidden">
             <img
               src="/assets/imagem_preços.png"
               alt="Mascote financeiro NAPSE flutuando com balão"

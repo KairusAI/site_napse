@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
 const DASH_IMG = '/assets/dashboard_fundo.png'
+const MOBILE_IMG = '/assets/print_mobile.png'
 
 /** Sombras 3D — inline (Tailwind quebra múltiplas drop-shadow com rgba). */
 const MOCK_SHADOW_PHONE =
@@ -92,7 +93,7 @@ export function AppShowcaseSection() {
                   aria-hidden
                 />
                 <img
-                  src={DASH_IMG}
+                  src={MOBILE_IMG}
                   alt="Dashboard NAPSE em visualização mobile"
                   className="h-full w-full object-cover object-left-top"
                   loading="lazy"

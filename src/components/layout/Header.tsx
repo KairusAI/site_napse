@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LineChart, Plug, Headphones, BadgeDollarSign, MessageCircle, HelpCircle, Menu, X } from 'lucide-react'
+import { LineChart, Plug, LayoutDashboard, Headphones, BarChart3, BadgeDollarSign, MessageCircle, HelpCircle, Menu, X } from 'lucide-react'
 
 const navItems = [
   { id: 'ecossistema', label: 'Ecossistema', href: '#ecossistema', Icon: LineChart },
   { id: 'integracoes', label: 'Integrações', href: '#integracoes', Icon: Plug },
+  { id: 'plataforma', label: 'Plataforma', href: '#plataforma', Icon: LayoutDashboard },
   { id: 'suporte', label: 'Suporte', href: '#suporte', Icon: Headphones },
+  { id: 'stats', label: 'Resultados', href: '#stats', Icon: BarChart3 },
   { id: 'planos', label: 'Planos', href: '#planos', Icon: BadgeDollarSign },
   { id: 'depoimentos', label: 'Depoimentos', href: '#depoimentos', Icon: MessageCircle },
   { id: 'faq', label: 'FAQ', href: '#faq', Icon: HelpCircle },

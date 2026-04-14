@@ -131,8 +131,9 @@ export function StatsSection() {
   return (
     <section
       ref={sectionRef}
+      id="stats"
       aria-labelledby="stats-heading"
-      className="relative overflow-hidden bg-white px-4 py-20 sm:py-28 lg:px-6 lg:py-40"
+      className="relative scroll-mt-24 overflow-hidden bg-white px-4 py-20 sm:py-28 lg:px-6 lg:py-40"
     >
       {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
       <div

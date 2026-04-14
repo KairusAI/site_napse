@@ -15,6 +15,8 @@ type Testimonial = {
   layout: Layout
   cardStyle?: CardStyle
   rating?: number
+  /** Override do avatar. Use `null` para não renderizar foto (mostra iniciais). */
+  avatarSrc?: string | null
 }
 
 const testimonials: Testimonial[] = [
@@ -107,6 +109,7 @@ const testimonials: Testimonial[] = [
     layout: 'horizontal',
     cardStyle: 'photo-right',
     rating: 5,
+    avatarSrc: '/assets/testimonials/7.jpg',
   },
   {
     id: '9',
@@ -162,8 +165,9 @@ function TestimonialAvatar({
   const [photoFailed, setPhotoFailed] = useState(false)
   const ring = ringClasses[testimonial.specialtyColor]
   const glow = glowClasses[testimonial.specialtyColor]
-  const src = `/assets/testimonials/${testimonial.id}.jpg`
+  const src = testimonial.avatarSrc ?? `/assets/testimonials/${testimonial.id}.jpg`
   const initials = initialsFromName(testimonial.name)
+  const showPhoto = testimonial.avatarSrc !== null && !photoFailed
 
   const frame =
     size === 'xl'
@@ -188,7 +192,7 @@ function TestimonialAvatar({
       className={`relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-200 font-semibold text-neutral-600 ${ring} ${glow} ${frame}`}
       title={testimonial.role}
     >
-      {!photoFailed && (
+      {showPhoto && (
         <img
           src={src}
           alt=""
@@ -198,7 +202,7 @@ function TestimonialAvatar({
           onError={() => setPhotoFailed(true)}
         />
       )}
-      {photoFailed && <span className={`relative z-10 ${textSize}`}>{initials || '?'}</span>}
+      {!showPhoto && <span className={`relative z-10 ${textSize}`}>{initials || '?'}</span>}
     </div>
   )
 }

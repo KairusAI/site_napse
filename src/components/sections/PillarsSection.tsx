@@ -42,7 +42,7 @@ const pillars: Pillar[] = [
   {
     id: 'marketing',
     title: 'Marketing',
-    mascotName: 'Megafone',
+    mascotName: 'Pedro',
     subtitle: 'Pacientes que chegam sozinhos',
     description:
       'Legendas e posts educativos gerados por IA, no tom da sua especialidade. Você aprova antes de publicar. Menos tempo em redes, mais consultas agendadas.',
@@ -60,7 +60,7 @@ const pillars: Pillar[] = [
   {
     id: 'medico',
     title: 'Médico',
-    mascotName: 'Doutor',
+    mascotName: 'Eric',
     subtitle: 'Você no comando, a IA no apoio',
     description:
       'Prontuário eletrônico, prescrição digital (Memed) e assistente por chat. A IA sugere e executa — você confirma. Nada sai sem sua aprovação.',
@@ -78,7 +78,7 @@ const pillars: Pillar[] = [
   {
     id: 'secretaria',
     title: 'Secretaria',
-    mascotName: 'Recepcionista',
+    mascotName: 'Terezinha',
     subtitle: 'Menos faltas, mais cadeiras cheias',
     description:
       'WhatsApp integrado (API oficial), link de agendamento para o paciente escolher horário sozinho e confirmações por mensagem. A recepção roda sem você precisar lembrar.',
@@ -96,7 +96,7 @@ const pillars: Pillar[] = [
   {
     id: 'financeiro',
     title: 'Financeiro',
-    mascotName: 'Contador',
+    mascotName: 'Ricardo',
     subtitle: 'O que entra, o que sai — na palma da mão',
     description:
       'Tabela de preços e procedimentos, relatórios de produção e ocupação. Visão clara da saúde financeira da clínica. Menos planilhas, mais decisão.',

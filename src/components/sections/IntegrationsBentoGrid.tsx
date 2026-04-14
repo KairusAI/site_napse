@@ -40,9 +40,9 @@ const integrations: Integration[] = [
     brand: 'Gmail',
     title: 'E-mail Integrado',
     description: 'Conversas, envio e organização. Gmail conectado na mesma interface. Exames e avisos importantes direto na sua caixa.',
-    iconBg: 'bg-neutral-100',
-    iconColor: 'text-neutral-600',
-    borderAccent: 'border-l-neutral-400',
+    iconBg: 'bg-red-50',
+    iconColor: 'text-red-600',
+    borderAccent: 'border-l-red-500',
     Icon: GmailIcon,
   },
   {

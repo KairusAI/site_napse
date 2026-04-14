@@ -19,9 +19,9 @@ const integrations: Integration[] = [
     brand: 'WhatsApp',
     title: 'Confirmação no WhatsApp',
     description: 'API oficial: conversas, templates e confirmações. Um número por clínica. O paciente agenda e confirma sem ligar para a recepção.',
-    iconBg: 'bg-nat-yellow-muted',
-    iconColor: 'text-nat-yellow',
-    borderAccent: 'border-l-nat-yellow',
+    iconBg: 'bg-nat-green-muted',
+    iconColor: 'text-nat-green',
+    borderAccent: 'border-l-nat-green',
     featured: true,
     Icon: WhatsAppIcon,
   },
@@ -60,9 +60,9 @@ const integrations: Integration[] = [
     brand: 'Asaas',
     title: 'Cobranças Automáticas',
     description: 'Em breve: boletos, cartões e antecipação de recebíveis integrados com Asaas.',
-    iconBg: 'bg-nat-green-muted',
-    iconColor: 'text-nat-green',
-    borderAccent: 'border-l-nat-green',
+    iconBg: 'bg-nat-yellow-muted',
+    iconColor: 'text-nat-yellow',
+    borderAccent: 'border-l-nat-yellow',
     Icon: AsaasIcon,
   },
 ]
@@ -101,8 +101,36 @@ function GoogleCalendarIcon({ className = 'w-10 h-10' }: { className?: string })
 
 function GmailIcon({ className = 'w-10 h-10' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M24 4.5v15c0 .83-.67 1.5-1.5 1.5H1.5C.67 21 0 20.33 0 19.5v-15c0-.83.67-1.5 1.5-1.5h21c.83 0 1.5.67 1.5 1.5zM12 12L2.4 6.6C2.16 6.46 2 6.24 2 6s.16-.46.4-.6L12 0l9.6 5.4c.24.14.4.36.4.6s-.16.46-.4.6L12 12zM2 18V8.5l10 5.5 10-5.5V18H2z" />
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+      <path
+        d="M4.5 7.25h15A1.75 1.75 0 0 1 21.25 9v10A1.75 1.75 0 0 1 19.5 20.75h-15A1.75 1.75 0 0 1 2.75 19V9A1.75 1.75 0 0 1 4.5 7.25Z"
+        fill="#ffffff"
+        stroke="#EA4335"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.6 8.3 12 14.05 20.4 8.3"
+        fill="none"
+        stroke="#EA4335"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <path
+        d="M3.6 19.2 10.45 13.05"
+        fill="none"
+        stroke="#EA4335"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.4 19.2 13.55 13.05"
+        fill="none"
+        stroke="#EA4335"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }
@@ -230,11 +258,11 @@ function IntegrationCard({
       <div className="relative flex flex-col h-full">
         <div className="flex items-start justify-between gap-4 mb-4">
           <motion.div
-            className={`inline-flex items-center justify-center rounded-2xl ${isFeatured ? 'w-14 h-14' : 'w-12 h-12'} ${integration.iconBg} ${integration.iconColor}`}
+            className={`inline-flex items-center justify-center rounded-2xl w-12 h-12 ${integration.iconBg} ${integration.iconColor}`}
             whileHover={{ scale: 1.08, y: -3 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            <Icon className={isFeatured ? 'w-7 h-7' : 'w-6 h-6'} />
+            <Icon className="w-6 h-6" />
           </motion.div>
           <span className={`text-xs font-semibold uppercase tracking-wider ${integration.iconColor}`}>
             {integration.brand}

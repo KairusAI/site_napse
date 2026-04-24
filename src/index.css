@@ -17,12 +17,20 @@
 
   html {
     scroll-behavior: auto; /* Lenis controla o scroll */
-    /*
-     * Escala global (~80% da base 16px → ~12,8px por rem).
-     * Deixa o site mais “denso” em zoom 100%, próximo do que você via com ~80% de zoom no navegador.
-     * Quase tudo do Tailwind usa rem; valores fixos em px em alguns lugares não mudam.
-     */
-    font-size: 80%;
+    /* Mobile: 16px base para legibilidade; desktop xl: densidade próxima do layout original */
+    font-size: 100%;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 93.75%;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      font-size: 80%;
+    }
   }
 
   body {
@@ -33,6 +41,34 @@
   /* Headlines usam display font para hierarquia premium */
   h1, h2, h3, .font-display {
     font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .section-kicker {
+    @apply text-sm font-semibold uppercase tracking-[0.2em];
+  }
+
+  /**
+   * Ritmo único da landing: mesma largura lógica e o mesmo eixo de padding vertical
+   * (inspiração Sintropia / plano NAPSE — evitar gap global + py duplicado no contentor).
+   */
+  .section-shell {
+    @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /** CTA final / blocos com menos respiro vertical (exceção controlada). */
+  .section-y-tight {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  /** Faixa fina (Trust strip): respiro menor, mesmo px horizontal via section-shell no interior. */
+  .section-y-strip {
+    @apply py-8 sm:py-10;
   }
 }
 

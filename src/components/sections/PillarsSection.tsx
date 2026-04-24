@@ -254,11 +254,14 @@ export function PillarsSection() {
   }, [activeIndex])
 
   return (
-    <section ref={sectionRef} id="ecossistema" className="scroll-mt-20">
+    <section
+      ref={sectionRef}
+      id="ecossistema"
+      className="section-y relative scroll-mt-20 before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-neutral-200/70 before:to-transparent"
+    >
       {/* Desktop — 30% tabs | 70% card */}
-      <div className="hidden lg:block px-6 py-16">
-        <div className="mx-auto w-full max-w-[100rem]">
-          <div className="mb-10 pt-20 text-center">
+      <div className="section-shell hidden lg:block">
+        <div className="mb-10 text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
               Pilares Napse
             </p>
@@ -352,10 +355,9 @@ export function PillarsSection() {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Mobile — cards empilhados */}
-      <div className="px-4 py-16 lg:hidden">
+      <div className="section-shell lg:hidden">
         <div className="mb-10 text-center">
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
             Pilares Napse
@@ -376,14 +378,14 @@ export function PillarsSection() {
                 <p className="mb-4 text-sm leading-relaxed text-white/80">
                   {pillar.subtitle} — {pillar.description}
                 </p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   {pillar.features.map((f) => (
                     <div
                       key={f.label}
-                      className="flex flex-col items-center gap-1 rounded-xl bg-white/20 p-2.5"
+                      className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white/20 p-2.5"
                     >
-                      <f.icon className="h-4 w-4" />
-                      <span className="text-center text-[10px] font-medium leading-tight">
+                      <f.icon className="h-4 w-4 shrink-0" />
+                      <span className="text-center text-xs font-medium leading-snug sm:text-[13px]">
                         {f.label}
                       </span>
                     </div>

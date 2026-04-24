@@ -1,8 +1,9 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { EASE_OUT } from '@/lib/motion'
 import { Database, Users, Headphones } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -50,24 +51,6 @@ const onboardingCards: Array<{
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-      when: 'beforeChildren',
-      staggerChildren: 0.12,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
 
 function HexagonPattern() {
   return (
@@ -102,9 +85,36 @@ function HexagonPattern() {
 
 export function SupportOnboardingSection() {
   const cardsGridRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
+
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : 24 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: reduce ? 0.01 : 0.6,
+          ease: EASE_OUT,
+          when: 'beforeChildren' as const,
+          staggerChildren: reduce ? 0 : 0.12,
+        },
+      },
+    }),
+    [reduce]
+  )
+
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 },
+      visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0.01 : 0.5, ease: EASE_OUT } },
+    }),
+    [reduce]
+  )
 
   useGSAP(
     () => {
+      if (reduce) return
       const cards = cardsGridRef.current?.querySelectorAll('[data-support-card]')
       if (!cards?.length) return
 
@@ -131,25 +141,25 @@ export function SupportOnboardingSection() {
         }
       )
     },
-    { scope: cardsGridRef, dependencies: [] }
+    { scope: cardsGridRef, dependencies: [reduce] }
   )
 
   return (
     <section
       id="suporte"
-      className="relative overflow-hidden px-4 py-20 lg:py-32 bg-[#F8FAFC]"
+      className="section-y relative overflow-hidden bg-[#F8FAFC]"
     >
       <HexagonPattern />
 
-      <div className="relative max-w-6xl lg:max-w-7xl mx-auto">
+      <div className="section-shell relative">
         <div className="relative lg:grid lg:grid-cols-[2fr_3fr] lg:gap-16 xl:gap-20 lg:items-stretch">
           {/* Coluna esquerda: título + mascote */}
           <motion.div
             className="relative lg:min-h-[620px]"
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '0px 0px -120px' }}
+            initial={reduce ? 'visible' : 'hidden'}
+            whileInView={reduce ? undefined : 'visible'}
+            viewport={reduce ? undefined : { once: true, margin: '0px 0px -120px' }}
           >
             <motion.p
               variants={itemVariants}
@@ -168,10 +178,10 @@ export function SupportOnboardingSection() {
             {/* Imagem mascote — mobile (centralizada) */}
             <motion.div
               className="flex justify-center mt-2 mb-4 lg:hidden"
-              initial={{ opacity: 0, y: 24, scale: 0.94 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              viewport={{ once: true, margin: '0px 0px -80px' }}
+              initial={reduce ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.94 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: reduce ? 0.01 : 0.7, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
+              viewport={reduce ? undefined : { once: true, margin: '0px 0px -80px' }}
             >
               <img
                 src="/assets/imagem_onboarding.png"
@@ -184,10 +194,10 @@ export function SupportOnboardingSection() {
             <motion.div
               className="pointer-events-none absolute -bottom-14 -left-[22rem] w-[920px] hidden lg:block xl:-left-[28rem]"
               variants={itemVariants}
-              initial={{ opacity: 0, y: 40, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-              viewport={{ once: true, margin: '0px 0px -120px' }}
+              initial={reduce ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.92 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: reduce ? 0.01 : 0.8, ease: EASE_OUT, delay: reduce ? 0 : 0.15 }}
+              viewport={reduce ? undefined : { once: true, margin: '0px 0px -120px' }}
             >
               <img
                 src="/assets/imagem_onboarding.png"
@@ -201,15 +211,15 @@ export function SupportOnboardingSection() {
           <motion.div
             className="mt-10 lg:mt-0 relative z-10 flex flex-col justify-center lg:h-full"
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '0px 0px -120px' }}
+            initial={reduce ? 'visible' : 'hidden'}
+            whileInView={reduce ? undefined : 'visible'}
+            viewport={reduce ? undefined : { once: true, margin: '0px 0px -120px' }}
           >
             <motion.div
-              initial={{ x: -48, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, margin: '-80px 0px' }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              initial={reduce ? { x: 0, opacity: 1 } : { x: -48, opacity: 0 }}
+              whileInView={reduce ? undefined : { x: 0, opacity: 1 }}
+              viewport={reduce ? undefined : { once: true, margin: '-80px 0px' }}
+              transition={{ duration: reduce ? 0.01 : 0.65, ease: EASE_OUT }}
               className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
             >
               <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed sm:leading-loose tracking-tight font-medium text-balance">

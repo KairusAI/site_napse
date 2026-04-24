@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Star } from 'lucide-react'
 
@@ -408,19 +408,33 @@ function MobileTestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 export function TestimonialsSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const [specialtyFilter, setSpecialtyFilter] = useState<string | 'all'>('all')
+
+  const specialtyOptions = useMemo(() => {
+    const set = new Set(testimonials.map((t) => t.role))
+    return Array.from(set).sort((a, b) => a.localeCompare(b, 'pt-BR'))
+  }, [])
+
+  const filteredTestimonials = useMemo(
+    () =>
+      specialtyFilter === 'all'
+        ? testimonials
+        : testimonials.filter((t) => t.role === specialtyFilter),
+    [specialtyFilter]
+  )
 
   return (
     <section
       ref={ref}
       id="depoimentos"
-      className="relative overflow-x-hidden py-8 sm:py-12 lg:py-14 overflow-y-visible"
+      className="section-y relative overflow-x-hidden overflow-y-visible"
     >
       {/* Fundo com tom para o glass destacar */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/80 via-neutral-50 to-neutral-100/80" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(139,92,246,0.12),transparent_50%)]" />
 
       {/* Título — mesmo ritmo visual que PillarsSection (#ecossistema) */}
-      <div className="relative mx-auto w-full max-w-[100rem] px-4 lg:px-6">
+      <div className="section-shell relative">
         <motion.div
           className="mb-10 text-center lg:pt-20"
           initial={{ opacity: 0, y: 20 }}
@@ -436,6 +450,37 @@ export function TestimonialsSection() {
           <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4">
             Depoimentos reais de quem trocou burocracia por mais tempo no consultório.
           </p>
+          <div
+            className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-2"
+            role="group"
+            aria-label="Filtrar por especialidade"
+          >
+            <button
+              type="button"
+              onClick={() => setSpecialtyFilter('all')}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors sm:text-sm ${
+                specialtyFilter === 'all'
+                  ? 'border-nat-purple bg-nat-purple/10 text-nat-purple'
+                  : 'border-neutral-200 bg-white/80 text-neutral-600 hover:border-nat-purple/30'
+              }`}
+            >
+              Todas
+            </button>
+            {specialtyOptions.map((label) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setSpecialtyFilter(label)}
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors sm:text-sm ${
+                  specialtyFilter === label
+                    ? 'border-nat-purple bg-nat-purple/10 text-nat-purple'
+                    : 'border-neutral-200 bg-white/80 text-neutral-600 hover:border-nat-purple/30'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </motion.div>
       </div>
 
@@ -451,7 +496,7 @@ export function TestimonialsSection() {
         />
 
         <div className="flex gap-2 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scrollbar-hide sm:gap-3 sm:px-5 sm:pb-2.5" style={{ WebkitOverflowScrolling: 'touch' }}>
-          {testimonials.map((testimonial) => (
+          {filteredTestimonials.map((testimonial) => (
             <div key={testimonial.id} className="w-[220px] shrink-0 snap-center sm:w-[240px]">
               <MobileTestimonialCard testimonial={testimonial} />
             </div>
@@ -471,7 +516,7 @@ export function TestimonialsSection() {
         />
 
         <div className="grid grid-cols-6 gap-2 auto-rows-[minmax(100px,auto)] px-3 sm:px-5">
-          {testimonials.map((testimonial, index) => (
+          {filteredTestimonials.map((testimonial, index) => (
             <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />
           ))}
         </div>

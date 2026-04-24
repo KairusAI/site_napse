@@ -53,7 +53,11 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
+      maxWidth: {
+        /** Largura única da landing: alinha header, seções e rodapé */
+        site: 'min(100rem, calc(100vw - 2rem))',
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config

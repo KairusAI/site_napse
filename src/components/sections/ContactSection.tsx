@@ -1,11 +1,17 @@
 import { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { MessageCircle, Mail, Send, CheckCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { DURATION, EASE_OUT } from '@/lib/motion'
+import { Mail, Send, CheckCircle, HelpCircle, MessageCircle } from 'lucide-react'
+import { getWhatsAppUrl, site } from '@/config/site'
 
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const reduce = useReducedMotion()
+  const inView = isInView || Boolean(reduce)
   const [submitted, setSubmitted] = useState(false)
+  const whatsappHref = getWhatsAppUrl('Quero falar com um especialista sobre a NAPSE para minha clínica.')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -16,7 +22,7 @@ export function ContactSection() {
     <section
       ref={ref}
       id="contato"
-      className="relative overflow-hidden py-20 sm:py-24 lg:py-32"
+      className="section-y relative overflow-hidden"
     >
       {/* Fundo com gradiente suave — evita flat white */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-neutral-50/60 to-white" />
@@ -27,12 +33,12 @@ export function ContactSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[100rem] px-4 lg:px-6">
+      <div className="section-shell relative z-10">
         <motion.div
-          className="mb-10 text-center lg:pt-20"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 text-center"
+          initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: reduce ? 0.01 : DURATION.short, ease: EASE_OUT }}
         >
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Fale conosco
@@ -41,15 +47,21 @@ export function ContactSection() {
             Fale com um especialista
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 lg:mt-4">
-            Conte sobre sua clínica. Respondemos em até 24h — sem compromisso.
+            Conte sobre sua clínica. Por e-mail, respondemos em até 24h em dias úteis — sem compromisso.
+            {whatsappHref && (
+              <>
+                {' '}
+                No WhatsApp, atendemos em horário comercial: {site.businessHours}
+              </>
+            )}
           </p>
         </motion.div>
 
         <motion.div
           className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: reduce ? 0.01 : DURATION.short, delay: reduce ? 0 : 0.12, ease: EASE_OUT }}
         >
           {/* Formulário */}
           <div className="rounded-2xl border border-neutral-200/90 bg-white/90 backdrop-blur-xl p-6 sm:p-8 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]">
@@ -67,6 +79,18 @@ export function ContactSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                <p className="rounded-xl border border-neutral-200/80 bg-neutral-50/80 px-3 py-2.5 text-xs leading-relaxed text-neutral-600">
+                  Este formulário é uma demonstração no site: os dados não são enviados a um servidor. Para
+                  contato real, use o e-mail abaixo. Quando o envio estiver ativo, utilizaremos suas
+                  informações apenas conforme a{' '}
+                  <Link
+                    to="/politica-de-privacidade"
+                    className="font-medium text-nat-purple underline-offset-2 hover:underline"
+                  >
+                    Política de Privacidade
+                  </Link>
+                  .
+                </p>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1.5">
                     Nome completo
@@ -125,21 +149,7 @@ export function ContactSection() {
               </h3>
               <div className="space-y-4">
                 <a
-                  href="https://wa.me/5511999999999"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-green/50 hover:shadow-md group"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-nat-green/10 flex items-center justify-center group-hover:bg-nat-green/20 transition-colors">
-                    <MessageCircle className="w-6 h-6 text-nat-green" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-neutral-900">WhatsApp</p>
-                    <p className="text-sm text-neutral-600">Resposta rápida</p>
-                  </div>
-                </a>
-                <a
-                  href="mailto:contato@napse.com.br"
+                  href={import.meta.env.VITE_GMAIL_URL}
                   className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-purple/50 hover:shadow-md group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-nat-purple/10 flex items-center justify-center group-hover:bg-nat-purple/20 transition-colors">
@@ -147,9 +157,39 @@ export function ContactSection() {
                   </div>
                   <div>
                     <p className="font-semibold text-neutral-900">E-mail</p>
-                    <p className="text-sm text-neutral-600">contato@napse.com.br</p>
+                    <p className="text-sm text-neutral-600">{import.meta.env.VITE_GMAIL_URL}</p>
                   </div>
                 </a>
+                {whatsappHref && (
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-emerald-500/50 hover:shadow-md group"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
+                      <MessageCircle className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-neutral-900">Falar com especialista no WhatsApp</p>
+                      <p className="text-sm text-neutral-600">
+                        {site.businessHours} Primeira resposta em até 24h em dias úteis.
+                      </p>
+                    </div>
+                  </a>
+                )}
+                <Link
+                  to="/#faq"
+                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-blue/50 hover:shadow-md group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-nat-blue/10 flex items-center justify-center group-hover:bg-nat-blue/20 transition-colors">
+                    <HelpCircle className="w-6 h-6 text-nat-blue" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-neutral-900">Dúvidas frequentes</p>
+                    <p className="text-sm text-neutral-600">Respostas sobre planos e uso</p>
+                  </div>
+                </Link>
               </div>
             </div>
             <p className="text-sm text-neutral-500">

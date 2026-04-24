@@ -22,19 +22,21 @@ function HomePage() {
   return (
     <MainLayout>
       <Header />
-      <main id="hero">
-        <HeroSection />
-      </main>
-      <PillarsSection />
-      <IntegrationsBentoGrid />
-      <AppShowcaseSection />
-      <SupportOnboardingSection />
-      <StatsSection />
-      <PricingSection />
-      <TestimonialsSection />
-      <FAQSection />
-      <ContactSection />
-      <FinalCTASection />
+      <div className="flex w-full flex-col">
+        <main id="hero">
+          <HeroSection />
+        </main>
+        <PillarsSection />
+        <IntegrationsBentoGrid />
+        <AppShowcaseSection />
+        <SupportOnboardingSection />
+        <StatsSection />
+        <PricingSection />
+        <TestimonialsSection />
+        <FAQSection />
+        <ContactSection />
+        <FinalCTASection />
+      </div>
       <Footer />
     </MainLayout>
   )

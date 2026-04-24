@@ -1,16 +1,19 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { DURATION, EASE_OUT } from '@/lib/motion'
 import { ArrowRight, CreditCard, Sparkles, X } from 'lucide-react'
 
 export function FinalCTASection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const reduce = useReducedMotion()
+  const inView = isInView || Boolean(reduce)
 
   return (
     <section
       ref={ref}
       id="cta-final"
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="section-y-tight relative overflow-hidden"
     >
       {/* Fundo da seção: tom diferente para diferenciar */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/90 via-neutral-50 to-white" />
@@ -19,9 +22,9 @@ export function FinalCTASection() {
       {/* Imagem à direita (posicionada, não altera o layout – como na FAQ) */}
       <motion.div
         className="pointer-events-none absolute right-0 top-[12%] z-0 hidden -translate-y-1/2 lg:block xl:right-2 2xl:right-4"
-        initial={{ opacity: 0, x: 28 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, x: reduce ? 0 : 28 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
       >
         <img
           src="/assets/imagem_cta2.png"
@@ -31,13 +34,13 @@ export function FinalCTASection() {
         />
       </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell relative z-10">
         {/* Wrapper do card: borda em gradiente + glow no hover */}
         <motion.div
           className="group/card relative mr-auto max-w-3xl"
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: reduce ? 0 : 24, scale: reduce ? 1 : 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: reduce ? 0.01 : DURATION.short, ease: EASE_OUT }}
         >
           {/* Glow atrás do card (aparece no hover) */}
           <div

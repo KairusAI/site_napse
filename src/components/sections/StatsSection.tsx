@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, animate } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { motion, useInView, useReducedMotion, animate } from 'framer-motion'
+import { DURATION, EASE_OUT } from '@/lib/motion'
 
 type StatItem = {
   id: string
@@ -38,39 +39,34 @@ const stats: StatItem[] = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      when: 'beforeChildren',
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-/* Só anima Y: fade no glass/blur causa escurecimento na entrada */
-const itemVariants = {
-  hidden: { y: 24 },
-  visible: {
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-}
-
 function StatCard({ stat, index }: { stat: StatItem; index: number }) {
   const ref = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, {
     once: true,
     margin: '0px 0px -120px',
   })
+  const reduce = useReducedMotion()
   const [displayValue, setDisplayValue] = useState(0)
 
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { y: reduce ? 0 : 24 },
+      visible: {
+        y: 0,
+        transition: {
+          duration: reduce ? 0.01 : 0.5,
+          ease: EASE_OUT,
+        },
+      },
+    }),
+    [reduce]
+  )
+
   useEffect(() => {
+    if (reduce) {
+      setDisplayValue(stat.value)
+      return
+    }
     if (!isInView) return
 
     const controls = animate(0, stat.value, {
@@ -84,7 +80,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
     return () => {
       controls.stop()
     }
-  }, [isInView, stat.value])
+  }, [isInView, stat.value, reduce])
 
   const formattedValue = `${stat.prefix ?? ''}${Math.round(displayValue)}${stat.suffix ?? ''}`
   const isLast = index === stats.length - 1
@@ -127,13 +123,30 @@ export function StatsSection() {
     once: true,
     margin: '-80px 0px',
   })
+  const reduce = useReducedMotion()
+  const effectiveInView = isInView || Boolean(reduce)
+
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          duration: reduce ? 0.01 : 0.4,
+          when: 'beforeChildren' as const,
+          staggerChildren: reduce ? 0 : 0.1,
+        },
+      },
+    }),
+    [reduce]
+  )
 
   return (
     <section
       ref={sectionRef}
       id="stats"
       aria-labelledby="stats-heading"
-      className="relative scroll-mt-24 overflow-hidden bg-white px-4 py-20 sm:py-28 lg:px-6 lg:py-40"
+      className="section-y relative scroll-mt-24 overflow-hidden bg-white"
     >
       {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
       <div
@@ -156,23 +169,23 @@ export function StatsSection() {
           strokeWidth="0.7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ pathLength: 0 }}
-          animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
+          initial={{ pathLength: reduce ? 1 : 0 }}
+          animate={effectiveInView ? { pathLength: 1 } : { pathLength: 0 }}
           transition={{
             pathLength: {
-              duration: 3.0,
-              ease: [0.22, 1, 0.36, 1],
+              duration: reduce ? 0.01 : DURATION.path,
+              ease: EASE_OUT,
             },
           }}
         />
       </svg>
 
-      <div className="relative z-10 mx-auto w-full max-w-[100rem]">
+      <div className="section-shell relative z-10">
         <motion.div
-          className="mb-10 text-center sm:mb-20 lg:mb-24 lg:pt-20"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 text-center sm:mb-20 lg:mb-24"
+          initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+          animate={effectiveInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: reduce ? 0.01 : 0.7, ease: EASE_OUT }}
         >
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
             Impacto em números
@@ -183,12 +196,21 @@ export function StatsSection() {
           >
             Números que você sente no dia a dia
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600 lg:mt-5">
+            <a
+              href="#plataforma"
+              className="font-semibold text-nat-purple underline-offset-2 transition-colors hover:underline"
+            >
+              Veja na prática na plataforma
+            </a>{' '}
+            como esses resultados saem do relatório e entram no fluxo do consultório.
+          </p>
         </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={effectiveInView ? 'visible' : 'hidden'}
           className="grid grid-cols-2 gap-4 sm:gap-y-10 lg:grid-cols-4 lg:gap-y-0 overflow-visible"
         >
           {stats.map((stat, index) => (

@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView, animate } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView, useReducedMotion, animate } from 'framer-motion'
 import { Check, ChevronDown } from 'lucide-react'
+import { getWhatsAppUrl } from '@/config/site'
+import { DURATION, EASE_OUT, STAGGER } from '@/lib/motion'
 
 type BillingPeriod = 'monthly' | 'yearly'
 
@@ -55,30 +57,8 @@ const plans: Plan[] = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-      when: 'beforeChildren',
-      staggerChildren: 0.12,
-    },
-  },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
+function planCtaHref(planName: string): string {
+  return getWhatsAppUrl(`Tenho interesse no plano ${planName} (NAPSE) para minha clínica.`) ?? '#contato'
 }
 
 function formatPrice(value: number) {
@@ -181,6 +161,40 @@ export function PricingSection() {
     once: true,
     margin: '-80px 0px',
   })
+  const reduce = useReducedMotion()
+  const effectiveInView = isInView || Boolean(reduce)
+
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: reduce ? 0 : 28 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: reduce ? 0.01 : DURATION.section,
+          ease: EASE_OUT,
+          when: 'beforeChildren' as const,
+          staggerChildren: reduce ? 0 : Math.max(0.12, STAGGER * 2.5),
+        },
+      },
+    }),
+    [reduce]
+  )
+
+  const cardVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: reduce ? 0 : 24 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: reduce ? 0.01 : 0.55,
+          ease: EASE_OUT,
+        },
+      },
+    }),
+    [reduce]
+  )
   const [billing, setBilling] = useState<BillingPeriod>('monthly')
   /** Plano expandido no mobile (< lg); no desktop o conteúdo completo fica sempre visível. */
   const [expandedPlanId, setExpandedPlanId] = useState<string | null>(null)
@@ -189,17 +203,17 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="planos"
-      className="relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 px-4 py-16 sm:py-24 lg:px-6 lg:py-32"
+      className="section-y relative bg-gradient-to-b from-neutral-50 via-white to-neutral-50 before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-neutral-200/70 before:to-transparent"
     >
       {/* Glow de fundo suave */}
       <div className="pointer-events-none absolute inset-x-0 top-[-8rem] mx-auto h-[380px] max-w-4xl rounded-full bg-gradient-to-b from-nat-green/14 via-nat-green/6 to-transparent blur-3xl" />
 
-      <div className="relative mx-auto w-full max-w-[100rem]">
+      <div className="section-shell relative">
         <motion.div
-          className="mb-10 text-center lg:pt-20"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 text-center"
+          initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+          animate={effectiveInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: reduce ? 0.01 : DURATION.section, ease: EASE_OUT }}
         >
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-green lg:mb-3">
             Planos NAPSE
@@ -215,7 +229,7 @@ export function PricingSection() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={effectiveInView ? 'visible' : 'hidden'}
           className="relative"
         >
           <div className="grid grid-cols-1 gap-3 lg:mr-auto lg:grid-cols-3 lg:gap-8">
@@ -224,6 +238,8 @@ export function PricingSection() {
                 billing === 'monthly'
                   ? plan.monthlyPrice
                   : plan.yearlyPrice
+              const ctaHref = planCtaHref(plan.name)
+              const ctaIsExternal = ctaHref.startsWith('http')
 
               const isHighlight = plan.highlight
               const isOpen = expandedPlanId === plan.id
@@ -232,15 +248,16 @@ export function PricingSection() {
               const cardInner = (
                 <motion.div
                   variants={cardVariants}
-                  whileHover={{ y: -8 }}
+                  whileHover={reduce ? undefined : { y: -8 }}
                   className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-4 py-4 backdrop-blur-xl border sm:px-5 sm:py-5 lg:px-8 lg:py-9 ${
                     isHighlight ? 'border-white/60' : 'border-white/50'
                   } shadow-[0_18px_60px_rgba(15,23,42,0.12)]`}
                 >
                   {isHighlight && (
                     <div className="absolute -top-3 left-1/2 hidden -translate-x-1/2 lg:block lg:-top-4">
-                      <div className="inline-flex items-center rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-3 py-1 text-[11px] font-semibold text-white shadow-[0_12px_30px_rgba(22,163,74,0.45)]">
-                        Mais escolhido
+                      <div className="inline-flex flex-col items-center rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-3 py-1 text-center shadow-[0_12px_30px_rgba(22,163,75,0.45)]">
+                        <span className="text-[11px] font-semibold leading-tight text-white">Mais escolhido</span>
+                        <span className="text-[10px] font-medium text-white/90">Melhor custo-benefício</span>
                       </div>
                     </div>
                   )}
@@ -262,8 +279,9 @@ export function PricingSection() {
                           {plan.name}
                         </h3>
                         {isHighlight && (
-                          <span className="inline-flex rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm">
-                            Mais escolhido
+                          <span className="inline-flex flex-col items-start rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm leading-tight">
+                            <span>Mais escolhido</span>
+                            <span className="text-[9px] font-medium text-white/90">Custo-benefício</span>
                           </span>
                         )}
                       </div>
@@ -337,13 +355,15 @@ export function PricingSection() {
                     </AnimatePresence>
 
                     <div className={isOpen ? 'lg:mt-0' : 'max-lg:hidden'}>
-                      <button
-                        type="button"
-                        className="relative mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:mt-auto lg:py-3"
+                      <a
+                        href={ctaHref}
+                        target={ctaIsExternal ? '_blank' : undefined}
+                        rel={ctaIsExternal ? 'noopener noreferrer' : undefined}
+                        className="group relative mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:mt-auto lg:py-3"
                       >
-                        <span className="relative z-10">Falar com especialista</span>
-                        <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
-                      </button>
+                        <span className="relative z-10">Começar com este plano</span>
+                        <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 group-hover:opacity-40" />
+                      </a>
 
                       <ul className="mt-4 space-y-2.5 text-sm text-neutral-700 lg:mt-6 lg:space-y-3">
                         {plan.features.map((feature) => (
@@ -379,7 +399,6 @@ export function PricingSection() {
               )
             })}
           </div>
-
           <p className="mt-2 text-center text-xs text-neutral-500 lg:hidden">
             Toque no plano para ver benefícios e detalhes
           </p>

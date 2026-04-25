@@ -25,9 +25,9 @@ const onboardingCards: Array<{
     description: 'Tour passo a passo pelo sistema. Em minutos você já sabe onde está cada coisa.',
     Icon: Database,
     color: 'purple',
-    gradient: 'from-nat-purple/10 via-white/95 to-white',
-    glow: '0 0 40px 12px hsl(262 83% 52% / 0.12), 0 0 80px 24px hsl(262 83% 52% / 0.06)',
-    iconClass: 'text-nat-purple',
+    gradient: 'from-primary/10 via-white/95 to-white',
+    glow: '0 0 40px 12px hsl(var(--primary) / 0.12), 0 0 80px 24px hsl(var(--primary) / 0.06)',
+    iconClass: 'text-primary',
   },
   {
     id: '2',
@@ -163,7 +163,7 @@ export function SupportOnboardingSection() {
           >
             <motion.p
               variants={itemVariants}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple mb-3"
+              className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-3"
             >
               Suporte e Onboarding
             </motion.p>
@@ -220,7 +220,7 @@ export function SupportOnboardingSection() {
               whileInView={reduce ? undefined : { x: 0, opacity: 1 }}
               viewport={reduce ? undefined : { once: true, margin: '-80px 0px' }}
               transition={{ duration: reduce ? 0.01 : 0.65, ease: EASE_OUT }}
-              className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-nat-purple bg-white/70 backdrop-blur-sm py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
+              className="mb-8 sm:mb-14 lg:mb-20 max-w-xl rounded-r-2xl border-l-4 border-primary bg-white/70 backdrop-blur-sm py-4 sm:py-5 pl-5 sm:pl-6 pr-4 sm:pr-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
             >
               <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed sm:leading-loose tracking-tight font-medium text-balance">
                 Do treinamento à migração dos dados, nossa equipe guia sua clínica em cada etapa.{' '}

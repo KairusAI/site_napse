@@ -31,11 +31,11 @@ export function Footer() {
     <footer className="relative bg-[#080808] text-neutral-300 overflow-hidden">
       <div
         className="pointer-events-none absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.5) 0%, transparent 70%)' }}
       />
       <div
         className="pointer-events-none absolute -bottom-32 -right-32 w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, hsl(var(--nat-blue) / 0.5) 0%, transparent 70%)' }}
       />
 
       <div
@@ -72,7 +72,7 @@ export function Footer() {
                 <li key={`${label}-${to}`}>
                   <Link
                     to={to}
-                    className="text-sm text-neutral-300 transition-colors hover:text-[#6366f1]"
+                    className="text-sm text-neutral-300 transition-colors hover:text-primary"
                   >
                     {label}
                   </Link>
@@ -91,7 +91,7 @@ export function Footer() {
                   {'href' in row ? (
                     <a
                       href={row.href}
-                      className="inline-flex items-center gap-2 text-sm text-neutral-300 transition-colors hover:text-[#6366f1]"
+                      className="inline-flex items-center gap-2 text-sm text-neutral-300 transition-colors hover:text-primary"
                     >
                       <row.Icon className="h-4 w-4 shrink-0 opacity-70" />
                       {row.label}
@@ -99,7 +99,7 @@ export function Footer() {
                   ) : (
                     <Link
                       to={row.to}
-                      className="inline-flex items-center gap-2 text-sm text-neutral-300 transition-colors hover:text-[#6366f1]"
+                      className="inline-flex items-center gap-2 text-sm text-neutral-300 transition-colors hover:text-primary"
                     >
                       <row.Icon className="h-4 w-4 shrink-0 opacity-70" />
                       {row.label}
@@ -119,7 +119,7 @@ export function Footer() {
                 <li key={label}>
                   <Link
                     to={to}
-                    className="text-sm text-neutral-300 transition-colors hover:text-[#6366f1]"
+                    className="text-sm text-neutral-300 transition-colors hover:text-primary"
                   >
                     {label}
                   </Link>
@@ -128,11 +128,11 @@ export function Footer() {
             </ul>
             <div className="flex flex-row sm:flex-col gap-3 mt-3">
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-                <Shield className="h-4 w-4 shrink-0 text-emerald-400/90" />
+                <Shield className="h-4 w-4 shrink-0 text-nat-green/90" />
                 <span className="text-xs font-medium text-neutral-400">LGPD</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-                <Lock className="h-4 w-4 shrink-0 text-sky-400/90" />
+                <Lock className="h-4 w-4 shrink-0 text-nat-blue/90" />
                 <span className="text-xs font-medium text-neutral-400">SSL</span>
               </div>
             </div>
@@ -150,7 +150,7 @@ export function Footer() {
                       href={instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-[#6366f1]"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-primary"
                       aria-label="Instagram NAPSE"
                     >
                       <Instagram className="h-5 w-5" />
@@ -163,7 +163,7 @@ export function Footer() {
                       href={linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-[#6366f1]"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-primary"
                       aria-label="LinkedIn NAPSE"
                     >
                       <Linkedin className="h-5 w-5" />
@@ -176,7 +176,7 @@ export function Footer() {
                       href={youtube}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-[#6366f1]"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-300 transition-colors hover:text-primary"
                       aria-label="YouTube NAPSE"
                     >
                       <Youtube className="h-5 w-5" />
@@ -199,9 +199,27 @@ export function Footer() {
         style={{ boxShadow: '0 -1px 0 0 rgba(255,255,255,0.03)' }}
       >
         <div className="mx-auto max-w-site px-4 sm:px-6 py-5">
-          <p className="text-center text-xs text-neutral-500">
-            © 2026 NAPSE. Todos os direitos reservados.
-          </p>
+          <div className="flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-xs text-neutral-500">
+              © 2026 NAPSE. Todos os direitos reservados.
+            </p>
+            <a
+              href="https://www.kairus.group"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center opacity-50 transition-opacity duration-500 hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080808] rounded-md"
+              aria-label="Kairus (abre em nova aba)"
+              title="Kairus"
+            >
+              <img
+                src="/assets/kairus.png"
+                alt="Kairus"
+                className="h-24 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

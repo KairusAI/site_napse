@@ -173,10 +173,10 @@ export function Header() {
         href={item.href}
         onClick={(event) => handleNavClick(event, id)}
         className={`flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-base font-medium transition-colors ${
-          isActive ? 'bg-nat-purple/10 text-nat-purple' : 'text-neutral-800 hover:bg-neutral-100/80'
+          isActive ? 'bg-primary/10 text-primary' : 'text-neutral-800 hover:bg-neutral-100/80'
         }`}
       >
-        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-nat-purple' : 'text-neutral-400'}`} strokeWidth={1.8} />
+        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-primary' : 'text-neutral-400'}`} strokeWidth={1.8} />
         {item.label}
       </a>
     )
@@ -257,7 +257,7 @@ export function Header() {
                       {isActive && (
                         <motion.div
                           layoutId="header-bubble"
-                          className="absolute inset-y-0.5 left-0 right-0 rounded-full bg-gradient-to-r from-nat-purple to-nat-purple/85 shadow-[0_6px_20px_rgba(88,28,135,0.4)] p-4"
+                          className="absolute inset-y-0.5 left-0 right-0 rounded-full bg-gradient-to-r from-primary to-primary/85 shadow-[0_6px_20px_hsl(var(--primary)_/_0.4)] p-4"
                           transition={{ type: 'spring', stiffness: 360, damping: 26 }}
                         />
                       )}
@@ -285,7 +285,7 @@ export function Header() {
                 e.preventDefault()
                 scrollToContact()
               }}
-              className="hidden h-9 shrink-0 items-center justify-center rounded-full bg-nat-purple px-3.5 text-xs font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_-2px_rgba(99,102,241,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple focus-visible:ring-offset-2 sm:inline-flex sm:min-h-10 sm:px-4 sm:py-2.5 sm:text-sm"
+              className="hidden h-9 shrink-0 items-center justify-center rounded-full bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-[0_4px_14px_-2px_hsl(var(--primary)_/_0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_-2px_hsl(var(--primary)_/_0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex sm:min-h-10 sm:px-4 sm:py-2.5 sm:text-sm"
             >
               Falar com especialista
             </a>
@@ -377,11 +377,11 @@ export function Header() {
                               href={item.href}
                               onClick={(event) => handleNavClick(event, id)}
                               className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
-                                isActive ? 'bg-nat-purple/10 text-nat-purple' : 'text-neutral-700'
+                                isActive ? 'bg-primary/10 text-primary' : 'text-neutral-700'
                               }`}
                             >
                               <Icon
-                                className={`h-5 w-5 shrink-0 ${isActive ? 'text-nat-purple' : 'text-neutral-400'}`}
+                                className={`h-5 w-5 shrink-0 ${isActive ? 'text-primary' : 'text-neutral-400'}`}
                                 strokeWidth={1.8}
                               />
                               {item.label}
@@ -403,7 +403,7 @@ export function Header() {
                     setActiveId('contato')
                     scrollToTarget(document.getElementById('contato'))
                   }}
-                  className="flex w-full items-center justify-center rounded-xl bg-nat-purple px-5 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_-2px_rgba(99,102,241,0.4)]"
+                  className="flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_4px_14px_-2px_hsl(var(--primary)_/_0.4)]"
                 >
                   Falar com especialista
                 </a>

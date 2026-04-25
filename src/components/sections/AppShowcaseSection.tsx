@@ -35,7 +35,7 @@ export function AppShowcaseSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: reduceMotion ? 0.01 : 1.25, ease: EASE_OUT }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary lg:mb-3">
             Plataforma
           </p>
           <h2

@@ -11,11 +11,59 @@ export function ContactSection() {
   const reduce = useReducedMotion()
   const inView = isInView || Boolean(reduce)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const whatsappHref = getWhatsAppUrl('Quero falar com um especialista sobre a NAPSE para minha clínica.')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
+    setErrorMessage(null)
+    if (isSubmitting) return
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const name = String(data.get('name') ?? '').trim()
+    const email = String(data.get('email') ?? '').trim()
+    const message = String(data.get('message') ?? '').trim()
+
+    if (!name || !email || !message) {
+      setErrorMessage('Preencha nome, e-mail e mensagem.')
+      return
+    }
+
+    setIsSubmitting(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+
+      const payload = (await res.json().catch(() => null)) as
+        | { ok?: boolean; error?: string; details?: string; status?: number }
+        | null
+
+      if (!res.ok || !payload?.ok) {
+        const parts: string[] = ['Não foi possível enviar agora.']
+        if (payload?.error === 'MISSING_RESEND_API_KEY') {
+          parts.push('Configuração do servidor pendente (RESEND_API_KEY).')
+        } else if (payload?.error) {
+          parts.push(`Erro: ${payload.error}.`)
+        } else {
+          parts.push(`Erro HTTP ${res.status}.`)
+        }
+        parts.push('Tente novamente ou use o e-mail abaixo.')
+        setErrorMessage(parts.join(' '))
+        return
+      }
+
+      setSubmitted(true)
+      form.reset()
+    } catch {
+      setErrorMessage('Não foi possível enviar agora. Tente novamente ou use o e-mail abaixo.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -29,7 +77,7 @@ export function ContactSection() {
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
-          backgroundImage: `radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.08), transparent 60%)`,
+          backgroundImage: `radial-gradient(ellipse 60% 50% at 50% 0%, hsl(var(--primary) / 0.08), transparent 60%)`,
         }}
       />
 
@@ -40,7 +88,7 @@ export function ContactSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: reduce ? 0.01 : DURATION.short, ease: EASE_OUT }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary lg:mb-3">
             Fale conosco
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
@@ -80,13 +128,8 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <p className="rounded-xl border border-neutral-200/80 bg-neutral-50/80 px-3 py-2.5 text-xs leading-relaxed text-neutral-600">
-                  Este formulário é uma demonstração no site: os dados não são enviados a um servidor. Para
-                  contato real, use o e-mail abaixo. Quando o envio estiver ativo, utilizaremos suas
-                  informações apenas conforme a{' '}
-                  <Link
-                    to="/politica-de-privacidade"
-                    className="font-medium text-nat-purple underline-offset-2 hover:underline"
-                  >
+                  Ao enviar, você concorda com a{' '}
+                  <Link to="/politica-de-privacidade" className="font-medium text-primary underline-offset-2 hover:underline">
                     Política de Privacidade
                   </Link>
                   .
@@ -100,7 +143,7 @@ export function ContactSection() {
                     name="name"
                     type="text"
                     required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors"
                     placeholder="Seu nome"
                   />
                 </div>
@@ -113,7 +156,7 @@ export function ContactSection() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors"
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -126,17 +169,23 @@ export function ContactSection() {
                     name="message"
                     rows={4}
                     required
-                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-nat-purple focus:ring-2 focus:ring-nat-purple/20 focus:outline-none transition-colors resize-none"
+                    className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-none"
                     placeholder="Ex: consultório com 2 médicos, quero migrar da planilha, preciso de faturamento TISS..."
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-nat-purple px-6 py-4 text-base font-semibold text-white shadow-[0_4px_20px_-4px_hsl(262_83%_52%_/_0.5)] transition-all hover:shadow-[0_8px_28px_-4px_hsl(262_83%_52%_/_0.5)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2"
+                  disabled={isSubmitting}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-[0_4px_20px_-4px_hsl(var(--primary)_/_0.5)] transition-all hover:shadow-[0_8px_28px_-4px_hsl(var(--primary)_/_0.5)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-70 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                 >
                   <Send className="w-5 h-5" />
-                  Enviar mensagem
+                  {isSubmitting ? 'Enviando…' : 'Enviar mensagem'}
                 </button>
+                {errorMessage && (
+                  <p className="text-sm text-red-600" role="alert">
+                    {errorMessage}
+                  </p>
+                )}
               </form>
             )}
           </div>
@@ -150,10 +199,10 @@ export function ContactSection() {
               <div className="space-y-4">
                 <a
                   href={import.meta.env.VITE_GMAIL_URL}
-                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-nat-purple/50 hover:shadow-md group"
+                  className="flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-white p-4 transition-all hover:border-primary/50 hover:shadow-md group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-nat-purple/10 flex items-center justify-center group-hover:bg-nat-purple/20 transition-colors">
-                    <Mail className="w-6 h-6 text-nat-purple" />
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <p className="font-semibold text-neutral-900">E-mail</p>

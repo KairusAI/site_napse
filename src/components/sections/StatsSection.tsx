@@ -96,16 +96,16 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
       <div className="relative w-full h-full max-w-xs sm:max-w-sm group isolate">
         {/* Iluminação atrás do card — fora da animação, sempre visível */}
         <div
-          className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-nat-purple/30 via-nat-blue/25 to-nat-purple/30 blur-2xl group-hover:from-nat-purple/40 group-hover:via-nat-blue/35 group-hover:to-nat-purple/40 transition-all duration-500 pointer-events-none"
+          className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/30 via-nat-blue/25 to-primary/30 blur-2xl group-hover:from-primary/40 group-hover:via-nat-blue/35 group-hover:to-primary/40 transition-all duration-500 pointer-events-none"
           style={{ zIndex: 0 }}
           aria-hidden
         />
         {/* Liquid glass card — só o card anima */}
         <motion.div
-          className="relative w-full h-full rounded-3xl bg-white/25 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] px-6 py-8 sm:px-8 sm:py-10 flex flex-col items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/35 hover:border-white/80 hover:shadow-[0_24px_64px_rgba(99,102,241,0.12),inset_0_1px_0_rgba(255,255,255,0.9)]"
+          className="relative w-full h-full rounded-3xl bg-white/25 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] px-6 py-8 sm:px-8 sm:py-10 flex flex-col items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/35 hover:border-white/80 hover:shadow-[0_24px_64px_hsl(var(--primary)_/_0.12),inset_0_1px_0_rgba(255,255,255,0.9)]"
           style={{ zIndex: 1 }}
         >
-          <span className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-nat-purple to-nat-blue bg-clip-text text-transparent">
+          <span className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-primary to-nat-blue bg-clip-text text-transparent">
             {formattedValue}
           </span>
           <p className="mt-4 text-sm sm:text-base text-slate-600 font-medium max-w-[18rem]">
@@ -151,7 +151,9 @@ export function StatsSection() {
       {/* Gradiente mesh sutil — depth sem flat fill (Awwwards trend) */}
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
-        style={{ background: 'linear-gradient(135deg, hsl(262 83% 52% / 0.03), hsl(217 91% 50% / 0.02))' }}
+        style={{
+          background: 'linear-gradient(135deg, hsl(var(--primary) / 0.03), hsl(var(--nat-blue) / 0.02))',
+        }}
         aria-hidden
       />
       {/* Linha tipo gráfico no fundo — animação de desenho do início ao fim */}
@@ -164,7 +166,7 @@ export function StatsSection() {
         <motion.path
           d="M 0 98 L 18 82 L 32 78 L 48 62 L 58 58 L 72 38 L 85 22 L 100 8"
           fill="none"
-          stroke="hsl(var(--nat-purple))"
+          stroke="hsl(var(--primary))"
           strokeOpacity="0.14"
           strokeWidth="0.7"
           strokeLinecap="round"
@@ -187,7 +189,7 @@ export function StatsSection() {
           animate={effectiveInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: reduce ? 0.01 : 0.7, ease: EASE_OUT }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary lg:mb-3">
             Impacto em números
           </p>
           <h2
@@ -199,7 +201,7 @@ export function StatsSection() {
           <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600 lg:mt-5">
             <a
               href="#plataforma"
-              className="font-semibold text-nat-purple underline-offset-2 transition-colors hover:underline"
+              className="font-semibold text-primary underline-offset-2 transition-colors hover:underline"
             >
               Veja na prática na plataforma
             </a>{' '}

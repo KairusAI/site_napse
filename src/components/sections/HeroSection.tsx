@@ -32,7 +32,7 @@ function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
       >
         <span className="text-xs text-neutral-500/60 uppercase tracking-[0.2em]">Scroll</span>
         <div className="w-6 h-10 rounded-full border-2 border-neutral-400/30 flex items-start justify-center pt-2">
-          <div className="w-2 h-2 rounded-full bg-nat-purple" />
+          <div className="w-2 h-2 rounded-full bg-primary" />
         </div>
       </div>
     )
@@ -59,7 +59,7 @@ function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
         transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', delay: 2 }}
       >
         <motion.div
-          className="w-2 h-2 rounded-full bg-nat-purple"
+          className="w-2 h-2 rounded-full bg-primary"
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
         />
@@ -87,7 +87,7 @@ export function HeroSection() {
       {/* Gradiente suave — depth sem purple-on-white genérico */}
       <div
         className="pointer-events-none absolute -right-1/4 -top-1/4 w-[80vw] h-[80vw] rounded-full opacity-30 blur-[80px]"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 60%)' }}
+        style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 60%)' }}
         aria-hidden
       />
       {/* Coluna esquerda: texto */}
@@ -99,7 +99,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.6, ease: EASE_OUT }}
           >
-            Menos burocracia. <span className="text-nat-purple">Mais tempo</span> para o que importa.
+            Menos burocracia. <span className="text-primary">Mais tempo</span> para o que importa.
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-neutral-600"
@@ -136,8 +136,8 @@ export function HeroSection() {
           >
             <motion.a
               href="#contato"
-              className="group relative inline-flex w-full min-w-0 items-center justify-center gap-2 overflow-hidden rounded-xl bg-nat-purple px-7 py-3.5 text-center text-base font-semibold text-white shadow-[0_4px_20px_-4px_hsl(262_83%_52%_/_0.5)] focus:outline-none focus:ring-2 focus:ring-nat-purple focus:ring-offset-2 sm:w-auto"
-              whileHover={reduce ? undefined : { scale: 1.03, boxShadow: '0 12px 32px -8px hsl(262 83% 52% / 0.45)' }}
+              className="group relative inline-flex w-full min-w-0 items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-7 py-3.5 text-center text-base font-semibold text-primary-foreground shadow-[0_4px_20px_-4px_hsl(var(--primary)_/_0.5)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto"
+              whileHover={reduce ? undefined : { scale: 1.03, boxShadow: '0 12px 32px -8px hsl(var(--primary) / 0.45)' }}
               whileTap={reduce ? undefined : { scale: 0.98 }}
             >
               <span className="relative z-10">Falar com especialista</span>
@@ -149,7 +149,7 @@ export function HeroSection() {
             </motion.a>
             <a
               href="#planos"
-              className="inline-flex w-full min-w-0 items-center justify-center rounded-xl border-2 border-neutral-300/90 bg-white/80 px-7 py-3.5 text-center text-base font-semibold text-neutral-800 shadow-sm backdrop-blur-sm transition-colors hover:border-nat-purple/50 hover:text-nat-purple focus:outline-none focus:ring-2 focus:ring-nat-purple/40 focus:ring-offset-2 sm:w-auto"
+              className="inline-flex w-full min-w-0 items-center justify-center rounded-xl border-2 border-neutral-300/90 bg-white/80 px-7 py-3.5 text-center text-base font-semibold text-neutral-800 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2 sm:w-auto"
             >
               Ver planos
             </a>

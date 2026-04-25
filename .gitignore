@@ -44,3 +44,5 @@ coverage/
 
 # Other
 .sass-cache/
+.vercel
+.env*.local

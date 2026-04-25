@@ -88,7 +88,7 @@ function FaqAccordionItem({
     <div
       className={`border-b border-neutral-200/80 last:border-b-0 transition-all duration-300 ${
         isOpen
-          ? 'rounded-xl bg-white/50 backdrop-blur-md shadow-[0_0_32px_rgba(139,92,246,0.2),0_0_12px_rgba(139,92,246,0.1)] border border-white/70 my-1 mx-2 sm:mx-3 px-2 sm:px-3 py-1'
+          ? 'rounded-xl bg-white/50 backdrop-blur-md shadow-[0_0_32px_hsl(var(--primary)_/_0.2),0_0_12px_hsl(var(--primary)_/_0.1)] border border-white/70 my-1 mx-2 sm:mx-3 px-2 sm:px-3 py-1'
           : ''
       }`}
     >
@@ -99,20 +99,20 @@ function FaqAccordionItem({
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${item.id}`}
         id={`faq-question-${item.id}`}
-        className={`relative w-full flex items-center justify-between gap-4 py-4 sm:py-5 pl-5 pr-5 sm:pl-6 sm:pr-6 text-left rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-purple/40 focus-visible:ring-offset-2 ${
+        className={`relative w-full flex items-center justify-between gap-4 py-4 sm:py-5 pl-5 pr-5 sm:pl-6 sm:pr-6 text-left rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 ${
           isOpen ? 'bg-transparent' : 'hover:bg-white/50'
         }`}
       >
         <span
           className={`font-semibold text-neutral-900 pr-2 transition-colors ${
-            isOpen ? 'text-nat-purple' : ''
+            isOpen ? 'text-primary' : ''
           }`}
         >
           {item.question}
         </span>
         <span
           className={`flex shrink-0 w-8 h-8 items-center justify-center rounded-full transition-colors ${
-            isOpen ? 'bg-nat-purple text-white' : 'bg-nat-purple/15 text-nat-purple'
+            isOpen ? 'bg-primary text-primary-foreground' : 'bg-primary/15 text-primary'
           }`}
           aria-hidden
         >
@@ -193,7 +193,7 @@ export function FAQSection() {
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: reduce ? 0.01 : 0.85, ease: EASE_OUT }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary lg:mb-3">
             FAQ
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
@@ -207,7 +207,7 @@ export function FAQSection() {
         {/* Mesma caixa horizontal: centro do acordeão e do CTA coincidem */}
         <div className="mx-auto w-full max-w-3xl lg:ml-auto lg:mr-16 xl:mr-24 2xl:mr-32">
           <motion.div
-            className="w-full rounded-2xl border-2 border-neutral-200/90 bg-white/80 bg-gradient-to-br from-white via-neutral-50/80 to-nat-purple/5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_10px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl overflow-hidden"
+            className="w-full rounded-2xl border-2 border-neutral-200/90 bg-white/80 bg-gradient-to-br from-white via-neutral-50/80 to-primary/5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_10px_24px_-4px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl overflow-hidden"
             initial={{ opacity: 0, y: reduce ? 0 : 20, scale: reduce ? 1 : 0.98 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ duration: reduce ? 0.01 : 0.8, delay: reduce ? 0 : 0.2, ease: EASE_OUT }}
@@ -241,7 +241,7 @@ export function FAQSection() {
             Não encontrou sua dúvida?{' '}
             <a
               href="#contato"
-              className="font-semibold text-nat-purple hover:underline focus:outline-none focus-visible:underline"
+              className="font-semibold text-primary hover:underline focus:outline-none focus-visible:underline"
             >
               Fale conosco
             </a>
@@ -252,7 +252,7 @@ export function FAQSection() {
                   href={whatsappFaqHref}
                   target={whatsappFaqIsExternal ? '_blank' : undefined}
                   rel={whatsappFaqIsExternal ? 'noopener noreferrer' : undefined}
-                  className="font-semibold text-nat-purple hover:underline focus:outline-none focus-visible:underline"
+                  className="font-semibold text-primary hover:underline focus:outline-none focus-visible:underline"
                 >
                   prefere o WhatsApp
                 </a>

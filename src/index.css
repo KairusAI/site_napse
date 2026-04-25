@@ -4,21 +4,45 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98.8%; /* #fcfcfc */
-    --foreground: 0 0% 9%;
+    --background: 220 33% 99%;
+    --foreground: 224 17% 10%;
     --nat-green: 142 76% 36%;
     --nat-yellow: 42 96% 50%;
-    --nat-blue: 217 91% 50%;
+    --nat-blue: 239 84% 67%;
     --nat-purple: 262 83% 52%;
-    /* Gradientes multicolor — evita purple-on-white genérico */
-    --gradient-hero: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(99,102,241,0.04), transparent 50%);
-    --gradient-accent: linear-gradient(135deg, hsl(262 83% 52% / 0.08), hsl(217 91% 50% / 0.06));
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 239 84% 67%;
+    --surface-0: 220 30% 99%;
+    --surface-1: 220 30% 97%;
+    --surface-2: 225 28% 94%;
+    --ink-muted: 225 10% 42%;
+    --gradient-hero: radial-gradient(ellipse 72% 54% at 82% 16%, hsl(239 84% 67% / 0.1), transparent 56%);
+    --gradient-accent: linear-gradient(125deg, hsl(213 97% 78% / 0.24), hsl(239 84% 67% / 0.18));
+    --gradient-brand: linear-gradient(112deg, hsl(213 97% 78%) 0%, hsl(239 84% 67%) 100%);
+    --shadow-soft: 0 12px 36px rgba(15, 23, 42, 0.08);
+    --shadow-lift: 0 24px 68px rgba(15, 23, 42, 0.14);
+    --scroll-track: 220 22% 94%;
+    --scroll-thumb: 218 10% 62%;
+    --scroll-thumb-hover: 218 10% 48%;
   }
 
   html {
-    scroll-behavior: auto; /* Lenis controla o scroll */
-    /* Mobile: 16px base para legibilidade; desktop xl: densidade próxima do layout original */
-    font-size: 100%;
+    scroll-behavior: auto;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--scroll-thumb)) hsl(var(--scroll-track));
+  }
+
+  body {
+    @apply font-sans antialiased;
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    min-height: 100vh;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--scroll-thumb)) hsl(var(--scroll-track));
   }
 
   @media (min-width: 768px) {

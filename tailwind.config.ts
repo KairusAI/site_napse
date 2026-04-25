@@ -15,28 +15,24 @@ export default {
       colors: {
         // Pilares Napse - mascotes
         'nat-green': {
-          DEFAULT: 'hsl(142, 76%, 36%)',
-          foreground: 'hsl(0, 0%, 100%)',
-          light: 'hsl(142, 45%, 92%)',
-          muted: 'hsl(142, 30%, 96%)',
+          DEFAULT: 'hsl(var(--nat-green) / <alpha-value>)',
+          foreground: 'hsl(0 0% 100% / <alpha-value>)',
         },
         'nat-yellow': {
-          DEFAULT: 'hsl(42, 96%, 50%)',
-          foreground: 'hsl(0, 0%, 9%)',
-          light: 'hsl(42, 90%, 92%)',
-          muted: 'hsl(42, 40%, 96%)',
+          DEFAULT: 'hsl(var(--nat-yellow) / <alpha-value>)',
+          foreground: 'hsl(0 0% 9% / <alpha-value>)',
         },
         'nat-blue': {
-          DEFAULT: 'hsl(217, 91%, 50%)',
-          foreground: 'hsl(0, 0%, 100%)',
-          light: 'hsl(217, 70%, 92%)',
-          muted: 'hsl(217, 35%, 96%)',
+          DEFAULT: 'hsl(var(--nat-blue) / <alpha-value>)',
+          foreground: 'hsl(0 0% 100% / <alpha-value>)',
         },
         'nat-purple': {
-          DEFAULT: 'hsl(262, 83%, 52%)',
-          foreground: 'hsl(0, 0%, 100%)',
-          light: 'hsl(262, 60%, 92%)',
-          muted: 'hsl(262, 35%, 96%)',
+          DEFAULT: 'hsl(var(--nat-purple) / <alpha-value>)',
+          foreground: 'hsl(0 0% 100% / <alpha-value>)',
+        },
+        primary: {
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
         },
       },
       animation: {

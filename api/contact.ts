@@ -17,7 +17,6 @@ function escapeHtml(value: string) {
     .replaceAll("'", '&#39;')
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
@@ -73,7 +72,7 @@ export default async function handler(req: any, res: any) {
     from,
     to: [to],
     subject,
-    reply_to: email,
+    replyTo: email,
     html,
   }
 

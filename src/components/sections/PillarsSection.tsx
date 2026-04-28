@@ -275,10 +275,8 @@ export function PillarsSection() {
 
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[3fr_7fr] lg:gap-10 xl:gap-12">
             {/* Coluna esquerda ~30% — lista vertical (tabs) */}
-            <nav
+            <div
               className="lg:sticky lg:top-28"
-              role="tablist"
-              aria-label="Serviços do ecossistema"
               onMouseEnter={() => {
                 navPausedRef.current = true
               }}
@@ -289,12 +287,12 @@ export function PillarsSection() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
                 Serviços
               </p>
-              <ul className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1" role="tablist" aria-label="Serviços do ecossistema">
                 {pillars.map((pillar, i) => {
                   const isActive = i === activeIndex
                   return (
-                    <li key={pillar.id}>
                       <button
+                        key={pillar.id}
                         type="button"
                         role="tab"
                         aria-selected={isActive}
@@ -322,16 +320,15 @@ export function PillarsSection() {
                               width: `${tabProgress * 100}%`,
                               transition: 'none',
                             }}
-                            aria-hidden
+                            aria-hidden="true"
                           />
                         )}
                         <span className="relative z-10">{pillar.title}</span>
                       </button>
-                    </li>
                   )
                 })}
-              </ul>
-            </nav>
+              </div>
+            </div>
 
             {/* Coluna direita ~70% — painel do serviço ativo */}
             <div

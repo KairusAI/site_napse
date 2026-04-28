@@ -194,6 +194,10 @@ export function IntegrationsBentoGrid() {
               src="/assets/imagem_integracoes.png"
               alt="Integrações NAPSE"
               className="w-full max-w-sm object-contain sm:max-w-md"
+              width="450"
+              height="350"
+              loading="lazy"
+              decoding="async"
             />
           </motion.div>
 
@@ -209,6 +213,10 @@ export function IntegrationsBentoGrid() {
               alt="Integrações NAPSE - WhatsApp, Gmail, Google Calendar, Instagram e Asaas conectados ao hub"
               className="h-full object-contain drop-shadow-lg"
               style={{ minHeight: '100%', transform: 'scale(1.8)' }}
+              width="600"
+              height="800"
+              loading="lazy"
+              decoding="async"
             />
           </motion.div>
         </div>

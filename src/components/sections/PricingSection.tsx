@@ -219,7 +219,7 @@ export function PricingSection() {
             Planos NAPSE
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900 lg:text-5xl lg:font-bold lg:tracking-tight">
-            Investimento que paga em tempo e tranquilidade.
+            Preço da Napse: Investimento em gestão médica que se paga.
           </h2>
           <div className="mt-4 flex justify-center lg:mt-6">
             <BillingToggle billing={billing} onChange={setBilling} />

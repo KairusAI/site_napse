@@ -172,7 +172,7 @@ export function SupportOnboardingSection() {
               variants={itemVariants}
               className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
             >
-              Implementação em dias, não em meses.
+              Gestão médica simplificada: Implementação da Napse em dias.
             </motion.h2>
 
             {/* Imagem mascote — mobile (centralizada) */}

@@ -42,7 +42,7 @@ export function AppShowcaseSection() {
             id="app-showcase-heading"
             className="text-2xl font-semibold text-neutral-900 sm:text-5xl sm:font-bold sm:tracking-tight"
           >
-            O mesmo painel no consultório e em qualquer lugar
+            Software de gestão médica híbrido: Napse no consultório e no celular
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
             Interface pensada para o dia a dia da clínica — responsiva no celular e confortável no

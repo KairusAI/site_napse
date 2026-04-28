@@ -93,9 +93,9 @@ const integrations: Integration[] = [
   {
     id: 'vidaas',
     brand: 'VIDaaS',
-    title: 'VIDaaS',
-    description: 'Assinatura de documentos de saúde com VIDAaaS.',
-    iconBg: 'bg-[#1D4ED8]/20',
+    title: 'Assinatura Digital Integrada',
+    description: 'Emita receitas, atestados e pedidos de exames com a integração oficial do VIDaaS. Assine tudo eletronicamente com validade legal (ICPBrasil) e envie diretamente ao paciente, tudo sem sair da Napse.',
+    iconBg: 'bg-[#1D4ED8]/10 ring-1 ring-[#1D4ED8]/20',
     iconColor: 'text-[#1D4ED8]',
     brandColor: 'text-[#1D4ED8]',
     cardTone: 'bg-[#1D4ED8]/[0.05] border-[#1D4ED8]/30',
@@ -157,7 +157,7 @@ export function IntegrationsBentoGrid() {
                 Conecte tudo
               </p>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-                Conecte os aplicativos que você já usa
+                Integre a Napse aos aplicativos que sua clínica já usa
               </h2>
               <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-neutral-600">
                 E sua equipe passa a operar em um fluxo centralizado, mais previsível e com controle e confiança.
@@ -243,7 +243,7 @@ function IntegrationCard({
               whileHover={reduce ? undefined : { scale: 1.08, y: -3 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-            <img src={Icon} alt={integration.brand} className={isFeatured ? 'w-7 h-7' : 'w-6 h-6'} />
+            <img src={Icon} alt={integration.brand} className={`${isFeatured ? 'w-12 h-12' : 'w-11 h-11'} object-contain`} />
           </motion.div>
           <span className={`text-xs font-semibold uppercase tracking-wider ${integration.brandColor}`}>
             {integration.brand}

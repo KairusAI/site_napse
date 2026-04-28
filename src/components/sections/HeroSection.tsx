@@ -99,7 +99,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.6, ease: EASE_OUT }}
           >
-            Menos burocracia. <span className="text-primary">Mais tempo</span> para o que importa.
+            Com a Napse, menos burocracia. <span className="text-primary">Mais tempo</span> para sua clínica.
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-neutral-600"
@@ -107,7 +107,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Agenda, prontuário eletrônico, prescrição digital e marketing com IA em um só lugar. O copiloto que sua clínica precisava — você aprova, a IA executa.
+            Agenda, prontuário eletrônico, prescrição digital e marketing com IA em um só lugar. O copiloto que sua clínica precisava — você aprova, a IA da Napse executa.
           </motion.p>
           <motion.p
             className="mt-4 text-sm font-medium text-neutral-500"
@@ -115,17 +115,17 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.6, delay: reduce ? 0 : 0.18, ease: EASE_OUT }}
           >
-            Equipes clínicas em todo o Brasil usam a NAPSE para ganhar produtividade e manter a conformidade.
+            Equipes clínicas em todo o Brasil usam a plataforma Napse para ganhar produtividade e manter a conformidade.
           </motion.p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-neutral-200/80 py-3 sm:gap-x-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Integra com</span>
             <div className="flex flex-wrap items-center gap-4 sm:gap-5 opacity-90" aria-label="Logos de integrações">
-              <img src="/assets/icons/memed.png" alt="Memed" className="h-6 w-auto sm:h-7 object-contain" height={28} />
-              <img src="/assets/icons/vidaas.png" alt="vidaas" className="h-6 w-auto sm:h-7 object-contain" height={28} />
-              <img src="/assets/icons/calendar.png" alt="Agenda" className="h-6 w-auto sm:h-7 object-contain" height={28} />
-              <img src="/assets/icons/whatsapp.png" alt="WhatsApp" className="h-6 w-auto sm:h-7 object-contain" height={28} />
-              <img src="/assets/icons/gmail.png" alt="Gmail" className="h-6 w-auto sm:h-7 object-contain" height={28} />
-              <img src="/assets/icons/instagram.png" alt="Instagram" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/memed.png" alt="Integração Napse com Memed" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/vidaas.png" alt="Integração Napse com vidaas" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/calendar.png" alt="Agenda integrada Napse" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/whatsapp.png" alt="Integração Napse com WhatsApp" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/gmail.png" alt="Integração Napse com Gmail" className="h-6 w-auto sm:h-7 object-contain" height={28} />
+              <img src="/assets/icons/instagram.png" alt="Integração Napse com Instagram" className="h-6 w-auto sm:h-7 object-contain" height={28} />
             </div>
           </div>
           <motion.div

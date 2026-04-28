@@ -266,7 +266,7 @@ export function PillarsSection() {
               Pilares Napse
             </p>
             <h2 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
-              Do consultório ao caixa — um ecossistema pensado para médicos
+              Software médico completo: Napse, do consultório ao financeiro
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
               Selecione um serviço na lista para ver os detalhes.
@@ -363,7 +363,7 @@ export function PillarsSection() {
             Pilares Napse
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900">
-            Do consultório ao caixa — um ecossistema pensado para médicos
+            Software médico completo: Napse, do consultório ao financeiro
           </h2>
         </div>
 

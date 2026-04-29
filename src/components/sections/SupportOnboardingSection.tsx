@@ -184,7 +184,7 @@ export function SupportOnboardingSection() {
               viewport={reduce ? undefined : { once: true, margin: '0px 0px -80px' }}
             >
               <img
-                src="/assets/imagem_onboarding.png"
+                src="/assets/imagem_onboarding.webp"
                 alt="Mascote NAPSE comemorando o onboarding no computador"
                 className="w-full max-w-lg sm:max-w-xl drop-shadow-2xl"
               />
@@ -200,7 +200,7 @@ export function SupportOnboardingSection() {
               viewport={reduce ? undefined : { once: true, margin: '0px 0px -120px' }}
             >
               <img
-                src="/assets/imagem_onboarding.png"
+                src="/assets/imagem_onboarding.webp"
                 alt="Mascote NAPSE comemorando o onboarding no computador"
                 className="w-full h-auto drop-shadow-2xl"
               />

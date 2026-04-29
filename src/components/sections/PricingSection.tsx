@@ -406,7 +406,7 @@ export function PricingSection() {
           {/* Mascote financeiro — mobile */}
           <div className="mt-6 flex justify-center lg:hidden">
             <img
-              src="/assets/imagem_preços.png"
+              src="/assets/imagem_preços.webp"
               alt="Mascote financeiro NAPSE flutuando com balão"
               className="max-h-[220px] sm:max-h-[280px] w-auto drop-shadow-2xl select-none"
             />
@@ -415,7 +415,7 @@ export function PricingSection() {
           {/* Mascote financeiro — desktop */}
           <div className="pointer-events-none hidden lg:flex absolute inset-y-4 right-[-620px] items-center justify-center">
             <img
-              src="/assets/imagem_preços.png"
+              src="/assets/imagem_preços.webp"
               alt="Mascote financeiro NAPSE flutuando com balão"
               className="max-h-[440px] lg:max-h-[520px] w-auto drop-shadow-2xl select-none"
             />

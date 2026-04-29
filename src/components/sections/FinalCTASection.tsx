@@ -33,7 +33,7 @@ export function FinalCTASection() {
         transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
       >
         <img
-          src="/assets/imagem_cta2.png"
+          src="/assets/imagem_cta2.webp"
           alt="Mascote NAPSE convidando para começar"
           className="max-h-[260px] w-auto object-contain sm:max-h-[280px] xl:max-h-[320px] 2xl:max-h-[340px]"
           style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}

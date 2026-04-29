@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { EASE_OUT, viewportOnceTight } from '@/lib/motion'
 
-const DASH_IMG = '/assets/dashboard_fundo.png'
-const MOBILE_IMG = '/assets/print_mobile.png'
+const DASH_IMG = '/assets/dashboard_fundo.webp'
+const MOBILE_IMG = '/assets/print_mobile.webp'
 
 /** Sombras 3D — inline (Tailwind quebra múltiplas drop-shadow com rgba). */
 const MOCK_SHADOW_PHONE =

@@ -120,12 +120,12 @@ export function HeroSection() {
             <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-neutral-200/80 py-3 sm:gap-x-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Integra com</span>
             <div className="flex flex-wrap items-center gap-4 sm:gap-5 opacity-90" aria-label="Logos de integrações">
-              <img src="/assets/icons/memed.png" alt="Integração Napse com Memed" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/vidaas.png" alt="Integração Napse com vidaas" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/calendar.png" alt="Agenda integrada Napse" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/whatsapp.png" alt="Integração Napse com WhatsApp" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/gmail.png" alt="Integração Napse com Gmail" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/instagram.png" alt="Integração Napse com Instagram" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/memed.webp" alt="Integração Napse com Memed" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/vidaas.webp" alt="Integração Napse com vidaas" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/calendar.webp" alt="Agenda integrada Napse" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/whatsapp.webp" alt="Integração Napse com WhatsApp" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/gmail.webp" alt="Integração Napse com Gmail" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+              <img src="/assets/icons/instagram.webp" alt="Integração Napse com Instagram" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
             </div>
           </div>
           <motion.div

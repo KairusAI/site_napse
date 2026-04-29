@@ -49,7 +49,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(262, 83%, 52%)',
     bgLight: 'hsl(262, 60%, 92%)',
     heroIcon: Megaphone,
-    mascotImage: '/assets/mascote_marketing.png',
+    mascotImage: '/assets/mascote_marketing.webp',
     features: [
       { icon: Megaphone, label: 'Posts com IA' },
       { icon: Target, label: 'Captação' },
@@ -67,7 +67,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(217, 91%, 50%)',
     bgLight: 'hsl(217, 70%, 92%)',
     heroIcon: Stethoscope,
-    mascotImage: '/assets/mascote_medico.png',
+    mascotImage: '/assets/mascote_medico.webp',
     features: [
       { icon: Stethoscope, label: 'Prontuário' },
       { icon: ClipboardList, label: 'Prescrição' },
@@ -85,7 +85,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(42, 96%, 50%)',
     bgLight: 'hsl(42, 90%, 92%)',
     heroIcon: Headphones,
-    mascotImage: '/assets/mascote_secretaria.png',
+    mascotImage: '/assets/mascote_secretaria.webp',
     features: [
       { icon: Headphones, label: 'Atendimento' },
       { icon: Phone, label: 'WhatsApp' },
@@ -103,7 +103,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(142, 76%, 36%)',
     bgLight: 'hsl(142, 45%, 92%)',
     heroIcon: DollarSign,
-    mascotImage: '/assets/mascote_financeiro.png',
+    mascotImage: '/assets/mascote_financeiro.webp',
     features: [
       { icon: DollarSign, label: 'Tabela de Preços' },
       { icon: Receipt, label: 'Procedimentos' },

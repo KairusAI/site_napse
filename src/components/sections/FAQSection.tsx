@@ -180,7 +180,7 @@ export function FAQSection() {
         transition={{ duration: reduce ? 0.01 : 0.85, ease: EASE_OUT }}
       >
         <img
-          src="/assets/imagem_faq.png"
+          src="/assets/imagem_faq.webp"
           alt="Mascote NAPSE ajudando com dúvidas frequentes"
           className="max-h-[480px] w-auto object-contain xl:max-h-[560px]"
         />

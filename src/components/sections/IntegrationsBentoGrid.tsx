@@ -28,7 +28,7 @@ const integrations: Integration[] = [
     cardTone: 'bg-[#25D366]/[0.05] border-[#25D366]/40',
     borderAccent: 'border-l-[#25D366]',
     featured: true,
-    Icon: '/assets/icons/whatsapp.png',
+    Icon: '/assets/icons/whatsapp.webp',
   },
   {
     id: 'google-calendar',
@@ -40,7 +40,7 @@ const integrations: Integration[] = [
     brandColor: 'text-[#4285F4]',
     cardTone: 'bg-[#4285F4]/[0.05] border-[#4285F4]/35',
     borderAccent: 'border-l-[#4285F4]',
-    Icon: '/assets/icons/calendar.png',
+    Icon: '/assets/icons/calendar.webp',
   },
   {
     id: 'gmail',
@@ -52,7 +52,7 @@ const integrations: Integration[] = [
     brandColor: 'text-[#EA4335]',
     cardTone: 'bg-[#EA4335]/[0.05] border-[#EA4335]/30',
     borderAccent: 'border-l-[#EA4335]',
-    Icon: '/assets/icons/gmail.png',
+    Icon: '/assets/icons/gmail.webp',
   },
   {
     id: 'instagram',
@@ -64,7 +64,7 @@ const integrations: Integration[] = [
     brandColor: 'text-[#E1306C]',
     cardTone: 'bg-[#E1306C]/[0.05] border-[#E1306C]/30',
     borderAccent: 'border-l-[#E1306C]',
-    Icon: '/assets/icons/instagram.png',
+    Icon: '/assets/icons/instagram.webp',
   },
   {
     id: 'asaas',
@@ -88,7 +88,7 @@ const integrations: Integration[] = [
     brandColor: 'text-[#1D4ED8]',
     cardTone: 'bg-[#1D4ED8]/[0.05] border-[#1D4ED8]/30',
     borderAccent: 'border-l-[#1D4ED8]',
-    Icon: '/assets/icons/memed.png',
+    Icon: '/assets/icons/memed.webp',
   },
   {
     id: 'vidaas',
@@ -101,7 +101,7 @@ const integrations: Integration[] = [
     cardTone: 'bg-[#1D4ED8]/[0.05] border-[#1D4ED8]/30',
     borderAccent: 'border-l-[#1D4ED8]',
     featured: true,
-    Icon: '/assets/icons/vidaas.png',
+    Icon: '/assets/icons/vidaas.webp',
   }
 ]
 

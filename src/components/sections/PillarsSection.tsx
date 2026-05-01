@@ -49,7 +49,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(262, 83%, 52%)',
     bgLight: 'hsl(262, 60%, 92%)',
     heroIcon: Megaphone,
-    mascotImage: '/assets/mascote_marketing.png',
+    mascotImage: '/assets/mascote_marketing.webp',
     features: [
       { icon: Megaphone, label: 'Posts com IA' },
       { icon: Target, label: 'Captação' },
@@ -67,7 +67,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(217, 91%, 50%)',
     bgLight: 'hsl(217, 70%, 92%)',
     heroIcon: Stethoscope,
-    mascotImage: '/assets/mascote_medico.png',
+    mascotImage: '/assets/mascote_medico.webp',
     features: [
       { icon: Stethoscope, label: 'Prontuário' },
       { icon: ClipboardList, label: 'Prescrição' },
@@ -85,7 +85,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(42, 96%, 50%)',
     bgLight: 'hsl(42, 90%, 92%)',
     heroIcon: Headphones,
-    mascotImage: '/assets/mascote_secretaria.png',
+    mascotImage: '/assets/mascote_secretaria.webp',
     features: [
       { icon: Headphones, label: 'Atendimento' },
       { icon: Phone, label: 'WhatsApp' },
@@ -103,7 +103,7 @@ const pillars: Pillar[] = [
     bgColor: 'hsl(142, 76%, 36%)',
     bgLight: 'hsl(142, 45%, 92%)',
     heroIcon: DollarSign,
-    mascotImage: '/assets/mascote_financeiro.png',
+    mascotImage: '/assets/mascote_financeiro.webp',
     features: [
       { icon: DollarSign, label: 'Tabela de Preços' },
       { icon: Receipt, label: 'Procedimentos' },
@@ -254,16 +254,19 @@ export function PillarsSection() {
   }, [activeIndex])
 
   return (
-    <section ref={sectionRef} id="ecossistema" className="scroll-mt-20">
+    <section
+      ref={sectionRef}
+      id="ecossistema"
+      className="section-y relative scroll-mt-20 before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-neutral-200/70 before:to-transparent"
+    >
       {/* Desktop — 30% tabs | 70% card */}
-      <div className="hidden lg:block px-6 py-16">
-        <div className="mx-auto w-full max-w-[100rem]">
-          <div className="mb-10 pt-20 text-center">
+      <div className="section-shell hidden lg:block">
+        <div className="mb-10 text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
               Pilares Napse
             </p>
             <h2 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
-              Do consultório ao caixa — um ecossistema pensado para médicos
+              Software médico completo: Napse, do consultório ao financeiro
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
               Selecione um serviço na lista para ver os detalhes.
@@ -272,10 +275,8 @@ export function PillarsSection() {
 
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[3fr_7fr] lg:gap-10 xl:gap-12">
             {/* Coluna esquerda ~30% — lista vertical (tabs) */}
-            <nav
+            <div
               className="lg:sticky lg:top-28"
-              role="tablist"
-              aria-label="Serviços do ecossistema"
               onMouseEnter={() => {
                 navPausedRef.current = true
               }}
@@ -286,12 +287,12 @@ export function PillarsSection() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
                 Serviços
               </p>
-              <ul className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1" role="tablist" aria-label="Serviços do ecossistema">
                 {pillars.map((pillar, i) => {
                   const isActive = i === activeIndex
                   return (
-                    <li key={pillar.id}>
                       <button
+                        key={pillar.id}
                         type="button"
                         role="tab"
                         aria-selected={isActive}
@@ -319,16 +320,15 @@ export function PillarsSection() {
                               width: `${tabProgress * 100}%`,
                               transition: 'none',
                             }}
-                            aria-hidden
+                            aria-hidden="true"
                           />
                         )}
                         <span className="relative z-10">{pillar.title}</span>
                       </button>
-                    </li>
                   )
                 })}
-              </ul>
-            </nav>
+              </div>
+            </div>
 
             {/* Coluna direita ~70% — painel do serviço ativo */}
             <div
@@ -352,16 +352,15 @@ export function PillarsSection() {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Mobile — cards empilhados */}
-      <div className="px-4 py-16 lg:hidden">
+      <div className="section-shell lg:hidden">
         <div className="mb-10 text-center">
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple">
             Pilares Napse
           </p>
           <h2 className="text-2xl font-semibold text-neutral-900">
-            Do consultório ao caixa — um ecossistema pensado para médicos
+            Software médico completo: Napse, do consultório ao financeiro
           </h2>
         </div>
 
@@ -376,14 +375,14 @@ export function PillarsSection() {
                 <p className="mb-4 text-sm leading-relaxed text-white/80">
                   {pillar.subtitle} — {pillar.description}
                 </p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   {pillar.features.map((f) => (
                     <div
                       key={f.label}
-                      className="flex flex-col items-center gap-1 rounded-xl bg-white/20 p-2.5"
+                      className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white/20 p-2.5"
                     >
-                      <f.icon className="h-4 w-4" />
-                      <span className="text-center text-[10px] font-medium leading-tight">
+                      <f.icon className="h-4 w-4 shrink-0" />
+                      <span className="text-center text-xs font-medium leading-snug sm:text-[13px]">
                         {f.label}
                       </span>
                     </div>

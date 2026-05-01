@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { EASE_OUT, viewportOnceTight } from '@/lib/motion'
 
-const DASH_IMG = '/assets/dashboard_fundo.png'
-const MOBILE_IMG = '/assets/print_mobile.png'
+const DASH_IMG = '/assets/dashboard_fundo.webp'
+const MOBILE_IMG = '/assets/print_mobile.webp'
 
 /** Sombras 3D — inline (Tailwind quebra múltiplas drop-shadow com rgba). */
 const MOCK_SHADOW_PHONE =
@@ -14,35 +15,34 @@ const MOCK_SHADOW_REDUCED_PHONE =
 const MOCK_SHADOW_REDUCED_LAPTOP =
   'drop-shadow(0 8px 18px rgba(15, 23, 42, 0.1)) drop-shadow(0 18px 40px rgba(15, 23, 42, 0.12))'
 
-const easeOut = [0.22, 1, 0.36, 1] as const
-
 export function AppShowcaseSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-60px' })
+  const isInView = useInView(sectionRef, viewportOnceTight)
   const reduceMotion = useReducedMotion()
+  const inView = isInView || Boolean(reduceMotion)
 
   return (
     <section
       ref={sectionRef}
       id="plataforma"
-      className="relative overflow-hidden bg-[#f4f6f9]"
+      className="section-y relative overflow-hidden bg-[#f4f6f9] before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-slate-300/60 before:to-transparent"
       aria-labelledby="app-showcase-heading"
     >
-      <div className="relative z-10 mx-auto w-full max-w-[100rem] bg-gradient-to-b from-slate-200/25 via-transparent to-slate-200/20 px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-6 lg:pb-24 lg:pt-20">
+      <div className="section-shell relative z-10 bg-gradient-to-b from-slate-200/25 via-transparent to-slate-200/20">
         <motion.div
           className="mx-auto mb-10 max-w-3xl text-center lg:max-w-4xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.25, ease: easeOut }}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: reduceMotion ? 0.01 : 1.25, ease: EASE_OUT }}
         >
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-nat-purple lg:mb-3">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary lg:mb-3">
             Plataforma
           </p>
           <h2
             id="app-showcase-heading"
             className="text-2xl font-semibold text-neutral-900 sm:text-5xl sm:font-bold sm:tracking-tight"
           >
-            O mesmo painel no consultório e em qualquer lugar
+            Software de gestão médica híbrido: Napse no consultório e no celular
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600">
             Interface pensada para o dia a dia da clínica — responsiva no celular e confortável no
@@ -60,7 +60,7 @@ export function AppShowcaseSection() {
                 : { opacity: 0, y: 48, scale: 0.9, x: -36, rotateZ: -2 }
             }
             animate={
-              isInView
+              inView
                 ? reduceMotion
                   ? { opacity: 1 }
                   : { opacity: 1, y: 0, scale: 1, x: 0, rotateZ: 0 }
@@ -69,9 +69,9 @@ export function AppShowcaseSection() {
                   : { opacity: 0, y: 48, scale: 0.9, x: -36, rotateZ: -2 }
             }
             transition={{
-              duration: reduceMotion ? 0.8 : 1.7,
-              delay: reduceMotion ? 0.15 : 0.38,
-              ease: easeOut,
+              duration: reduceMotion ? 0.01 : 1.7,
+              delay: reduceMotion ? 0 : 0.38,
+              ease: EASE_OUT,
             }}
           >
             <div
@@ -112,7 +112,7 @@ export function AppShowcaseSection() {
                 : { opacity: 0, y: 48, scale: 0.9, x: 40, rotateZ: 2 }
             }
             animate={
-              isInView
+              inView
                 ? reduceMotion
                   ? { opacity: 1 }
                   : { opacity: 1, y: 0, scale: 1, x: 0, rotateZ: 0 }
@@ -121,9 +121,9 @@ export function AppShowcaseSection() {
                   : { opacity: 0, y: 48, scale: 0.9, x: 40, rotateZ: 2 }
             }
             transition={{
-              duration: reduceMotion ? 0.8 : 1.7,
-              delay: reduceMotion ? 0.32 : 0.68,
-              ease: easeOut,
+              duration: reduceMotion ? 0.01 : 1.7,
+              delay: reduceMotion ? 0 : 0.68,
+              ease: EASE_OUT,
             }}
           >
             <div

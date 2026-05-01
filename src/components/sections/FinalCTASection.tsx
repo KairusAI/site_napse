@@ -1,59 +1,73 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { DURATION, EASE_OUT } from '@/lib/motion'
 import { ArrowRight, CreditCard, Sparkles, X } from 'lucide-react'
 
 export function FinalCTASection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const reduce = useReducedMotion()
+  const inView = isInView || Boolean(reduce)
 
   return (
     <section
       ref={ref}
       id="cta-final"
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="section-y-tight relative overflow-hidden"
     >
       {/* Fundo da seção: tom diferente para diferenciar */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-100/90 via-neutral-50 to-white" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_20%,rgba(99,102,241,0.08),transparent_50%)]" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse 70% 60% at 80% 20%, hsl(var(--primary) / 0.08), transparent 50%)',
+        }}
+      />
 
       {/* Imagem à direita (posicionada, não altera o layout – como na FAQ) */}
       <motion.div
         className="pointer-events-none absolute right-0 top-[12%] z-0 hidden -translate-y-1/2 lg:block xl:right-2 2xl:right-4"
-        initial={{ opacity: 0, x: 28 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, x: reduce ? 0 : 28 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
       >
         <img
-          src="/assets/imagem_cta2.png"
+          src="/assets/imagem_cta2.webp"
           alt="Mascote NAPSE convidando para começar"
           className="max-h-[260px] w-auto object-contain sm:max-h-[280px] xl:max-h-[320px] 2xl:max-h-[340px]"
           style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}
         />
       </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell relative z-10">
         {/* Wrapper do card: borda em gradiente + glow no hover */}
         <motion.div
           className="group/card relative mr-auto max-w-3xl"
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: reduce ? 0 : 24, scale: reduce ? 1 : 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: reduce ? 0.01 : DURATION.short, ease: EASE_OUT }}
         >
           {/* Glow atrás do card (aparece no hover) */}
           <div
-            className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[#6366f1]/40 to-[#3b82f6]/40 blur-2xl opacity-0 transition-opacity duration-300 group-hover/card:opacity-70"
+            className="pointer-events-none absolute -inset-4 rounded-[2rem] blur-2xl opacity-0 transition-opacity duration-300 group-hover/card:opacity-70"
+            style={{
+              backgroundImage:
+                'linear-gradient(135deg, hsl(var(--primary) / 0.4), hsl(var(--nat-blue) / 0.4))',
+            }}
             aria-hidden
           />
 
           {/* Borda em gradiente */}
           <div
-            className="relative rounded-3xl p-[1px] transition-shadow duration-300 group-hover/card:shadow-[0_30px_60px_-15px_rgba(99,102,241,0.45)]"
+            className="relative rounded-3xl p-[1px] transition-shadow duration-300 group-hover/card:shadow-[0_30px_60px_-15px_hsl(var(--primary)_/_0.45)]"
             style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(99,102,241,0.5) 50%, rgba(59,130,246,0.45) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, hsl(var(--primary) / 0.5) 50%, hsl(var(--nat-blue) / 0.45) 100%)',
             }}
           >
             {/* Card interno */}
-            <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] bg-gradient-to-br from-[#6366f1] via-[#5b5eea] to-[#3b82f6] p-6 sm:p-10 lg:p-12 xl:p-16 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_20px_60px_-15px_rgba(99,102,241,0.35),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-20px_20px_-10px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] bg-[image:var(--gradient-brand)] p-6 sm:p-10 lg:p-12 xl:p-16 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_20px_60px_-15px_hsl(var(--primary)_/_0.35),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-20px_20px_-10px_rgba(0,0,0,0.12)] backdrop-blur-xl">
               {/* Overlay de luz (radial) */}
               <div
                 className="pointer-events-none absolute inset-0 rounded-[calc(1.5rem-1px)] opacity-60"
@@ -113,8 +127,8 @@ export function FinalCTASection() {
                 >
                   <motion.a
                     href="#contato"
-                    className="group/btn relative inline-flex w-fit items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-xl bg-white px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg font-semibold text-[#6366f1] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-shadow duration-200 hover:ring-2 hover:ring-white/30 hover:ring-offset-2 hover:ring-offset-[#6366f1] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6366f1]"
-                    whileHover={{ scale: 1.02, y: -2, boxShadow: '0 12px 32px -8px rgba(99,102,241,0.5)' }}
+                    className="group/btn relative inline-flex w-fit items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-xl bg-white px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg font-semibold text-primary shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-shadow duration-200 hover:ring-2 hover:ring-white/30 hover:ring-offset-2 hover:ring-offset-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--primary))]"
+                    whileHover={{ scale: 1.02, y: -2, boxShadow: '0 12px 32px -8px hsl(var(--primary) / 0.5)' }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2 }}
                   >

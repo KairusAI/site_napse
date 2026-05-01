@@ -1,5 +1,7 @@
 # Node modules
 node_modules/
+# Pre-bundle do Vite (regenerado em dev/build; nao versionar)
+node_modules/.vite/
 
 # Build outputs
 dist/

@@ -14,46 +14,73 @@ type Plan = {
   features: string[]
 }
 
+/** Opção B: 3 planos públicos + Enterprise (fora do toggle mensal/anual). */
 const plans: Plan[] = [
   {
-    id: 'start',
-    name: 'Essencial',
-    description: 'Para consultório solo ou clínica pequena que quer sair do papel e da planilha.',
-    monthlyPrice: 297,
-    yearlyPrice: 297 * 10, // 2 meses de desconto
+    id: 'essencial-solo',
+    name: 'Essencial Solo',
+    description:
+      'Consultório solo que quer prontuário, agenda e IA leve — sem pagar por canais que ainda não usa.',
+    monthlyPrice: 229,
+    yearlyPrice: 2290,
     features: [
-      'Agenda online para equipe reduzida',
-      'Confirmação automática de consultas',
-      'Relatórios essenciais de produção',
+      '1 profissional ativo e até 2 usuários de apoio incluídos',
+      'Pacientes, prontuário, agenda, formulários e links públicos',
+      'Documentos, MEMED e financeiro básico',
+      'IA leve para documentos e apoio interno',
+      'WhatsApp oficial, inbox de redes e CRM: upgrade nos planos superiores',
     ],
   },
   {
-    id: 'growth',
-    name: 'Crescimento',
-    description: 'Para clínicas com vários médicos que precisam de visão completa.',
-    monthlyPrice: 497,
-    yearlyPrice: 497 * 10,
+    id: 'starter-clinico',
+    name: 'Starter Clínico',
+    description:
+      'Clínica pequena ou dupla de profissionais — equipe e métricas sem omnichannel completo.',
+    monthlyPrice: 349,
+    yearlyPrice: 3490,
     highlight: true,
     features: [
-      'Agenda por profissional e por especialidade',
-      'Fluxo completo de confirmação e controle de no-show',
-      'Dashboards de faturamento e ocupação',
-      'Suporte prioritário NAPSE',
+      '2 profissionais ativos e até 4 usuários de apoio incluídos',
+      'Tudo do Essencial Solo, mais equipe básica e métricas operacionais',
+      'Maior franquia de IA clínica',
+      'Ideal para sair do papel e coordenar mais de um profissional',
     ],
   },
   {
-    id: 'scale',
-    name: 'Escala',
-    description: 'Para grupos, redes e clínicas com múltiplas unidades.',
-    monthlyPrice: 897,
-    yearlyPrice: 897 * 10,
+    id: 'growth-omnichannel',
+    name: 'Growth Omnichannel',
+    description:
+      'Clínica com atendimento centralizado: WhatsApp, e-mail e Instagram viram canal de conversão.',
+    monthlyPrice: 849,
+    yearlyPrice: 8490,
     features: [
-      'Múltiplas unidades e centros de custo',
-      'Integrações avançadas (ERP, billing, BI)',
-      'Customer Success dedicado à sua operação',
+      '5 profissionais ativos e até 10 usuários de apoio incluídos',
+      'Tudo do Starter, mais WhatsApp oficial, Gmail e Instagram inbox',
+      'CRM de leads, automações e agentes de IA por canal',
+      '1 número WhatsApp incluso',
     ],
   },
 ]
+
+const enterprisePlan = {
+  id: 'enterprise',
+  name: 'Enterprise',
+  description:
+    'Multiunidade, operação complexa ou necessidade custom — acima de 15 profissionais ativos e franquia de apoio sob medida.',
+  features: [
+    'Profissionais ativos e usuários de apoio: escopo sob consulta',
+    'Integrações, governança e rollout alinhados à sua operação',
+    'Sucesso do cliente e precificação dedicados',
+  ],
+} as const
+
+function scrollToContactSection() {
+  const el = document.getElementById('contato')
+  if (!el) return
+  const headerOffset = 72
+  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset
+  window.scrollTo({ top, behavior: 'smooth' })
+}
 
 const containerVariants = {
   hidden: { opacity: 0, y: 28 },
@@ -129,17 +156,17 @@ function BillingToggle({
         <div
           role="group"
           aria-label="Período de cobrança"
-          className="relative inline-flex items-center rounded-full bg-neutral-100/80 px-2 py-2 text-sm font-medium"
+          className="relative flex min-w-[11.5rem] rounded-full bg-neutral-100/80 p-1 text-sm font-medium sm:min-w-[12.5rem]"
         >
           <motion.div
-            className="absolute top-0.5 bottom-0.5 left-0 w-1/2 rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
+            className="pointer-events-none absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] rounded-full bg-gradient-to-r from-nat-green to-nat-green/70 shadow-[0_10px_30px_rgba(22,163,74,0.35)]"
             initial={false}
-            animate={{ x: isYearly ? '100%' : '0%' }}
+            animate={{ x: isYearly ? '100%' : 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 26 }}
           />
           <button
             type="button"
-            className={`relative z-10 px-3 py-0.5 transition-colors rounded-full ${
+            className={`relative z-10 flex-1 px-3 py-1 text-center transition-colors rounded-full ${
               billing === 'monthly' ? 'text-white' : 'text-neutral-500'
             }`}
             onClick={() => onChange('monthly')}
@@ -149,7 +176,7 @@ function BillingToggle({
           </button>
           <button
             type="button"
-            className={`relative z-10 px-3 py-0.5 transition-colors rounded-full ${
+            className={`relative z-10 flex-1 px-3 py-1 text-center transition-colors rounded-full ${
               billing === 'yearly' ? 'text-white' : 'text-neutral-500'
             }`}
             onClick={() => onChange('yearly')}
@@ -162,15 +189,6 @@ function BillingToggle({
       <span className="text-xs sm:text-sm font-semibold text-emerald-600 bg-emerald-50/90 border border-emerald-100 rounded-full px-3 py-1">
         2 meses grátis no anual
       </span>
-    </div>
-  )
-}
-
-function CheckBadge() {
-  return (
-    <div className="relative inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 shadow-[0_8px_22px_rgba(16,185,129,0.4)]">
-      <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-white/80 to-emerald-100/60" />
-      <Check className="relative z-10 h-3.5 w-3.5 text-emerald-700" strokeWidth={2.4} />
     </div>
   )
 }
@@ -218,7 +236,7 @@ export function PricingSection() {
           animate={isInView ? 'visible' : 'hidden'}
           className="relative"
         >
-          <div className="grid grid-cols-1 gap-3 lg:mr-auto lg:grid-cols-3 lg:gap-8">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5 xl:gap-6">
             {plans.map((plan, planIndex) => {
               const price =
                 billing === 'monthly'
@@ -233,7 +251,7 @@ export function PricingSection() {
                 <motion.div
                   variants={cardVariants}
                   whileHover={{ y: -8 }}
-                  className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-4 py-4 backdrop-blur-xl border sm:px-5 sm:py-5 lg:px-8 lg:py-9 ${
+                  className={`relative flex h-full flex-col rounded-3xl bg-white/12 px-4 py-4 backdrop-blur-xl border sm:px-5 sm:py-5 lg:px-5 lg:py-7 xl:px-6 xl:py-8 ${
                     isHighlight ? 'border-white/60' : 'border-white/50'
                   } shadow-[0_18px_60px_rgba(15,23,42,0.12)]`}
                 >
@@ -339,17 +357,22 @@ export function PricingSection() {
                     <div className={isOpen ? 'lg:mt-0' : 'max-lg:hidden'}>
                       <button
                         type="button"
+                        onClick={scrollToContactSection}
                         className="relative mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-nat-green to-nat-green/70 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(22,163,74,0.7)] transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-nat-green focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:mt-auto lg:py-3"
                       >
                         <span className="relative z-10">Falar com especialista</span>
                         <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-white/25 via-transparent to-white/20 opacity-0 transition-opacity duration-200 hover:opacity-40" />
                       </button>
 
-                      <ul className="mt-4 space-y-2.5 text-sm text-neutral-700 lg:mt-6 lg:space-y-3">
+                      <ul className="mt-4 space-y-2.5 text-sm leading-snug text-neutral-600 lg:mt-6 lg:space-y-3">
                         {plan.features.map((feature) => (
-                          <li key={feature} className="flex items-start gap-2.5 lg:gap-3">
-                            <CheckBadge />
-                            <span className="pt-[2px]">{feature}</span>
+                          <li key={feature} className="flex items-start gap-2.5">
+                            <Check
+                              className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"
+                              strokeWidth={2.4}
+                              aria-hidden
+                            />
+                            <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -378,29 +401,61 @@ export function PricingSection() {
                 </div>
               )
             })}
+
+            {/* Enterprise — quarto card (mesmo design escuro) */}
+            <div className="relative h-full min-h-0 rounded-[1.35rem] bg-gradient-to-br from-neutral-800/90 via-neutral-900 to-neutral-950 p-[1.5px] shadow-[0_18px_60px_rgba(15,23,42,0.2)] lg:rounded-[1.9rem]">
+              <motion.div
+                variants={cardVariants}
+                whileHover={{ y: -8 }}
+                className="flex h-full min-h-[280px] flex-col rounded-[1.3rem] bg-gradient-to-br from-neutral-900/95 to-neutral-950 px-4 py-4 text-white sm:px-5 sm:py-5 lg:min-h-0 lg:rounded-[1.85rem] lg:px-5 lg:py-7 xl:px-6 xl:py-8"
+              >
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60 sm:text-xs">
+                  On demand
+                </p>
+                <h3 className="mt-1 text-base font-semibold tracking-tight sm:text-lg">{enterprisePlan.name}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-white/75 sm:text-sm">{enterprisePlan.description}</p>
+
+                <div className="mt-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/50">Investimento</p>
+                  <p className="text-xl font-bold tracking-tight sm:text-2xl lg:text-xl xl:text-2xl">Sob consulta</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={scrollToContactSection}
+                  className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-lg transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 lg:py-3"
+                >
+                  Falar com vendas
+                </button>
+
+                <ul className="mt-4 flex-1 space-y-2 text-xs text-white/85 sm:text-sm lg:space-y-2.5">
+                  {enterprisePlan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400 sm:h-4 sm:w-4" strokeWidth={2.4} />
+                      <span className="pt-[1px] leading-snug">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
           </div>
+
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-neutral-600">
+            Quer <span className="font-semibold text-neutral-800">Premium Growth AI</span> (posts com IA,
+            calendário editorial, landing pages, Meta Ads e analytics de marketing)?{' '}
+            <button
+              type="button"
+              onClick={scrollToContactSection}
+              className="font-semibold text-nat-green underline-offset-2 hover:underline"
+            >
+              Fale com a equipe
+            </button>{' '}
+            — montamos o pacote certo para sua clínica.
+          </p>
 
           <p className="mt-2 text-center text-xs text-neutral-500 lg:hidden">
             Toque no plano para ver benefícios e detalhes
           </p>
-
-          {/* Mascote financeiro — mobile */}
-          <div className="mt-6 flex justify-center lg:hidden">
-            <img
-              src="/assets/imagem_preços.png"
-              alt="Mascote financeiro NAPSE flutuando com balão"
-              className="max-h-[220px] sm:max-h-[280px] w-auto drop-shadow-2xl select-none"
-            />
-          </div>
-
-          {/* Mascote financeiro — desktop */}
-          <div className="pointer-events-none hidden lg:flex absolute inset-y-4 right-[-620px] items-center justify-center">
-            <img
-              src="/assets/imagem_preços.png"
-              alt="Mascote financeiro NAPSE flutuando com balão"
-              className="max-h-[440px] lg:max-h-[520px] w-auto drop-shadow-2xl select-none"
-            />
-          </div>
         </motion.div>
       </div>
     </section>

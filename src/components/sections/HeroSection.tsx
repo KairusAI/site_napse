@@ -75,7 +75,7 @@ function ScrollIndicator({ targetId = 'ecossistema' }: ScrollIndicatorProps) {
 export function HeroSection() {
   const reduce = useReducedMotion()
   return (
-    <section className="relative min-h-[85vh] overflow-hidden lg:grid lg:grid-cols-2 mt-6">
+    <section className="relative mt-6 min-h-[92vh] overflow-hidden sm:min-h-[94vh] lg:grid lg:grid-cols-2 lg:min-h-[96vh]">
       {/* Textura sutil — evita flat white (Awwwards trend) */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-overlay"
@@ -91,7 +91,7 @@ export function HeroSection() {
         aria-hidden
       />
       {/* Coluna esquerda: texto */}
-      <div className="relative z-10 flex flex-col justify-center px-4 pt-20 pb-8 sm:px-6 sm:py-16 sm:pb-10 lg:px-8 lg:py-20">
+      <div className="relative z-10 flex flex-col justify-center px-5 pt-20 pb-8 sm:px-8 sm:py-16 sm:pb-10 lg:py-20 lg:pl-12 lg:pr-8 xl:pl-16 xl:pr-10">
         <div className="max-w-xl">
           <motion.h1
             className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl"
@@ -117,16 +117,16 @@ export function HeroSection() {
           >
             Equipes clínicas em todo o Brasil usam a plataforma Napse para ganhar produtividade e manter a conformidade.
           </motion.p>
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-neutral-200/80 py-3 sm:gap-x-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Integra com</span>
-            <div className="flex flex-wrap items-center gap-4 sm:gap-5 opacity-90" aria-label="Logos de integrações">
-              <img src="/assets/icons/memed.webp" alt="Integração Napse com Memed" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/vidaas.webp" alt="Integração Napse com vidaas" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/calendar.webp" alt="Agenda integrada Napse" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/whatsapp.webp" alt="Integração Napse com WhatsApp" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/gmail.webp" alt="Integração Napse com Gmail" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-              <img src="/assets/icons/instagram.webp" alt="Integração Napse com Instagram" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
-            </div>
+          <div
+            className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 border-y border-neutral-200/80 px-1 py-3.5 opacity-90 sm:gap-x-6 sm:gap-y-3.5 sm:px-2 lg:gap-x-8"
+            aria-label="Logos de integrações"
+          >
+            <img src="/assets/icons/memed.webp" alt="Integração Napse com Memed" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+            <img src="/assets/icons/vidaas.webp" alt="Integração Napse com vidaas" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+            <img src="/assets/icons/calendar.webp" alt="Agenda integrada Napse" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+            <img src="/assets/icons/whatsapp.webp" alt="Integração Napse com WhatsApp" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+            <img src="/assets/icons/gmail.webp" alt="Integração Napse com Gmail" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
+            <img src="/assets/icons/instagram.webp" alt="Integração Napse com Instagram" className="h-6 w-auto sm:h-7 object-contain" width="80" height="28" />
           </div>
           <motion.div
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
@@ -158,14 +158,14 @@ export function HeroSection() {
       </div>
 
       {/* Coluna direita: vídeo dos mascotes (loop, sem som) */}
-      <div className="relative flex min-h-[25vh] sm:min-h-[40vh] items-center justify-center lg:min-h-[85vh] lg:justify-end lg:pr-0 lg:pl-4 xl:pl-8">
+      <div className="relative flex min-h-[28vh] sm:min-h-[42vh] items-center justify-center lg:min-h-[96vh] lg:justify-end lg:pr-0 lg:pl-4 xl:pl-8">
         <video
           src="/assets/VideoMascote_hero.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="h-full max-h-[85vh] w-auto max-w-[85vw] object-contain object-right lg:max-w-[55vw] lg:-translate-x-4 xl:-translate-x-2"
+          className="h-full max-h-[92vh] w-auto max-w-[85vw] object-contain object-right sm:max-h-[94vh] lg:max-h-[96vh] lg:max-w-[55vw] lg:-translate-x-4 xl:-translate-x-2"
           aria-label="Mascotes Napse: Financeiro, Secretaria, Médico e Marketing"
         />
       </div>

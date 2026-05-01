@@ -28,18 +28,22 @@ type NavItemId =
   | 'faq'
   | 'contato'
 
-const NAV: Record<
-  NavItemId,
-  { label: string; href: string; Icon: LucideIcon }
-> = {
+type NavItemDef = { label: string; href: string; Icon: LucideIcon; linkTitle?: string }
+
+const NAV: Record<NavItemId, NavItemDef> = {
   ecossistema: { label: 'Ecossistema', href: '#ecossistema', Icon: LineChart },
   integracoes: { label: 'Integrações', href: '#integracoes', Icon: Plug },
   plataforma: { label: 'Plataforma', href: '#plataforma', Icon: LayoutDashboard },
-  suporte: { label: 'Onboarding e suporte', href: '#suporte', Icon: Headphones },
-  stats: { label: 'Resultados', href: '#stats', Icon: BarChart3 },
-  planos: { label: 'Ver planos', href: '#planos', Icon: BadgeDollarSign },
+  suporte: {
+    label: 'Suporte',
+    linkTitle: 'Onboarding e suporte',
+    href: '#suporte',
+    Icon: Headphones,
+  },
+  stats: { label: 'Resultados', linkTitle: 'Impacto em números', href: '#stats', Icon: BarChart3 },
+  planos: { label: 'Planos', linkTitle: 'Ver planos', href: '#planos', Icon: BadgeDollarSign },
   depoimentos: { label: 'Depoimentos', href: '#depoimentos', Icon: MessageCircle },
-  faq: { label: 'Dúvidas (FAQ)', href: '#faq', Icon: HelpCircle },
+  faq: { label: 'FAQ', linkTitle: 'Dúvidas frequentes', href: '#faq', Icon: HelpCircle },
   contato: { label: 'Contato', href: '#contato', Icon: Mail },
 }
 
@@ -56,16 +60,11 @@ const SCROLL_SPY_ORDER: readonly NavItemId[] = [
   'contato',
 ]
 
-/** Topo: poucos rótulos legíveis; o resto em “Mais” (móvel) e no rodapé. */
-const PRIMARY_NAV: readonly NavItemId[] = [
-  'ecossistema',
-  'integracoes',
-  'planos',
-  'depoimentos',
-  'contato',
-] as const
+/** Ordem da navegação = ordem das secções na página. */
+const PRIMARY_NAV: readonly NavItemId[] = SCROLL_SPY_ORDER
 
-const MORE_NAV: readonly NavItemId[] = ['plataforma', 'suporte', 'stats', 'faq'] as const
+/** Itens extra só no menu “Mais no site” (móvel); vazio = tudo em PRIMARY_NAV. */
+const MORE_NAV: readonly NavItemId[] = []
 
 const HEADER_SCROLL_OFFSET = 72
 const SCROLL_SPY_VIEW_TOP = 120
@@ -141,6 +140,18 @@ export function Header() {
   )
 
   useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const onMq = () => {
+      if (mq.matches) {
+        setMobileMenuOpen(false)
+        setOpenMobileMore(false)
+      }
+    }
+    mq.addEventListener('change', onMq)
+    return () => mq.removeEventListener('change', onMq)
+  }, [])
+
+  useEffect(() => {
     if (lenis) return
     const onScroll = () => {
       const scrollY = window.scrollY
@@ -171,6 +182,7 @@ export function Header() {
     return (
       <a
         href={item.href}
+        title={item.linkTitle ?? item.label}
         onClick={(event) => handleNavClick(event, id)}
         className={`flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-base font-medium transition-colors ${
           isActive ? 'bg-primary/10 text-primary' : 'text-neutral-800 hover:bg-neutral-100/80'
@@ -184,24 +196,36 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 overflow-visible mt-6">
-        <div className="sm:hidden absolute inset-0 h-16 bg-white/70 border-b border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl" />
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 overflow-visible transition-[margin] duration-300 ease-out ${
+          isScrolled ? 'mt-3' : 'mt-6'
+        }`}
+      >
+        <div
+          className={`lg:hidden absolute inset-0 bg-white/70 border-b border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-[height] duration-300 ${
+            isScrolled ? 'h-14' : 'h-16'
+          }`}
+        />
 
-        <div className="relative mx-auto flex h-16 w-full min-w-0 max-w-site items-center overflow-visible px-4 max-sm:justify-between sm:grid sm:h-16 sm:min-w-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,auto)_minmax(0,1fr)] sm:items-center sm:gap-x-5 md:gap-x-7 sm:px-5 lg:px-6">
-          <div className="flex min-w-0 items-center sm:min-h-0 sm:justify-self-start sm:pl-0 sm:pr-1">
+        <div
+          className={`relative mx-auto flex w-full min-w-0 max-w-site items-center justify-between gap-2 overflow-visible px-4 sm:gap-3 sm:px-5 lg:grid lg:min-w-0 lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] lg:items-center lg:gap-x-3 xl:gap-x-6 lg:px-6 transition-[height] duration-300 ease-out ${
+            isScrolled ? 'h-14 lg:h-14' : 'h-16 lg:h-16'
+          }`}
+        >
+          <div className="flex min-w-0 items-center lg:min-h-0 lg:justify-self-start lg:pl-0 lg:pr-1">
             <motion.a
               href="#hero"
               onClick={(event) => {
                 event.preventDefault()
                 scrollToHero()
               }}
-              className="hidden h-8 items-center sm:flex"
+              className="hidden h-8 items-center lg:flex"
               initial={{ opacity: 0, x: -6 }}
               animate={isScrolled ? { opacity: 0, x: -6, pointerEvents: 'none' } : { opacity: 1, x: 0, pointerEvents: 'auto' }}
               transition={{ duration: 0.3 }}
               aria-label="Napse - início"
             >
-              <img src="/assets/NAPSE-LogotipoPadrao.svg" alt="Napse" className="h-6 w-auto lg:h-12" />
+              <img src="/assets/NAPSE-LogotipoPadrao.svg" alt="Napse" className="h-6 w-auto xl:h-12" />
             </motion.a>
             <a
               href="#hero"
@@ -209,23 +233,23 @@ export function Header() {
                 e.preventDefault()
                 scrollToHero()
               }}
-              className="flex h-7 shrink-0 items-center sm:hidden"
+              className="flex h-7 shrink-0 items-center lg:hidden"
               aria-label="Napse - início"
             >
-              <img src="/assets/NAPSE-LogotipoPadrao.svg" alt="Napse" className="h-7 w-auto" />
+              <img src="/assets/NAPSE-LogotipoPadrao.svg" alt="Napse" className="h-7 w-auto sm:h-8" />
             </a>
           </div>
 
           <nav
-            className="hidden min-w-0 overflow-visible sm:flex sm:min-w-0 sm:max-w-[min(100%,92vw)] sm:justify-self-center"
+            className="hidden min-w-0 w-full max-w-full justify-self-stretch overflow-visible lg:flex lg:justify-center"
             aria-label="Navegação principal"
           >
-            <div className="flex w-full min-w-0 max-w-full justify-center overflow-visible py-0.5">
+            <div className="scrollbar-hide flex w-full min-w-0 max-w-full justify-center overflow-x-auto overflow-y-visible overscroll-x-contain py-0 [-ms-overflow-style:none] [scrollbar-width:none]">
                 <div
-                  className={`relative inline-flex w-max min-w-0 max-w-full flex-nowrap items-center overflow-visible text-xl font-medium ${
+                  className={`relative inline-flex w-max min-w-0 shrink-0 flex-nowrap items-center font-medium ${
                     isScrolled
-                      ? 'h-fit gap-1.5 rounded-full border border-white/80 bg-white/80 shadow-[0_10px_35px_rgba(15,23,42,0.1)] backdrop-blur-sm sm:max-w-full sm:pl-1.5 sm:pr-2 '
-                      : 'h-10 min-h-8 gap-0.5 px-1.5 py-0 sm:gap-0.5 bg-transparent'
+                      ? 'h-fit gap-0.5 rounded-full border border-white/80 bg-white/80 py-0.5 text-sm shadow-[0_8px_28px_rgba(15,23,42,0.08)] backdrop-blur-sm pl-1 pr-1 sm:pl-1 sm:pr-1.5'
+                      : 'h-10 min-h-8 gap-0.5 px-1 py-0 text-base sm:gap-0.5 sm:px-1.5 sm:text-lg lg:text-xl bg-transparent'
                   }`}
                 >
                   {isScrolled && (
@@ -234,14 +258,14 @@ export function Header() {
                       initial={{ opacity: 0, x: -6, scale: 0.98 }}
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      className="mr-6 flex h-fit shrink-0 items-center p-8"
+                      className="mr-0.5 flex shrink-0 items-center rounded-l-full py-0.5 pl-1 pr-0.5 sm:mr-1 sm:pl-1.5"
                       onClick={scrollToHero}
                       aria-label="Voltar para o início"
                     >
                       <img
                         src="/assets/NAPSE-LogotipoPadrao.svg"
                         alt="Napse"
-                        className="h-12 w-auto sm:h-13"
+                        className="h-7 w-auto sm:h-8"
                       />
                     </motion.button>
                   )}
@@ -252,22 +276,28 @@ export function Header() {
                   return (
                     <div
                       key={id}
-                      className="relative flex h-full min-h-9 max-w-[min(8.5rem,28vw)] items-center justify-center px-0.5 sm:max-w-none"
+                      className={`relative flex h-full shrink-0 items-center justify-center px-0.5 ${
+                        isScrolled
+                          ? 'min-h-8 max-w-[min(5.75rem,22vw)] sm:max-w-[min(6.5rem,18vw)] lg:max-w-none'
+                          : 'min-h-9 max-w-[min(6.5rem,24vw)] sm:max-w-[min(7.25rem,20vw)] lg:max-w-none'
+                      }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="header-bubble"
-                          className="absolute inset-y-0.5 left-0 right-0 rounded-full bg-gradient-to-r from-primary to-primary/85 shadow-[0_6px_20px_hsl(var(--primary)_/_0.4)] p-4"
+                          className="absolute inset-y-0.5 left-0 right-0 rounded-full bg-gradient-to-r from-primary to-primary/85 shadow-[0_4px_16px_hsl(var(--primary)_/_0.35)]"
                           transition={{ type: 'spring', stiffness: 360, damping: 26 }}
                         />
                       )}
                       <a
                         href={item.href}
                         onClick={(event) => handleNavClick(event, id)}
-                        className={`relative z-10 inline-flex h-9 min-h-9 min-w-0 max-w-full items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-1.5 text-sm font-medium transition-colors duration-200 sm:px-2.5 sm:text-base md:px-3 md:text-lg ${
-                          isActive ? 'text-white' : 'text-neutral-600 hover:text-neutral-900'
-                        }`}
-                        title={item.label}
+                        className={`relative z-10 inline-flex min-w-0 max-w-full items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap rounded-full font-medium transition-colors duration-200 ${
+                          isScrolled
+                            ? 'h-8 min-h-8 px-1.5 text-[11px] sm:px-2 sm:text-xs lg:px-2.5 lg:text-sm'
+                            : 'h-9 min-h-9 px-1 text-xs sm:px-2 sm:text-sm lg:px-2.5 lg:text-base xl:px-3 xl:text-lg'
+                        } ${isActive ? 'text-white' : 'text-neutral-600 hover:text-neutral-900'}`}
+                        title={item.linkTitle ?? item.label}
                       >
                         <span className="truncate">{item.label}</span>
                       </a>
@@ -278,21 +308,26 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center sm:ml-0 sm:min-w-0 sm:justify-self-end sm:pl-2 md:pl-3">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:ml-0 lg:min-w-0 lg:justify-self-end lg:pl-2 xl:pl-3">
             <a
               href="#contato"
               onClick={(e) => {
                 e.preventDefault()
                 scrollToContact()
               }}
-              className="hidden h-9 shrink-0 items-center justify-center rounded-full bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-[0_4px_14px_-2px_hsl(var(--primary)_/_0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_-2px_hsl(var(--primary)_/_0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex sm:min-h-10 sm:px-4 sm:py-2.5 sm:text-sm"
+              className={`hidden shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground shadow-[0_4px_14px_-2px_hsl(var(--primary)_/_0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_-2px_hsl(var(--primary)_/_0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex max-lg:max-w-[min(100%,10.5rem)] max-lg:truncate max-lg:px-2.5 ${
+                isScrolled
+                  ? 'h-8 min-h-8 text-[11px] sm:px-3 sm:text-xs lg:px-3.5 xl:text-sm'
+                  : 'h-9 min-h-10 text-[11px] sm:px-3 sm:text-xs sm:py-2 lg:px-4 lg:py-2.5 xl:text-sm'
+              }`}
+              title="Falar com especialista"
             >
               Falar com especialista
             </a>
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/90 bg-white/80 shadow-md backdrop-blur-xl sm:hidden"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/90 bg-white/80 shadow-md backdrop-blur-xl lg:hidden"
               aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             >
             <AnimatePresence mode="wait" initial={false}>
@@ -326,7 +361,7 @@ export function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 sm:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -338,7 +373,9 @@ export function Header() {
               aria-hidden
             />
             <motion.nav
-              className="absolute left-4 right-4 top-16 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/80 bg-white/95 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-xl"
+              className={`absolute left-4 right-4 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/80 bg-white/95 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-xl ${
+                isScrolled ? 'top-[4.25rem]' : 'top-[5.5rem]'
+              }`}
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -351,47 +388,49 @@ export function Header() {
                     {renderNavLink(id)}
                   </li>
                 ))}
-                <li className="overflow-hidden rounded-xl border border-neutral-200/80 bg-white/50">
-                  <button
-                    type="button"
-                    onClick={() => setOpenMobileMore((p) => !p)}
-                    className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-base font-semibold text-neutral-900"
-                    aria-expanded={openMobileMore}
-                  >
-                    Mais no site
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-neutral-500 transition-transform ${
-                        openMobileMore ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  {openMobileMore && (
-                    <ul className="space-y-0.5 border-t border-neutral-200/60 px-2 py-2">
-                      {MORE_NAV.map((id) => {
-                        const item = NAV[id]
-                        const isActive = activeId === id
-                        const Icon = item.Icon
-                        return (
-                          <li key={id}>
-                            <a
-                              href={item.href}
-                              onClick={(event) => handleNavClick(event, id)}
-                              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
-                                isActive ? 'bg-primary/10 text-primary' : 'text-neutral-700'
-                              }`}
-                            >
-                              <Icon
-                                className={`h-5 w-5 shrink-0 ${isActive ? 'text-primary' : 'text-neutral-400'}`}
-                                strokeWidth={1.8}
-                              />
-                              {item.label}
-                            </a>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )}
-                </li>
+                {MORE_NAV.length > 0 && (
+                  <li className="overflow-hidden rounded-xl border border-neutral-200/80 bg-white/50">
+                    <button
+                      type="button"
+                      onClick={() => setOpenMobileMore((p) => !p)}
+                      className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-base font-semibold text-neutral-900"
+                      aria-expanded={openMobileMore}
+                    >
+                      Mais no site
+                      <ChevronDown
+                        className={`h-5 w-5 shrink-0 text-neutral-500 transition-transform ${
+                          openMobileMore ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    {openMobileMore && (
+                      <ul className="space-y-0.5 border-t border-neutral-200/60 px-2 py-2">
+                        {MORE_NAV.map((id) => {
+                          const item = NAV[id]
+                          const isActive = activeId === id
+                          const Icon = item.Icon
+                          return (
+                            <li key={id}>
+                              <a
+                                href={item.href}
+                                onClick={(event) => handleNavClick(event, id)}
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
+                                  isActive ? 'bg-primary/10 text-primary' : 'text-neutral-700'
+                                }`}
+                              >
+                                <Icon
+                                  className={`h-5 w-5 shrink-0 ${isActive ? 'text-primary' : 'text-neutral-400'}`}
+                                  strokeWidth={1.8}
+                                />
+                                {item.label}
+                              </a>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    )}
+                  </li>
+                )}
               </ul>
               <div className="mt-4 border-t border-neutral-200/80 pt-4">
                 <a

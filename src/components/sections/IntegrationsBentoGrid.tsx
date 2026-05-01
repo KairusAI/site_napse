@@ -171,13 +171,13 @@ export function IntegrationsBentoGrid() {
               animate={inView ? 'visible' : 'hidden'}
               custom={0}
             >
-              {integrations.map((integration, index) => (
+              {integrations.map((integration) => (
                 <motion.div
                   key={integration.id}
                   variants={itemVariants}
                   className={integration.featured ? 'sm:col-span-2' : ''}
                 >
-                  <IntegrationCard integration={integration} index={index} />
+                  <IntegrationCard integration={integration} />
                 </motion.div>
               ))}
             </motion.div>
@@ -191,7 +191,7 @@ export function IntegrationsBentoGrid() {
             transition={{ duration: reduce ? 0.01 : 0.6, delay: reduce ? 0 : 0.2, ease: EASE_OUT }}
           >
             <img
-              src="/assets/imagem_integracoes.png"
+              src="/assets/imagem_integracoes.webp"
               alt="Integrações NAPSE"
               className="w-full max-w-sm object-contain sm:max-w-md"
               width="450"
@@ -209,12 +209,11 @@ export function IntegrationsBentoGrid() {
             transition={{ duration: reduce ? 0.01 : 0.6, delay: reduce ? 0 : 0.15, ease: EASE_OUT }}
           >
             <img
-              src="/assets/imagem_integracoes.png"
+              src="/assets/imagem_integracoes.webp"
               alt="Integrações NAPSE - WhatsApp, Gmail, Google Calendar, Instagram e Asaas conectados ao hub"
-              className="h-full object-contain drop-shadow-lg"
-              style={{ minHeight: '100%', transform: 'scale(1.8)' }}
-              width="600"
-              height="800"
+              className="w-full max-w-full object-contain object-center drop-shadow-lg lg:max-h-[min(90vh,56rem)]"
+              width={600}
+              height={800}
               loading="lazy"
               decoding="async"
             />
@@ -225,12 +224,7 @@ export function IntegrationsBentoGrid() {
   )
 }
 
-function IntegrationCard({
-  integration,
-}: {
-  integration: Integration
-  index: number
-}) {
+function IntegrationCard({ integration }: { integration: Integration }) {
   const reduce = useReducedMotion()
   const Icon = integration.Icon
   const isFeatured = integration.featured
@@ -247,11 +241,17 @@ function IntegrationCard({
       <div className="flex h-full flex-col">
         <div className="flex items-start justify-between gap-4 mb-4">
             <motion.div
-              className={`inline-flex items-center justify-center rounded-2xl ${isFeatured ? 'h-14 w-14' : 'h-12 w-12'} ${integration.iconBg} ${integration.iconColor}`}
+              className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${integration.iconBg} ${integration.iconColor}`}
               whileHover={reduce ? undefined : { scale: 1.08, y: -3 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-            <img src={Icon} alt={integration.brand} className={`${isFeatured ? 'w-12 h-12' : 'w-11 h-11'} object-contain`} />
+            <img
+              src={Icon}
+              alt={integration.brand}
+              className="h-9 w-9 object-contain"
+              width={36}
+              height={36}
+            />
           </motion.div>
           <span className={`text-xs font-semibold uppercase tracking-wider ${integration.brandColor}`}>
             {integration.brand}
